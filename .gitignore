@@ -1,0 +1,29 @@
+# Environment
+.env
+.env.local
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+.venv/
+venv/
+
+# Data (user-specific, not versioned)
+data/cache/
+data/indexes/
+
+# POC outputs
+poc/eval_report.md
+poc/conclusion.md
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
