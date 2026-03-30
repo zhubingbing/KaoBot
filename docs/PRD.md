@@ -1,6 +1,6 @@
 # KaoBot 产品需求文档 (PRD)
 
-> 版本: v1.2 | 更新日期: 2026-03-30
+> 版本: v1.3 | 更新日期: 2026-03-30
 
 ---
 
@@ -531,6 +531,83 @@ Phase 2 (增强):
 └──────────────────────────────────────────────────┘
 ```
 
+### 5.3 Phase 0 POC 实现架构（已验证 ✅）
+
+> 当前 POC 已完成，覆盖 F1–F5 的核心交互路径，验证了 ReAct Agent + 实时搜索的可行性。
+
+#### POC 技术栈
+
+| 层次 | 实现方案 | 说明 |
+|------|---------|------|
+| **交互层** | Python CLI（结构化菜单） | 7 个功能入口 + 自由问答 |
+| **Agent 编排** | 自研 ReAct 循环（Thought/Action/Observation） | 最多 6 步推理，支持多工具串联 |
+| **LLM** | OpenAI 兼容 API（gpt-4o-mini） | 可替换任何 OpenAI 兼容端点 |
+| **实时检索** | Tavily Search API（advanced 深度） | 替代 Phase 1 的 PageIndex，POC 阶段快速验证 |
+| **生成型工具** | 直接调用 LLM，专用 System Prompt | 简历指导、面试模拟题等生成任务 |
+
+#### ReAct Agent 执行流程
+
+```
+用户输入
+  │
+  ▼
+┌──────────────────────────────────────────────┐
+│  LLM 推理（System Prompt + 历史上下文）         │
+│  输出格式:                                     │
+│    Thought: [分析 + 下一步计划]                 │
+│    Action:  [tool_name(arg="value")]           │
+└───────────────┬──────────────────────────────┘
+                │
+        ┌───────▼────────┐
+        │  解析 Action    │
+        └───────┬────────┘
+                │
+     ┌──────────▼──────────────┐
+     │  finish?  │  工具调用?   │
+     └──────┬────┴──────┬──────┘
+            │           │
+       输出答案      执行工具 → Observation
+            │           │
+            └─────┬─────┘
+                  │
+           追加到 history，继续循环
+           （最多 6 步）
+```
+
+#### 工具 → 功能模块映射
+
+| 工具函数 | 对应功能 | 数据来源（POC） | Phase 1 升级方向 |
+|---------|---------|--------------|----------------|
+| `search_supervisor_info` | F1 导师信息检索 | Tavily 实时搜索 | PageIndex + Semantic Scholar API |
+| `search_exam_questions` | F2 初试真题库 | Tavily 实时搜索 | PageIndex 本地知识库 |
+| `search_written_exam_topics` | F3 复试笔试真题库 | Tavily 实时搜索 | PageIndex 本地知识库 |
+| `generate_resume_advice` | F4 复试简历定制 | LLM 直接生成 | LLM + 导师知识库联动 |
+| `mock_interview` | F5 面试自我介绍 | LLM 直接生成（中/英双语） | LLM + 导师方向个性化 |
+
+#### CLI 菜单结构（POC 已实现）
+
+```
+1. 📝  初试历年专业课题型查询          → search_exam_questions
+2. 🎤  复试面试一对一模拟（中/英文）   → mock_interview
+3. 📄  简历制作个性化指导              → generate_resume_advice
+4. 📚  复试笔试专业课方向查询          → search_written_exam_topics
+5. 🔍  导师履历 & 招生情况查询         → search_supervisor_info
+6. 💬  自由提问（综合咨询）            → Agent 自动选工具
+0. 👋  退出
+```
+
+#### POC 与 Phase 1 的核心差异
+
+| 维度 | POC（已验证） | Phase 1（待开发） |
+|------|------------|----------------|
+| 知识库 | Tavily 实时网络搜索 | PageIndex 本地结构化知识库 |
+| 数据质量 | 依赖公开网页，准确率不可控 | 用户上传文档，可控 95%+ |
+| 离线能力 | 需要网络 | 支持本地离线查询 |
+| 简历生成 | 文本建议 | PDF/Word 文件输出 |
+| 记忆 | 单轮 history 列表 | 持久化 Markdown 记忆 |
+
+---
+
 ### 5.2 OpenClaw 生态集成规划
 
 KaoBot 设计上与 OpenClaw 生态对齐，后续将深度集成。
@@ -616,13 +693,27 @@ triggers:
 | AC-6 | 论文补充 | 自动从 Semantic Scholar 补充导师论文信息 |
 | AC-7 | 错误处理 | LLM离线/PageIndex不可用时有明确提示 |
 
+### POC 已验证（M0 ✅）
+
+基于 `kaobot_poc.py` 的 Phase 0 POC 已覆盖 F1–F5 的核心交互路径：
+
+| 功能 | POC 实现状态 | 备注 |
+|------|------------|------|
+| F1 导师信息检索 | ✅ 已验证 | Tavily 搜索，可正常返回导师信息 |
+| F2 初试真题查询 | ✅ 已验证 | Tavily 搜索题型结构与高频考点 |
+| F3 复试笔试查询 | ✅ 已验证 | Tavily 搜索复试方向与重点 |
+| F4 简历指导 | ✅ 已验证 | LLM 生成个性化简历建议 |
+| F5 面试模拟 | ✅ 已验证 | LLM 生成中/英文模拟题，含回答提示 |
+| F6 调剂推荐 | ❌ 未实现 | Phase 2+ |
+
 ### 不在 MVP 范围内
 
 - Web UI（Phase 2）
 - 自动爬虫采集（Phase 2，目前作为 TODO）
-- 简历生成、面试准备、调剂推荐（Phase 2+）
+- 调剂推荐 F6（Phase 2+）
 - 多用户/账号系统
 - 数据自动更新
+- 简历 PDF/Word 文件导出（POC 仅输出文本建议）
 
 ---
 
@@ -641,10 +732,10 @@ triggers:
 
 | 里程碑 | 内容 | 交付物 |
 |--------|------|--------|
-| **M0: POC 验证** | 验证 PageIndex + LLM Agent 可行性 | 能跑通的最小 demo |
-| **M1: MVP** | F1 导师信息检索完整功能 | CLI 工具，可安装使用 |
-| **M2: 真题库** | F2+F3 真题检索 | CLI 扩展 |
-| **M3: 复试辅导** | F4+F5 简历+面试定制 | CLI 扩展 |
+| **M0: POC 验证** ✅ | ReAct Agent + Tavily 实时搜索验证 F1–F5 可行性 | `kaobot_poc.py`，CLI 菜单交互，已跑通 |
+| **M1: MVP** | F1 导师信息检索升级：PageIndex 本地知识库替代 Tavily | CLI 工具，95%+ 准确率，支持文档上传 |
+| **M2: 真题库** | F2+F3 真题检索：PageIndex 结构化存储 + AI 考点分析 | CLI 扩展，支持真题下载 |
+| **M3: 复试辅导升级** | F4 简历 PDF 输出 + F5 个性化导师定制 | 告别文本建议，生成可投递的成品 |
 | **M4: OpenClaw 集成** | 注册为 OpenClaw Skill，多通道接入 | Slack/Discord/Web 可用 |
 | **M5: Web 化** | Web UI + 多用户 | 可访问的 Web 应用 |
 | **M6: 智能化** | F6 调剂推荐 + 爬虫自动化 + 多Agent协作 | 完整产品 |
