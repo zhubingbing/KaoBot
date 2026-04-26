@@ -1,0 +1,16 @@
+# Local Python environments
+.venv/
+.venv_py39_backup/
+__pycache__/
+*.py[cod]
+
+# Crawl/runtime caches
+.crawl4ai/
+logs/
+
+# Large generated crawl artifacts
+output/
+
+# Local OS/editor files
+.DS_Store
+*.swp

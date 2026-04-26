@@ -1,0 +1,43 @@
+{
+  "清华大学": {
+    "slug": "tsinghua",
+    "status": "implemented",
+    "final_source_dir": "output/tsinghua_final",
+    "sources": {
+      "official_site": "https://www.tsinghua.edu.cn/",
+      "undergraduate_majors": "https://www.tsinghua.edu.cn/jyjx/bksjy/bkzy.htm",
+      "graduate_master_catalog": "https://yzbm.tsinghua.edu.cn/publish/s02/s0203/detail/1d58a1e4-dc87-49f9-be0a-d000c060763f",
+      "graduate_phd_catalog": "https://yzbm.tsinghua.edu.cn/publish/s03/s0303/detail/f1b3cfe9-df6d-45e0-8151-eeed697fbb02",
+      "engineering_phd_catalog": "https://yzbm.tsinghua.edu.cn/publish/s03/s0303/detail/dc9e8337-0e87-40e4-98af-bf49d2494aa2",
+      "academicians_science": "https://www.tsinghua.edu.cn/jyjx/szdw/lyys/zgkxyys.htm",
+      "academicians_engineering": "https://www.tsinghua.edu.cn/jyjx/szdw/lyys/zggcyys.htm"
+    }
+  },
+  "北京大学": {
+    "slug": "pku",
+    "status": "generated",
+    "sources": {
+      "official_site": "https://www.pku.edu.cn/",
+      "graduate_admission_index": "https://admission.pku.edu.cn/zsxx/index3.htm",
+      "master_catalog_by_department": "https://admission.pku.edu.cn/zsxx/sszs/zyml/2026/yx/zsml_ss_yx.html",
+      "phd_catalog_by_department": "https://admission.pku.edu.cn/zsxx/bszs/bszyml/2026/yx/zsml_bs_yx.html",
+      "phd_catalog_by_major": "https://admission.pku.edu.cn/zsxx/bszs/bszyml/2026/zy/yjszszy_bs.html",
+      "graduate_department_contacts": "https://admission.pku.edu.cn/lxxx/lxyx/index.htm"
+    }
+  },
+  "中国人民大学": {
+    "slug": "ruc",
+    "status": "needs_parser",
+    "sources": {
+      "official_site": "https://www.ruc.edu.cn/",
+      "graduate_program_info_index": "https://pgs.ruc.edu.cn/zyxx.htm",
+      "graduate_admission_site": "https://pgs.ruc.edu.cn/",
+      "chsi_master_policy_list": "https://yz.chsi.com.cn/sch/listZszc--schId-367879,categoryId-10460770,mindex-13,start-0.dhtml",
+      "chsi_notice": "https://yz.chsi.com.cn/sswbgg/?dwdm=10002&ssdm=11"
+    },
+    "notes": [
+      "当前搜索到的人大官方 pgs.ruc.edu.cn 专业信息页索引仍以 2024/2025 目录为主；2026 目录需要在 pgs.ruc.edu.cn 翻页或站内搜索后确认官方 URL。",
+      "不要直接使用第三方转载页作为最终可信来源，除非只做辅助发现。"
+    ]
+  }
+}
