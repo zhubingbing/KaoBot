@@ -53,6 +53,7 @@ NAV_NAME_STOPWORDS = {
     "精品课程", "所中心", "机构设置", "现任领导", "行政人员", "教辅人员",
     "忘记密码", "学术讲座", "教育部", "院长寄语", "重大项目", "使用说明", "科研奖励", "院长致辞",
     "访问学者", "历史沿革",
+    "教授", "副教授", "讲师", "博士后", "兼职教授", "博导列表", "硕导介绍", "常用资源", "学术活动",
 }
 
 CANDIDATE_FIELDS = ["school_name", "source_url", "depth", "title", "url", "score", "matched_keywords", "discovery_method"]
@@ -216,14 +217,17 @@ class Fetcher:
             raise RuntimeError("crawl4ai_not_available")
         browser_config = None
         if BrowserConfig is not None:
-            chrome_channel = os.getenv("SCHOOL_PIPELINE_CHROME_CHANNEL", "chrome")
+            chrome_channel = os.getenv("SCHOOL_PIPELINE_CHROME_CHANNEL", "").strip()
             try:
-                browser_config = BrowserConfig(
-                    headless=True,
-                    verbose=False,
-                    channel=chrome_channel,
-                    chrome_channel=chrome_channel,
-                )
+                if chrome_channel:
+                    browser_config = BrowserConfig(
+                        headless=True,
+                        verbose=False,
+                        channel=chrome_channel,
+                        chrome_channel=chrome_channel,
+                    )
+                else:
+                    browser_config = BrowserConfig(headless=True, verbose=False)
             except Exception:
                 browser_config = BrowserConfig(headless=True, verbose=False)
         run_config = None
@@ -520,10 +524,34 @@ def name_from_profile_title(title: str) -> str:
     return clean(parts[0]) if parts else clean(title)
 
 
+def first_valid_heading_name(soup: BeautifulSoup) -> str:
+    for tag in soup.find_all(["h1", "h2", "h3"]):
+        text = clean(tag.get_text(" ", strip=True))
+        if is_valid_person_name(text):
+            return text
+    return ""
+
+
+def infer_department_from_profile_text(text: str) -> str:
+    patterns = [
+        r"北京交通大学\s*([\u4e00-\u9fa5]{2,24}(?:学院|学系|研究院|研究所|中心|学部|系))",
+        r"工作经历.*?([\u4e00-\u9fa5]{2,24}(?:学院|学系|研究院|研究所|中心|学部|系))",
+        r"通讯地址[:：]?\s*北京交通大学([\u4e00-\u9fa5]{2,24}(?:学院|学系|研究院|研究所|中心|学部|系))",
+    ]
+    for pattern in patterns:
+        m = re.search(pattern, text, flags=re.S)
+        if not m:
+            continue
+        dept = clean(m.group(1))
+        if is_valid_department_name(dept) or re.search(r"(学院|学系|研究院|研究所|中心|学部|系)$", dept):
+            return dept
+    return ""
+
+
 def extract_teacher_profile_detail(school_name: str, soup: BeautifulSoup, source_url: str, default_department: str = "") -> list[dict]:
     title_text = clean(soup.title.get_text(" ", strip=True)) if soup.title else ""
     text = "\n".join(clean(x) for x in soup.get_text("\n").splitlines() if clean(x))
-    name = extract_labeled_line_value(text, ["姓名"], 20) or name_from_profile_title(title_text)
+    name = extract_labeled_line_value(text, ["姓名"], 20) or first_valid_heading_name(soup) or name_from_profile_title(title_text)
     if not is_valid_person_name(name):
         return []
     title = valid_title(extract_labeled_line_value(text, ["职称", "职 称", "职位", "职务"], 50))
@@ -542,13 +570,16 @@ def extract_teacher_profile_detail(school_name: str, soup: BeautifulSoup, source
         if m:
             research = clean_research_field("从事" + clean(m.group(1)))
     unit = extract_labeled_line_value(text, ["所在单位", "所属单位", "工作单位", "院系", "学院"], 80)
+    inferred_department = infer_department_from_profile_text(text)
+    if inferred_department and (not unit or not re.search(r"(学院|学系|研究院|研究所|中心|学部|系)$", unit)):
+        unit = inferred_department
     email_match = EMAIL_RE.search(text)
     if not (title or research or email_match or unit):
         return []
     return [
         {
             "school_name": school_name,
-            "department": default_department,
+            "department": default_department if default_department != school_name else inferred_department,
             "teacher_name": name,
             "title": title,
             "research_fields": research,
@@ -925,13 +956,19 @@ def mapped_department_for_url(mapping: dict[str, tuple[str, int]], url: str) -> 
     return ""
 
 
+def is_noise_admission_or_news_link(text: str) -> bool:
+    text = clean(text).lower()
+    return any(token in text for token in ["复试", "拟录取", "调剂", "名单", "通知", "公告", "新闻", "动态", "公示"])
+
+
 def link_frontier_priority(link: dict, department: str, school_name: str) -> int:
     link_text = (clean(link.get("title")) + " " + clean(link.get("url"))).lower()
     priority = int(link.get("score", 0) or 0)
-    if any(token in link_text for token in ["师资", "教师", "导师", "faculty", "teacher", "people", "/szdw/", "/szll/", "/jsml/", "/zzjs/"]):
+    is_noise = is_noise_admission_or_news_link(link_text)
+    if any(token in link_text for token in ["师资", "教师", "导师", "faculty", "teacher", "people", "/szdw/", "/szll/", "/jsml/", "/zzjs/"]) and not is_noise:
         priority += 100
-    if any(token in link_text for token in ["复试", "拟录取", "调剂", "名单", "通知", "公告", "新闻", "动态"]):
-        priority -= 35
+    if is_noise:
+        priority -= 180
     if department and department != school_name:
         priority += 10
     return priority
@@ -1007,16 +1044,26 @@ def run_pipeline(args: argparse.Namespace) -> None:
     teachers = []
     programs = []
     issues = []
+    visited_by_host: dict[str, int] = {}
 
     while frontier and len(visited) < args.max_pages:
         frontier.sort(key=lambda item: (-int(item["priority"]), int(item["depth"]), item["url"]))
-        current = frontier.pop(0)
+        selected_index = 0
+        if args.max_pages_per_host > 0:
+            for idx, item in enumerate(frontier):
+                host = urlparse(clean(item.get("url", ""))).netloc.lower().removeprefix("www.")
+                if int(item.get("depth", 0)) == 0 or visited_by_host.get(host, 0) < args.max_pages_per_host:
+                    selected_index = idx
+                    break
+        current = frontier.pop(selected_index)
         url = current["url"]
         depth = int(current["depth"])
         default_department = current["default_department"]
         if url in visited:
             continue
         visited.add(url)
+        host = urlparse(url).netloc.lower().removeprefix("www.")
+        visited_by_host[host] = visited_by_host.get(host, 0) + 1
         try:
             fetched = fetcher.fetch(url)
             html = fetched.get("html", "")
@@ -1078,7 +1125,11 @@ def run_pipeline(args: argparse.Namespace) -> None:
                         profile_link["school_name"] = args.school
                     links = profile_links + links
                 candidates.extend(links)
-                teacher_links = [link for link in links if any(k.lower() in (link["title"] + " " + link["url"]).lower() for k in TEACHER_KEYWORDS)]
+                teacher_links = [
+                    link for link in links
+                    if any(k.lower() in (link["title"] + " " + link["url"]).lower() for k in TEACHER_KEYWORDS)
+                    and not is_noise_admission_or_news_link(link["title"] + " " + link["url"])
+                ]
                 profile_links = [link for link in links if link.get("discovery_method") == "teacher_profile_name_link"]
                 ranked_links = sorted(links, key=lambda item: -link_frontier_priority(item, clean(item.get("llm_department")) or maybe_department_from_title(item.get("title", "")) or default_department, args.school))
                 selected_links = []
@@ -1204,6 +1255,7 @@ def main() -> None:
     parser.add_argument("--max-depth", type=int, default=1)
     parser.add_argument("--links-per-page", type=int, default=12)
     parser.add_argument("--profile-links-per-page", type=int, default=80)
+    parser.add_argument("--max-pages-per-host", type=int, default=35, help="单个学院/子域名最多访问页数，避免一个学院吃完整体预算；0 表示不限制")
     parser.add_argument("--department-extra-depth", type=int, default=1)
     parser.add_argument("--pdf-max-pages", type=int, default=120)
     parser.add_argument("--allow-external", action="store_true")

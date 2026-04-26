@@ -58,7 +58,10 @@ def valid_teacher_name(name: str) -> bool:
     name = clean(name)
     if not re.fullmatch(r"[\u4e00-\u9fa5·]{2,6}", name):
         return False
-    return name not in {"基本情况", "队伍概况", "优秀人才", "产业导师", "硕士生导师", "博士生导师", "软件工程系"}
+    return name not in {
+        "基本情况", "队伍概况", "优秀人才", "产业导师", "硕士生导师", "博士生导师", "软件工程系",
+        "教授", "副教授", "讲师", "博士后", "兼职教授", "博导列表", "硕导介绍", "常用资源", "学术活动",
+    }
 
 
 def canonical_department(department: str, known_departments: set[str]) -> str:

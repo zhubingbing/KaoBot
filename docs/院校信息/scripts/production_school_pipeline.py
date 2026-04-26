@@ -131,6 +131,28 @@ def restore_programs_if_empty(output_dir: Path) -> None:
             return
 
 
+def backup_current_outputs(output_dir: Path) -> dict[str, str]:
+    backups = {}
+    for filename in [
+        "candidate_pages.csv",
+        "page_classification.csv",
+        "departments.csv",
+        "teachers.csv",
+        "unified_teachers.csv",
+        "program_teacher_links.csv",
+        "unified_programs.csv",
+    ]:
+        path = output_dir / filename
+        if path.exists():
+            backups[filename] = path.read_text(encoding="utf-8-sig")
+    return backups
+
+
+def restore_backups(output_dir: Path, backups: dict[str, str]) -> None:
+    for filename, content in backups.items():
+        (output_dir / filename).write_text(content, encoding="utf-8-sig")
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="生产入口：Crawl4AI 官网发现 -> 专业目录/院系教师池解析 -> departments 生成")
     parser.add_argument("--school", required=True)
@@ -141,6 +163,7 @@ def main() -> None:
     parser.add_argument("--max-depth", type=int, default=2)
     parser.add_argument("--links-per-page", type=int, default=30)
     parser.add_argument("--profile-links-per-page", type=int, default=80, help="师资列表页中跟进教师详情链接的上限")
+    parser.add_argument("--max-pages-per-host", type=int, default=35, help="单个学院/子域名最多访问页数，避免一个学院吃完整体预算；0 表示不限制")
     parser.add_argument("--allow-external", action="store_true", help="允许发现官方跨子域入口，如 pgs.ruc.edu.cn")
     parser.add_argument("--enable-ai", action="store_true", help="启用 LLM 页面/链接分类；无 OPENAI_API_KEY 时自动退回规则")
     parser.add_argument("--extra-site", action="append", default=[], help="官方补充入口；不是 Tavily")
@@ -155,6 +178,7 @@ def main() -> None:
     output_dir = Path(args.output_root) / f"{slug(args.school)}_final"
     output_dir.mkdir(parents=True, exist_ok=True)
 
+    backups = backup_current_outputs(output_dir)
     if not args.skip_crawl:
         crawl_cmd = [
             sys.executable,
@@ -167,6 +191,7 @@ def main() -> None:
             "--max-depth", str(args.max_depth),
             "--links-per-page", str(args.links_per_page),
             "--profile-links-per-page", str(args.profile_links_per_page),
+            "--max-pages-per-host", str(args.max_pages_per_host),
         ]
         for extra in args.extra_site:
             crawl_cmd.extend(["--extra-site", extra])
@@ -175,6 +200,9 @@ def main() -> None:
         if args.enable_ai:
             crawl_cmd.append("--enable-ai")
         run(crawl_cmd)
+        if count_rows(output_dir / "candidate_pages.csv") == 0 and count_rows(output_dir / "extraction_issues.csv") > 0 and backups:
+            restore_backups(output_dir, backups)
+            print("抓取失败，已恢复本次运行前的有效输出。")
 
     master_urls, phd_index_urls, phd_urls = discover_html_catalog_urls(output_dir)
     if master_urls or phd_index_urls or phd_urls:
