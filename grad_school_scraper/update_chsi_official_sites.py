@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 """Update school official-site columns in chsi_seeds_national.csv.
 
-The CHSI detail pages usually do not expose a dedicated "official site" field.
-Their contact pages do contain school-run external links, so this script extracts
-those links and selects the most plausible primary site for each school.
+This script treats ``official_site_url`` as the school/institution's main
+homepage, not as a graduate-school or admissions homepage. Auxiliary links in
+``external_site_candidates`` are school-run pages, especially profile and
+department/college pages found on CHSI pages.
 """
 
 from __future__ import annotations
@@ -26,12 +27,13 @@ from urllib.parse import parse_qsl, quote, unquote, urljoin, urlparse, urlunpars
 INPUT = Path(__file__).with_name("chsi_seeds_national.csv")
 CHSI_BASE = "https://yz.chsi.com.cn"
 MAX_WORKERS = 8
-FETCH_TIMEOUT = "25"
-MAX_EXTRA_CATEGORY_PAGES = 8
-MAX_BROCHURE_PAGES = 3
+FETCH_TIMEOUT = "12"
+TARGET_CATEGORY_NAMES = ("院系设置", "院校简介", "科研条件", "其它")
+MAX_EXTRA_CATEGORY_PAGES = 4
 
 BLOCKED_HOST_PARTS = (
     "chsi.com.cn",
+    "chsi.cn",
     "chei.com.cn",
     "google-analytics.com",
     "googletagmanager.com",
@@ -49,21 +51,76 @@ BAD_URL_PARTS = (
     "wechat",
     "qq.com",
     "weibo.com",
+    "douban.com",
+    "cnki.net",
+    "wanfangdata.com.cn",
     "map.baidu",
     "amap.com",
 )
 
-PRIMARY_TEXT_HINTS = (
-    "研究生院",
-    "研究生招生",
-    "研招",
-    "招生",
+SCHOOL_PAGE_TEXT_HINTS = (
+    "学校",
+    "大学",
+    "学院",
+    "院校",
+    "院系",
+    "学部",
+    "系所",
+    "机构",
+    "简介",
+    "概况",
     "官网",
     "主页",
     "网址",
     "网站",
+)
+
+ADMISSIONS_HOST_LABELS = (
+    "yjs",
+    "yjsc",
+    "yjsy",
+    "yjsxy",
+    "graduate",
+    "grad",
+    "yz",
+    "yzb",
+    "yanzhao",
+    "zhaosheng",
+    "zs",
+    "zsxx",
+    "yjszs",
+    "admission",
+    "admissions",
+    "graduateschool",
+    "pgs",
+    "grs",
+    "gs",
+)
+
+ADMISSIONS_PATH_PARTS = (
+    "/yjs",
+    "/yjsc",
+    "/yjsy",
+    "/graduate",
+    "/grad",
+    "/yanzhao",
+    "/zhaosheng",
+    "/admission",
+    "/admissions",
+    "/pgs",
+    "/grs",
+    "/zsxx",
+)
+
+ADMISSIONS_TEXT_HINTS = (
+    "研究生",
+    "研招",
+    "招生",
+    "录取",
+    "硕士",
+    "博士",
+    "联系办法",
     "联系方式",
-    "联系",
 )
 
 
@@ -71,6 +128,7 @@ PRIMARY_TEXT_HINTS = (
 class Link:
     url: str
     text: str
+    source: str = ""
 
 
 class LinkParser(HTMLParser):
@@ -168,6 +226,8 @@ def normalize_url(raw_url: str, base_url: str) -> str | None:
         return None
     if parsed.scheme not in {"http", "https"} or not parsed.netloc:
         return None
+    if parsed.username or parsed.password:
+        return None
     host = parsed.netloc.lower()
     if any(part in host for part in BLOCKED_HOST_PARTS):
         return None
@@ -204,10 +264,10 @@ def extract_external_links(body: str, base_url: str) -> tuple[str, list[Link]]:
     return title, links
 
 
-def extract_category_urls(body: str, base_url: str, sch_id: str) -> list[str]:
+def extract_category_urls(body: str, base_url: str, sch_id: str) -> list[Link]:
     parser = LinkParser()
     parser.feed(body)
-    urls: list[str] = []
+    urls: list[Link] = []
     seen: set[str] = set()
     pattern = f"/sch/schoolInfo--schId-{sch_id},categoryId-"
     for link in parser.links:
@@ -217,70 +277,128 @@ def extract_category_urls(body: str, base_url: str, sch_id: str) -> list[str]:
         if url in seen:
             continue
         seen.add(url)
-        urls.append(url)
+        urls.append(Link(url, link.text))
     return urls
 
 
-def extract_chsi_content_urls(body: str, base_url: str) -> list[str]:
-    parser = LinkParser()
-    parser.feed(body)
-    urls: list[str] = []
-    seen: set[str] = set()
-    for link in parser.links:
-        if "/sch/viewZszc--" not in link.url and "/sch/viewBulletin--" not in link.url:
-            continue
-        url = urljoin(base_url, link.url)
-        if url in seen:
-            continue
-        seen.add(url)
-        urls.append(url)
-    return urls
-
-
-def root_candidate(url: str) -> str | None:
+def institution_homepage_candidate(url: str) -> str | None:
     parsed = urlparse(url)
-    labels = parsed.netloc.lower().split(".")
-    if len(labels) < 3:
+    host = parsed.netloc.lower()
+    if not host:
         return None
-    if labels[-2:] != ["edu", "cn"]:
-        return None
-    registrable = ".".join(labels[-3:])
-    if parsed.netloc.lower() == registrable or labels[0] == "www":
+    labels = host.split(".")
+    if len(labels) >= 3 and labels[-2:] == ["edu", "cn"]:
+        registrable = ".".join(labels[-3:])
+        if host == registrable:
+            return urlunparse((parsed.scheme, parsed.netloc, "", "", "", ""))
+        return f"https://www.{registrable}"
+    if len(labels) >= 4 and labels[-2] in {"ac", "com", "net", "org", "gov"} and labels[-1] == "cn":
+        registrable = ".".join(labels[-3:])
+        if host == registrable or host == "www." + registrable:
+            return urlunparse((parsed.scheme, parsed.netloc, "", "", "", ""))
+        return f"https://www.{registrable}"
+    if len(labels) >= 3 and labels[-1] == "cn":
+        registrable = ".".join(labels[-2:])
+        if host == registrable or host == "www." + registrable:
+            return urlunparse((parsed.scheme, parsed.netloc, "", "", "", ""))
+        return f"https://www.{registrable}"
+    if len(labels) >= 2:
         return urlunparse((parsed.scheme, parsed.netloc, "", "", "", ""))
-    return f"https://www.{registrable}"
+    return None
 
 
-def score_link(link: Link, school_name: str) -> int:
+def is_admissions_link(link: Link) -> bool:
+    parsed = urlparse(link.url)
+    host_labels = parsed.netloc.lower().split(".")
+    path = parsed.path.lower()
+    text = link.text
+    return any(label in ADMISSIONS_HOST_LABELS for label in host_labels) or any(
+        part in path for part in ADMISSIONS_PATH_PARTS
+    ) or any(
+        hint in text for hint in ADMISSIONS_TEXT_HINTS
+    )
+
+
+def is_school_page_link(link: Link) -> bool:
+    if is_admissions_link(link):
+        return False
+    if link.source == "existing_official":
+        return True
     url = link.url.lower()
     host = urlparse(link.url).netloc.lower()
     text = link.text
-    score = 0
-    if school_name and school_name in text:
-        score += 12
     if host.endswith(".edu.cn") or host.endswith(".edu"):
-        score += 10
-    if any(hint in text for hint in PRIMARY_TEXT_HINTS):
+        return True
+    if any(hint in text for hint in SCHOOL_PAGE_TEXT_HINTS):
+        return True
+    return any(hint in url for hint in ("about", "intro", "profile", "department", "college"))
+
+
+def score_homepage(homepage: str, source_links: list[Link], school_name: str) -> int:
+    parsed = urlparse(homepage)
+    host = parsed.netloc.lower()
+    score = 0
+    if host.startswith("www."):
         score += 8
-    if any(hint in url for hint in ("yjs", "yz", "zs", "graduate", "admission")):
-        score += 5
-    if url.startswith("https://"):
-        score += 2
-    if re.search(r"/(info|content|article|news|tzgg|gg|detail)[/-]", url):
-        score -= 6
-    if any(part in host for part in ("mp.weixin", "share", "job", "email")):
-        score -= 20
+    if host.endswith(".edu.cn") or host.endswith(".edu"):
+        score += 25
+    if homepage.startswith("https://"):
+        score += 4
+    if any(link.source in {"院校简介", "院系设置"} for link in source_links):
+        score += 12
+    if any(school_name and school_name in link.text for link in source_links):
+        score += 10
+    if any(any(hint in link.text for hint in SCHOOL_PAGE_TEXT_HINTS) for link in source_links):
+        score += 8
+    if any(is_admissions_link(link) for link in source_links):
+        score -= 10
     return score
 
 
 def choose_primary(links: Iterable[Link], school_name: str) -> str:
-    links = list(links)
-    if not links:
+    grouped: dict[str, list[Link]] = {}
+    for link in links:
+        homepage = institution_homepage_candidate(link.url)
+        if not homepage:
+            continue
+        if not is_school_page_link(link):
+            continue
+        grouped.setdefault(homepage, []).append(link)
+    if not grouped:
         return ""
-    best = max(links, key=lambda link: score_link(link, school_name))
-    root = root_candidate(best.url)
-    if root:
-        return root
-    return best.url
+    return max(grouped, key=lambda homepage: score_homepage(homepage, grouped[homepage], school_name))
+
+
+def sort_candidate_links(links: Iterable[Link], primary: str) -> list[str]:
+    seen: set[str] = set()
+    candidates: list[tuple[str, Link]] = []
+    primary_host = urlparse(primary).netloc.lower()
+    for link in links:
+        candidate_url = (
+            institution_homepage_candidate(link.url)
+            if link.source in {"existing_official", "existing_candidate"}
+            else link.url
+        )
+        if not candidate_url or candidate_url in seen:
+            continue
+        if not is_school_page_link(link):
+            continue
+        host = urlparse(link.url).netloc.lower()
+        if primary_host and host != primary_host and not host.endswith("." + primary_host.removeprefix("www.")):
+            root = institution_homepage_candidate(link.url)
+            if root != primary:
+                continue
+        seen.add(candidate_url)
+        candidates.append((candidate_url, link))
+    candidates.sort(
+        key=lambda item: (
+            0 if item[0] == primary else 1,
+            0 if item[1].source == "院系设置" else 1,
+            0 if any(hint in item[1].text for hint in ("院系", "学院", "学部", "机构")) else 1,
+            item[0],
+        )
+    )
+    return [url for url, _ in candidates]
 
 
 def process_row(index: int, row: dict[str, str]) -> tuple[int, dict[str, str]]:
@@ -289,45 +407,44 @@ def process_row(index: int, row: dict[str, str]) -> tuple[int, dict[str, str]]:
     candidates: list[Link] = []
     title = ""
     if body:
-        title, candidates = extract_external_links(body, page_url)
-    if not candidates and row.get("yz_detail_url"):
+        title, contact_links = extract_external_links(body, page_url)
+        for link in contact_links:
+            link.source = "联系办法"
+        candidates.extend(contact_links)
+    if row.get("yz_detail_url"):
         detail_status, detail_body, detail_error = fetch(row["yz_detail_url"])
         if not error and detail_error:
             error = detail_error
         if detail_body:
-            for category_url in extract_category_urls(
+            category_links = extract_category_urls(
                 detail_body, row["yz_detail_url"], row.get("school_id", "")
-            )[:MAX_EXTRA_CATEGORY_PAGES]:
-                _, page_body, page_error = fetch(category_url)
+            )
+            category_links = [
+                link for link in category_links if link.text in TARGET_CATEGORY_NAMES
+            ] or category_links[:MAX_EXTRA_CATEGORY_PAGES]
+            category_links.sort(
+                key=lambda link: (
+                    0 if link.text == "院系设置" else 1,
+                    0 if link.text == "院校简介" else 1,
+                    0 if link.text in {"科研条件", "其它"} else 1,
+                    link.text,
+                )
+            )
+            for category in category_links[:MAX_EXTRA_CATEGORY_PAGES]:
+                _, page_body, page_error = fetch(category.url)
                 if not error and page_error:
                     error = page_error
                 if not page_body:
                     continue
-                _, extra_links = extract_external_links(page_body, category_url)
+                _, extra_links = extract_external_links(page_body, category.url)
                 existing = {link.url for link in candidates}
-                candidates.extend(link for link in extra_links if link.url not in existing)
-                if candidates:
-                    break
+                for link in extra_links:
+                    link.source = category.text
+                    if link.url not in existing:
+                        candidates.append(link)
+                        existing.add(link.url)
         if status is None and detail_status is not None:
             status = detail_status
-    if not candidates and row.get("yz_brochure_url"):
-        _, brochure_body, brochure_error = fetch(row["yz_brochure_url"])
-        if not error and brochure_error:
-            error = brochure_error
-        if brochure_body:
-            for content_url in extract_chsi_content_urls(
-                brochure_body, row["yz_brochure_url"]
-            )[:MAX_BROCHURE_PAGES]:
-                _, content_body, content_error = fetch(content_url)
-                if not error and content_error:
-                    error = content_error
-                if not content_body:
-                    continue
-                _, extra_links = extract_external_links(content_body, content_url)
-                existing = {link.url for link in candidates}
-                candidates.extend(link for link in extra_links if link.url not in existing)
-                if candidates:
-                    break
     primary = choose_primary(candidates, row.get("school_name", ""))
     now = datetime.now(timezone.utc).isoformat()
     updated = dict(row)
@@ -339,9 +456,8 @@ def process_row(index: int, row: dict[str, str]) -> tuple[int, dict[str, str]]:
         updated["contact_error"] = error
     else:
         updated["contact_error"] = ""
-    if primary:
-        updated["official_site_url"] = primary
-    updated["external_site_candidates"] = " | ".join(link.url for link in candidates)
+    updated["official_site_url"] = primary
+    updated["external_site_candidates"] = " | ".join(sort_candidate_links(candidates, primary))
     updated["fetched_at"] = now
     return index, updated
 
