@@ -1,6 +1,7 @@
 # Environment
 .env
 .env.local
+.llm.env
 
 # Python
 __pycache__/
