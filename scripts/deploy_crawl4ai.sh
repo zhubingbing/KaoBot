@@ -26,7 +26,7 @@ Env overrides:
   IMAGE          (default: unclecode/crawl4ai:latest)
   PORT           (default: 11235)
   LLM_ENV_FILE   (default: .llm.env)
-  SHM_SIZE       (default: 1g)
+  SHM_SIZE       (default: 20g)
 EOF
 }
 
@@ -120,7 +120,15 @@ for p,m in [('/', 'get'), ('/health', 'get'), ('/docs', 'get'), ('/crawl', 'post
         if m=='get':
             r=requests.get(base+p, timeout=8)
         else:
-            r=requests.post(base+p, json={'urls':'https://example.com'}, timeout=20)
+            r=requests.post(
+                base+p,
+                json={
+                    'urls': ['https://example.com'],
+                    'browser_config': {'headless': True, 'browser_type': 'chromium'},
+                    'crawler_config': {}
+                },
+                timeout=20
+            )
         print(f'{p} {r.status_code}')
     except Exception as e:
         print(f'{p} ERR {e}')

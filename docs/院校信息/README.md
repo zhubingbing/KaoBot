@@ -36,10 +36,29 @@ Markdown 生成器负责“最终可读结果”。
 详细设计见：
 
 ```text
-docs/CRAWL4AI_PRODUCTION_PIPELINE.md
+docs/UNIVERSITY_CRAWLER_ARCHITECTURE.md
 ```
 
 ## 环境
+
+默认使用 Docker 部署的 Crawl4AI 服务。
+
+### 默认推荐：Docker 模式
+
+```bash
+bash ../scripts/deploy_crawl4ai.sh up
+bash ../scripts/deploy_crawl4ai.sh test
+```
+
+说明：
+
+- 默认推荐 `crawl4ai_docker`
+- 不要求本机手工安装 Playwright Chromium
+- Docker 服务正常后，再运行学校主流程
+
+### 备用方案：本地浏览器模式
+
+只有在 Docker 不可用时，才考虑本地模式：
 
 ```bash
 source .venv/bin/activate
@@ -56,6 +75,7 @@ source .venv/bin/activate
 CRAWL4_AI_BASE_DIRECTORY="$(pwd)" \
 python scripts/production_school_pipeline.py \
   --school 中国人民大学 \
+  --crawler-engine crawl4ai_docker \
   --max-pages 120 \
   --max-depth 2 \
   --links-per-page 30 \
@@ -66,9 +86,262 @@ python scripts/production_school_pipeline.py \
 说明：
 
 - `--school` 从 `院校信息.csv` 读取官网地址。
+- `--crawler-engine crawl4ai_docker` 为默认推荐模式。
 - `--allow-external` 用于允许官方相关子域，例如研究生院、招生网等。
 - 默认不使用 Tavily。
-- 默认使用 Crawl4AI。
+- 默认推荐 Docker 方式运行 Crawl4AI。
+
+## 配置文件
+
+正常生产只需要优先维护两个配置：
+
+```text
+configs/school_pipeline_sources.csv
+configs/department_overrides.csv
+```
+
+### 1. 学校入口配置
+
+文件：
+
+```text
+configs/school_pipeline_sources.csv
+```
+
+清华大学示例：
+
+```csv
+school_name,official_site_url,entry_url,entry_type,crawl_mode,notes
+清华大学,https://www.tsinghua.edu.cn/,https://www.tsinghua.edu.cn/yxsz.htm,department_index,config_only,清华院系设置页；先从院系入口开始，不做主站盲爬
+```
+
+建议人工优先维护：
+
+- 学校主站 URL
+- 院系入口 URL
+
+### 2. 单院系补丁配置
+
+文件：
+
+```text
+configs/department_overrides.csv
+```
+
+示例：
+
+```csv
+school_name,department,url,url_type,mode,notes
+清华大学,电子工程系,https://www.ee.tsinghua.edu.cn/ryqk/teacher/xxgdzyjs/js2.htm,teacher_group,append,人工确认在职教师页
+清华大学,车辆与运载学院,https://www.svm.tsinghua.edu.cn/column/26_1.html,teacher_hub,append,人工补充教师入口
+清华大学,科学史系,https://www.dhs.tsinghua.edu.cn/?page_id=2087,teacher_group,append,人工确认教师页
+```
+
+字段说明：
+
+- `school_name`：学校名
+- `department`：院系名
+- `url`：人工补充的高价值入口
+- `url_type`：
+  - `department_site`
+  - `teacher_hub`
+  - `teacher_group`
+  - `program_catalog`
+- `mode`：
+  - `append`：追加到自动发现结果
+  - `replace`：替换当前院系已有候选入口
+- `notes`：备注
+
+推荐维护原则：
+
+- 如果院系官网不对，补 `department_site`
+- 如果教师页没找到，补 `teacher_hub` 或 `teacher_group`
+- 如果专业页没找到，补 `program_catalog`
+
+推荐策略：
+
+- 正常情况不预配所有老师 URL
+- 先跑自动发现
+- 某个院系异常时，再补一条高价值 URL
+
+## 标准流程
+
+推荐按这个标准化顺序使用：
+
+```text
+1. 跑学校主流程
+2. 自动得到院系列表和院系 Markdown
+3. 检查异常院系
+4. 优先修院系官网入口
+5. 再补教师入口或专业入口
+6. 只重跑该院系
+7. 重建 Markdown
+```
+
+说明：
+
+- 第一轮目标是先把“学校 -> 院系 -> 初版结果”跑出来。
+- 第二轮开始才进入“单院系修复”。
+- 不建议一开始就人工预配所有教师 URL。
+
+### 1. 首次跑一所学校
+
+步骤 1：配置学校入口
+
+编辑：
+
+```text
+configs/school_pipeline_sources.csv
+```
+
+步骤 2：运行主流程
+
+```bash
+source .venv/bin/activate
+CRAWL4_AI_BASE_DIRECTORY="$(pwd)" \
+python scripts/production_school_pipeline.py \
+  --school 清华大学 \
+  --crawler-engine crawl4ai_docker \
+  --enable-ai \
+  --teacher-pages-per-department 3 \
+  --teacher-workers 4
+```
+
+步骤 3：查看结果
+
+重点看：
+
+```text
+output/school_finals/tsinghua_final/departments.csv
+output/school_finals/tsinghua_final/teachers.csv
+departments/清华大学/README.md
+departments/清华大学/*.md
+```
+
+先重点检查：
+
+- 院系是否都被发现了
+- 每个院系 Markdown 顶部的 `院系官网` 是否正确
+- `教师来源`、`专业来源` 是否合理
+
+### 2. 判断哪个院系异常
+
+优先看每个院系 Markdown：
+
+```text
+departments/{学校}/{院系}.md
+```
+
+典型异常包括：
+
+- `教师记录：0`
+- 教师来源页明显不对
+- 明明有老师页，但没抽出来
+- 抽出了栏目词、分页、研究所名，而不是真实老师
+
+### 3. 补单院系高价值 URL
+
+当某个院系异常时，不要整校重配。
+
+直接把高价值 URL 追加到：
+
+```text
+configs/department_overrides.csv
+```
+
+例如清华大学车辆与运载学院：
+
+```csv
+清华大学,车辆与运载学院,https://www.svm.tsinghua.edu.cn/column/26_1.html,teacher_hub,append,人工补充教师入口
+```
+
+例如院系官网修正：
+
+```csv
+清华大学,安全科学学院,https://www.ses.tsinghua.edu.cn/,department_site,replace,人工修正院系官网
+```
+
+例如专业页补充：
+
+```csv
+清华大学,安全科学学院,https://www.ses.tsinghua.edu.cn/yjsjy.htm,program_catalog,append,人工补充专业入口
+```
+
+### 4. 只重跑单个院系
+
+示例：
+
+```bash
+.venv/bin/python pipeline_internal/discover_department_teachers.py \
+  --school 清华大学 \
+  --output-dir output/school_finals/tsinghua_final \
+  --only-department 车辆与运载学院 \
+  --teacher-pages-per-department 6 \
+  --workers 1 \
+  --enable-ai \
+  --overrides configs/department_overrides.csv
+```
+
+说明：
+
+- `--only-department`：只处理一个院系
+- `--teacher-pages-per-department`：该院系最多分析多少个教师候选页
+- `--workers 1`：单院系补跑时通常用 1 就够
+- `--overrides`：读取人工补丁入口
+
+### 5. 重建院系 Markdown
+
+```bash
+.venv/bin/python pipeline_internal/build_department_markdown_tree.py \
+  --school 清华大学 \
+  output/school_finals/tsinghua_final \
+  --root departments \
+  --max-programs 500 \
+  --max-teachers 500 \
+  --max-linked 500
+```
+
+说明：
+
+- `--max-programs`
+- `--max-teachers`
+- `--max-linked`
+
+这 3 个参数只影响 Markdown 展示上限，不影响前面实际抓取多少条。
+
+## 具体案例
+
+### 清华大学 - 车辆与运载学院
+
+异常现象：
+
+- 自动发现到了教师相关页
+- 但最初 `teachers=0`
+
+人工补救：
+
+```csv
+清华大学,车辆与运载学院,https://www.svm.tsinghua.edu.cn/column/26_1.html,teacher_hub,append,人工补充教师入口
+```
+
+补跑命令：
+
+```bash
+.venv/bin/python pipeline_internal/discover_department_teachers.py \
+  --school 清华大学 \
+  --output-dir output/school_finals/tsinghua_final \
+  --only-department 车辆与运载学院 \
+  --teacher-pages-per-department 6 \
+  --workers 1 \
+  --enable-ai \
+  --overrides configs/department_overrides.csv
+```
+
+结果：
+
+- 从 `column/26_1.html` 中抽到 `78` 条教师
+- 已写入 `teachers.csv`
+- 已更新 `departments/清华大学/车辆与运载学院.md`
 
 ## 输出
 

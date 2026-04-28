@@ -23,6 +23,8 @@ from openai import OpenAI
 
 os.environ.setdefault("CRAWL4_AI_BASE_DIRECTORY", os.getcwd())
 
+from crawl4ai_docker_fetch import fetch_url_with_docker
+
 try:
     from crawl4ai import AsyncWebCrawler, BrowserConfig, CacheMode, CrawlerRunConfig
     from crawl4ai.content_filter_strategy import PruningContentFilter
@@ -221,19 +223,19 @@ class Fetcher:
             raise RuntimeError("crawl4ai_not_available")
         browser_config = None
         if BrowserConfig is not None:
-            chrome_channel = os.getenv("SCHOOL_PIPELINE_CHROME_CHANNEL", "").strip()
+            chrome_channel = os.getenv("SCHOOL_PIPELINE_CHROME_CHANNEL", "chromium").strip() or "chromium"
             try:
-                if chrome_channel:
-                    browser_config = BrowserConfig(
-                        headless=True,
-                        verbose=False,
-                        channel=chrome_channel,
-                        chrome_channel=chrome_channel,
-                    )
-                else:
-                    browser_config = BrowserConfig(headless=True, verbose=False)
+                browser_config = BrowserConfig(
+                    browser_type="chromium",
+                    headless=True,
+                    verbose=False,
+                    channel=chrome_channel,
+                    chrome_channel=chrome_channel,
+                    use_managed_browser=False,
+                    use_persistent_context=False,
+                )
             except Exception:
-                browser_config = BrowserConfig(headless=True, verbose=False)
+                browser_config = BrowserConfig(browser_type="chromium", headless=True, verbose=False)
         run_config = None
         if CrawlerRunConfig is not None:
             kwargs = {}
@@ -262,9 +264,16 @@ class Fetcher:
         time.sleep(self.sleep)
         return {"html": html or raw_markdown, "raw_markdown": raw_markdown, "fit_markdown": fit_markdown}
 
+    async def fetch_crawl4ai_docker_async(self, url: str) -> dict:
+        result = await fetch_url_with_docker(url)
+        time.sleep(self.sleep)
+        return result
+
     def fetch(self, url: str) -> dict:
         if self.engine == "crawl4ai":
             return asyncio.run(self.fetch_crawl4ai_async(url))
+        if self.engine == "crawl4ai_docker":
+            return asyncio.run(self.fetch_crawl4ai_docker_async(url))
         return {"html": self.fetch_requests(url), "raw_markdown": "", "fit_markdown": ""}
 
 
@@ -1150,6 +1159,8 @@ def run_pipeline(args: argparse.Namespace) -> None:
                 for link in selected_links:
                     if is_document_url(link["url"]):
                         continue
+                    if not (same_or_sub_domain(args.site, link["url"]) or (args.allow_external and related_official_url(args.site, link["url"]))):
+                        continue
                     dept = mapped_department_for_url(department_host_map, link["url"]) or clean(link.get("llm_department")) or maybe_department_from_title(link["title"]) or default_department
                     if link["url"] not in visited:
                         priority = link_frontier_priority(link, dept, args.school)
@@ -1254,7 +1265,7 @@ def main() -> None:
     parser.add_argument("--search-links-csv", default="", help="Tavily/搜索发现的官方入口 CSV，字段至少包含 url，可选 score/department/is_official")
     parser.add_argument("--search-seed-limit", type=int, default=80)
     parser.add_argument("--output-dir", required=True)
-    parser.add_argument("--engine", choices=["crawl4ai", "requests"], default="crawl4ai")
+    parser.add_argument("--engine", choices=["crawl4ai", "crawl4ai_docker", "requests"], default="crawl4ai")
     parser.add_argument("--enable-ai", action="store_true")
     parser.add_argument("--model", default=os.getenv("OPENAI_MODEL", "gpt-4o-mini"))
     parser.add_argument("--max-pages", type=int, default=30)

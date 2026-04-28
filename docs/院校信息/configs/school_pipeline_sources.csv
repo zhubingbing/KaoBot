@@ -1,0 +1,3 @@
+school_name,official_site_url,entry_url,entry_type,crawl_mode,max_teacher_pages_per_department,notes
+北京航空航天大学,https://www.buaa.edu.cn/,https://faculty.buaa.edu.cn/,auto,config_only,2,人工只维护一个高价值入口；脚本自动识别为北航教师主页系统并解析学院教师分页列表；max=0 表示抓全量分页
+清华大学,https://www.tsinghua.edu.cn/,https://www.tsinghua.edu.cn/yxsz.htm,department_index,config_only,2,清华大学院系设置页；先解析院系入口，不做全站盲爬
