@@ -58,6 +58,7 @@ PERSON_STOPWORDS = {
     "学院简介", "教师队伍", "师资队伍", "师资情况", "工程技术人员", "退休人员",
     "清华大学", "材料学院", "学院教务信息化系统", "在职教师", "客座教授", "博士后队伍", "行政职员", "离退休教师",
     "人员情况", "图片列表", "筛选", "系主任信箱",
+    "教师介绍", "人才招聘",
 }
 NAME_RE = re.compile(r"^[\u4e00-\u9fa5·]{2,6}$")
 
@@ -214,6 +215,8 @@ def discover_teacher_pages(home_html: str, department_site_url: str, max_pages: 
 def valid_person_name(name: str) -> bool:
     name = normalize_person_name(name)
     if not name or len(name) > 40 or name in PERSON_STOPWORDS:
+        return False
+    if re.search(r"(系教师|教师介绍|人才招聘)$", name):
         return False
     if any(token in name for token in ["简介", "概况", "队伍", "人员", "情况", "更多", "首页", "系统", "联系方式"]):
         return False
@@ -377,6 +380,73 @@ class TeacherPageLLMExtractor:
 
     def available(self) -> bool:
         return self.client is not None
+
+    def filter_teacher_candidates(self, school: str, department: str, source_url: str, candidates: list[dict]) -> list[dict]:
+        if not self.client or not candidates:
+            return candidates
+        ambiguous = []
+        keep = []
+        for row in candidates:
+            name = clean(row.get("teacher_name"))
+            if re.search(r"(教师介绍|人才招聘|招聘|系教师|学系|研究所|中心|实验室|团队)$", name):
+                ambiguous.append(row)
+            elif "系" in name or "学院" in name or "中心" in name or "研究所" in name:
+                ambiguous.append(row)
+            else:
+                keep.append(row)
+        if not ambiguous:
+            return candidates
+        payload = {
+            "task": "判断高校院系教师页中的候选条目到底是具体老师、教师分组入口，还是噪声栏目词。",
+            "school_name": school,
+            "department": department,
+            "source_url": source_url,
+            "candidates": [
+                {
+                    "teacher_name": clean(row.get("teacher_name")),
+                    "teacher_profile_url": clean(row.get("teacher_profile_url")),
+                }
+                for row in ambiguous[:80]
+            ],
+            "labels": ["person", "teacher_group", "noise"],
+            "rules": [
+                "具体老师一般是自然人姓名，不是栏目名",
+                "如 规划系教师、社会工作系、建筑系教师 这类一般是 teacher_group，不是 person",
+                "如 人才招聘、教师介绍、更多、首页 这类一般是 noise",
+                "只返回 JSON，不要解释",
+            ],
+            "return_json_schema": {
+                "items": [
+                    {
+                        "teacher_name": "原始候选名",
+                        "label": "person|teacher_group|noise"
+                    }
+                ]
+            },
+        }
+        try:
+            resp = self.client.chat.completions.create(
+                model=self.model,
+                messages=[
+                    {"role": "system", "content": "你是高校教师页候选条目分类器。只返回严格 JSON。"},
+                    {"role": "user", "content": json.dumps(payload, ensure_ascii=False)},
+                ],
+                temperature=0,
+                timeout=30,
+            )
+            content = (resp.choices[0].message.content or "{}").strip().strip("`")
+            data = json.loads(content)
+        except Exception:
+            return keep
+        label_map = {
+            clean(item.get("teacher_name")): clean(item.get("label")).lower()
+            for item in data.get("items", [])
+        }
+        for row in ambiguous:
+            label = label_map.get(clean(row.get("teacher_name")), "")
+            if label == "person":
+                keep.append(row)
+        return keep
 
     def extract(self, school: str, department: str, html: str, source_url: str) -> list[dict]:
         if not self.client:
@@ -591,6 +661,8 @@ def process_department(
                 extracted.extend(llm_extractor.extract(school, department, page_html, page["url"]))
             if not extracted:
                 rule_rows = extract_teachers_from_page(school, department, page_html, page["url"])
+                if llm_extractor.available():
+                    rule_rows = llm_extractor.filter_teacher_candidates(school, department, page["url"], rule_rows)
                 seen_keys = {(row["teacher_name"], row.get("teacher_profile_url", "")) for row in extracted}
                 for row in rule_rows:
                     key = (row["teacher_name"], row.get("teacher_profile_url", ""))
