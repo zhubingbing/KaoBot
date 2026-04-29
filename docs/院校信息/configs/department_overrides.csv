@@ -1,7 +1,8 @@
 school_name,department,url,url_type,mode,notes
+北京工业大学,体育部,https://tyb.bjut.edu.cn/index.htm,department_site,replace,人工确认体育部官网；当前站点可见部门简介，但未发现稳定教师名单页
 清华大学,电子工程系,https://www.ee.tsinghua.edu.cn/ryqk/teacher/xxgdzyjs/js2.htm,teacher_group,append,人工确认在职教师页
 清华大学,土木工程系,https://www.civil.tsinghua.edu.cn/ce/szdw/jiaosh.htm,teacher_hub,append,人工确认教师入口总页
 清华大学,土木工程系,https://www.civil.tsinghua.edu.cn/ce/szdw/jiaosh/fzjzgcyjs.htm,teacher_group,append,人工确认防灾减灾工程研究所教师页
 清华大学,科学史系,https://www.dhs.tsinghua.edu.cn/?page_id=2087,teacher_group,append,人工确认教师页
-清华大学,安全科学学院,https://www.ses.tsinghua.edu.cn/,department_site,append,院系官网补充样例
+清华大学,安全科学学院,https://www.ssafs.tsinghua.edu.cn/szdw/zgj.htm,teacher_group,append,人工确认专职教师页
 清华大学,高等研究院,https://www.ias.tsinghua.edu.cn/yjry/jy.htm,teacher_group,append,人工补充教师入口

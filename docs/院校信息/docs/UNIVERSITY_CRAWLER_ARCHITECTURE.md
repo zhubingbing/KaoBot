@@ -421,7 +421,7 @@ school_name,department,url,url_type,mode,notes
 ```csv
 school_name,department,url,url_type,mode,notes
 清华大学,安全科学学院,https://www.ses.tsinghua.edu.cn/,department_site,append,院系官网补充
-清华大学,安全科学学院,https://www.ses.tsinghua.edu.cn/szdw.htm,teacher_hub,append,人工确认教师入口
+清华大学,安全科学学院,https://www.ssafs.tsinghua.edu.cn/szdw/zgj.htm,teacher_group,append,人工确认专职教师页
 清华大学,电子工程系,https://www.ee.tsinghua.edu.cn/ryqk/teacher/xxgdzyjs/js2.htm,teacher_group,append,人工确认在职教师页
 ```
 
@@ -445,6 +445,7 @@ school_name,department,url,url_type,mode,notes
 - 如果院系官网不对，补 `department_site`
 - 如果教师页没找到，补 `teacher_hub` 或 `teacher_group`
 - 如果专业页没找到，补 `program_catalog`
+- 如果目标是补老师，不要只补学院首页；优先补明确的教师列表页
 
 这样一个院系的人工补丁信息都集中在同一个文件里。
 
@@ -641,7 +642,7 @@ configs/department_overrides.csv
 
 ```csv
 school_name,department,url,url_type,mode,notes
-清华大学,安全科学学院,https://www.ses.tsinghua.edu.cn/szdw.htm,teacher_hub,append,人工补充教师入口
+清华大学,安全科学学院,https://www.ssafs.tsinghua.edu.cn/szdw/zgj.htm,teacher_group,append,人工确认专职教师页
 ```
 
 步骤 3：只重跑这个院系
@@ -649,6 +650,7 @@ school_name,department,url,url_type,mode,notes
 建议命令：
 
 ```bash
+SCHOOL_PIPELINE_CRAWLER_ENGINE=crawl4ai_docker \
 .venv/bin/python pipeline_internal/discover_department_teachers.py \
   --school 清华大学 \
   --output-dir output/school_finals/tsinghua_final \
@@ -657,6 +659,12 @@ school_name,department,url,url_type,mode,notes
   --workers 1 \
   --enable-ai
 ```
+
+说明：
+
+- `department_site` 只用于修正院系官网
+- `teacher_group` 适用于已经明确是教师列表页的 URL
+- `SCHOOL_PIPELINE_CRAWLER_ENGINE=crawl4ai_docker` 必须显式带上，单院系补跑也默认走 Docker
 
 步骤 4：重建这个学校的 Markdown
 

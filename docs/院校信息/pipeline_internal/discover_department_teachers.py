@@ -162,6 +162,8 @@ def fetch(url: str, sleep: float = 0.05) -> tuple[str, str, str, str]:
         raw_markdown = ""
         fit_markdown = ""
     except Exception:
+        if os.getenv("SCHOOL_PIPELINE_CRAWLER_ENGINE") == "crawl4ai_docker":
+            raise
         html = fetch_urlopen(url)
         method = "urlopen_fallback"
         raw_markdown = ""
@@ -510,7 +512,12 @@ def apply_department_site_override(item: dict, overrides: list[dict]) -> dict:
     if not site_rows:
         return item
     replace_rows = [row for row in site_rows if row["mode"] == "replace"]
-    chosen = replace_rows[-1] if replace_rows else site_rows[-1]
+    if replace_rows:
+        chosen = replace_rows[-1]
+    elif not clean(item.get("site_url")):
+        chosen = site_rows[-1]
+    else:
+        return item
     updated = dict(item)
     updated["site_url"] = chosen["url"]
     return updated

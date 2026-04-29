@@ -115,10 +115,28 @@ school_name,official_site_url,entry_url,entry_type,crawl_mode,notes
 清华大学,https://www.tsinghua.edu.cn/,https://www.tsinghua.edu.cn/yxsz.htm,department_index,config_only,清华院系设置页；先从院系入口开始，不做主站盲爬
 ```
 
+北京工业大学示例：
+
+```csv
+school_name,official_site_url,entry_url,entry_type,crawl_mode,notes
+北京工业大学,https://www.bjut.edu.cn/,https://www.bjut.edu.cn/,seed_url,append,从学校官网首页开始；先让主流程自动发现院系入口、专业入口和教师入口
+```
+
 建议人工优先维护：
 
 - 学校主站 URL
 - 院系入口 URL
+
+如果你暂时没有现成的院系列表页，就先这样配置：
+
+- `entry_url=学校官网首页`
+- `entry_type=seed_url`
+
+含义：
+
+- 从学校官网首页开始抓
+- 让主流程自己发现院系、专业、教师相关入口
+- 这是“从学校开始入手”的标准模式
 
 ### 2. 单院系补丁配置
 
@@ -135,6 +153,7 @@ school_name,department,url,url_type,mode,notes
 清华大学,电子工程系,https://www.ee.tsinghua.edu.cn/ryqk/teacher/xxgdzyjs/js2.htm,teacher_group,append,人工确认在职教师页
 清华大学,车辆与运载学院,https://www.svm.tsinghua.edu.cn/column/26_1.html,teacher_hub,append,人工补充教师入口
 清华大学,科学史系,https://www.dhs.tsinghua.edu.cn/?page_id=2087,teacher_group,append,人工确认教师页
+清华大学,安全科学学院,https://www.ssafs.tsinghua.edu.cn/szdw/zgj.htm,teacher_group,append,人工确认专职教师页
 ```
 
 字段说明：
@@ -157,6 +176,7 @@ school_name,department,url,url_type,mode,notes
 - 如果院系官网不对，补 `department_site`
 - 如果教师页没找到，补 `teacher_hub` 或 `teacher_group`
 - 如果专业页没找到，补 `program_catalog`
+- 如果目标是“补老师”，不要只补学院首页；优先补明确的教师列表页
 
 推荐策略：
 
@@ -261,17 +281,31 @@ configs/department_overrides.csv
 清华大学,安全科学学院,https://www.ses.tsinghua.edu.cn/,department_site,replace,人工修正院系官网
 ```
 
+例如教师页补充：
+
+```csv
+清华大学,安全科学学院,https://www.ssafs.tsinghua.edu.cn/szdw/zgj.htm,teacher_group,append,人工确认专职教师页
+```
+
 例如专业页补充：
 
 ```csv
 清华大学,安全科学学院,https://www.ses.tsinghua.edu.cn/yjsjy.htm,program_catalog,append,人工补充专业入口
 ```
 
+判断原则：
+
+- `department_site` 只用于修正院系官网
+- `teacher_hub` 用于“师资队伍/教师目录”入口页，后面还要继续跟进详情页
+- `teacher_group` 用于已经明确是教师列表页的页面
+- 如果你的目标是补老师，而你手里已经有教师列表页，就优先用 `teacher_group`
+
 ### 4. 只重跑单个院系
 
 示例：
 
 ```bash
+SCHOOL_PIPELINE_CRAWLER_ENGINE=crawl4ai_docker \
 .venv/bin/python pipeline_internal/discover_department_teachers.py \
   --school 清华大学 \
   --output-dir output/school_finals/tsinghua_final \
@@ -288,6 +322,15 @@ configs/department_overrides.csv
 - `--teacher-pages-per-department`：该院系最多分析多少个教师候选页
 - `--workers 1`：单院系补跑时通常用 1 就够
 - `--overrides`：读取人工补丁入口
+- `SCHOOL_PIPELINE_CRAWLER_ENGINE=crawl4ai_docker`：强制走 Docker Crawl4AI，不走本机浏览器
+
+如果你补的是老师，标准顺序是：
+
+```text
+1. 在 department_overrides.csv 追加 teacher_hub 或 teacher_group
+2. 用 --only-department 只重跑该院系教师发现
+3. 重建 departments Markdown
+```
 
 ### 5. 重建院系 Markdown
 
@@ -342,6 +385,45 @@ configs/department_overrides.csv
 - 从 `column/26_1.html` 中抽到 `78` 条教师
 - 已写入 `teachers.csv`
 - 已更新 `departments/清华大学/车辆与运载学院.md`
+
+### 清华大学 - 安全科学学院
+
+异常现象：
+
+- 只给学院首页 `https://www.ses.tsinghua.edu.cn/` 时，不一定能稳定补出教师
+- 目标是补老师时，学院首页不是高价值入口
+
+人工补救：
+
+```csv
+清华大学,安全科学学院,https://www.ssafs.tsinghua.edu.cn/szdw/zgj.htm,teacher_group,append,人工确认专职教师页
+```
+
+补跑命令：
+
+```bash
+SCHOOL_PIPELINE_CRAWLER_ENGINE=crawl4ai_docker \
+.venv/bin/python pipeline_internal/discover_department_teachers.py \
+  --school 清华大学 \
+  --output-dir output/school_finals/tsinghua_final \
+  --only-department 安全科学学院 \
+  --teacher-pages-per-department 6 \
+  --workers 1 \
+  --enable-ai \
+  --overrides configs/department_overrides.csv
+```
+
+补跑完成后，重建 Markdown：
+
+```bash
+.venv/bin/python pipeline_internal/build_department_markdown_tree.py \
+  --school 清华大学 \
+  output/school_finals/tsinghua_final \
+  --root departments \
+  --max-programs 500 \
+  --max-teachers 500 \
+  --max-linked 500
+```
 
 ## 输出
 
