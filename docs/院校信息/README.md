@@ -470,6 +470,7 @@ departments/北京工业大学/
 departments/北京理工大学/
 departments/北京交通大学/
 departments/北京化工大学/
+departments/北京工商大学/
 departments/北京科技大学/
 departments/北京航空航天大学/
 departments/北方工业大学/
