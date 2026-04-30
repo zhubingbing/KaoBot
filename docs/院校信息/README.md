@@ -459,6 +459,7 @@ scripts/production_school_pipeline.py  # 唯一用户入口
 pipeline_internal/                     # 内部实现，不直接运行
 output/school_finals/                  # 干净的最终结构化输出
 departments/                           # 面向阅读的中文院系目录
+departments/README.md                 # 学校级目录索引
 ```
 
 ## 当前已有结果
@@ -474,6 +475,20 @@ departments/北京航空航天大学/
 departments/北方工业大学/
 departments/清华大学/
 departments/中国人民大学/
+```
+
+## 院校网页抓取目录（学院官网首页）
+
+```text
+ustb_colleges_pages_20260430/                       # 北京科技大学学院站点抓取
+  北京科技大学_学院页面抓取文档_20260430.md
+  ustb_colleges_pages_status.tsv
+  html/
+
+ncut_colleges_pages_20260430/                       # 北方工业大学学院站点抓取
+  北方工业大学_学院页面抓取文档_20260430.md
+  ncut_colleges_pages_status.tsv
+  html/
 ```
 
 ## 生产流程
