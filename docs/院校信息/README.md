@@ -100,6 +100,14 @@ configs/school_pipeline_sources.csv
 configs/department_overrides.csv
 ```
 
+## 已抓取学院页面目录索引
+
+- 北京邮电大学：`bupt_colleges_pages_20260430/`
+- 北京服装学院：`bift_colleges_pages_20260430/`
+- 北京电子科技学院：`besti_colleges_pages_20260430/`
+- 北京农学院：`bua_colleges_pages_20260430/`
+- 北京林业大学：`bjfu_colleges_pages_20260430/`
+
 ### 1. 学校入口配置
 
 文件：
