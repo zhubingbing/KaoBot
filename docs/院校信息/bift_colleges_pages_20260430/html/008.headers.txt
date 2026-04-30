@@ -1,0 +1,27 @@
+HTTP/1.1 301 Moved Permanently
+Content-Type: text/html
+Location: https://aiid.bift.edu.cn/
+Connection: Keep-Alive
+Cache-Control: max-age=86400
+Content-Length: 180
+
+HTTP/1.1 200 OK
+Server: nginx
+Date: Thu, 30 Apr 2026 06:04:21 GMT
+Content-Type: text/html
+Last-Modified: Fri, 10 Apr 2026 02:42:48 GMT
+ETag: "69d863a8-9e06"
+X-XSS-Protection: 1; mode=block
+X-Content-Type-Options: nosniff
+Content-Security-Policy: script-src * 'unsafe-inline' 'unsafe-eval'
+Strict-Transport-Security: value
+X-Permitted-Cross-Domain-Policies: value
+X-Download-Options: value
+Referrer-Policy: value
+X-Frame-Options: SAMEORIGIN
+Accept-Ranges: bytes
+Set-Cookie: nlssiwhloio=hd_www.bift; Secure
+Content-Length: 40454
+Connection: Keep-alive
+Via: 1.1 ID-1716635745032125 srp-5
+
