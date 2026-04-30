@@ -1,0 +1,21 @@
+HTTP/1.1 200 OK
+Date: Thu, 30 Apr 2026 04:06:21 GMT
+Server: *********
+X-Frame-Options: SAMEORIGIN
+X-XSS-Protection: 1; mode=block
+X-Content-Type-Options: nosniff
+Referrer-Policy: no-referrer-when-downgrade
+X-Download-Options: noopen
+X-Permitted-Cross-Domain-Policies: master-only
+Content-Security-Policy: default-src 'self' data: blob: *.vsbclub.com *.ncut.edu.cn *.conac.cn  *.gov.cn *.jiathis.com *.baidu.com *.bshare.cn *.eol.cn *.qq.com *.kaipuyun.cn *.bdimg.com *.wx.qq.com 'unsafe-inline' 'unsafe-eval'; frame-ancestors 'self';
+Strict-Transport-Security: max-age=31536000; includeSubdomains; preload
+Last-Modified: Sun, 26 Apr 2026 03:08:48 GMT
+Accept-Ranges: bytes
+Content-Length: 36257
+Vary: User-Agent,Accept-Encoding
+Cache-Control: private, max-age=600
+Expires: Thu, 30 Apr 2026 04:16:21 GMT
+ETag: "8da1-650545117ef70-gzip"
+Content-Type: text/html
+Content-Language: zh-CN
+

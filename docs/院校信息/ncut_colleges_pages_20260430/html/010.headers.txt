@@ -1,0 +1,37 @@
+HTTP/1.1 302 Found
+Content-Type: text/html; charset=iso-8859-1
+Content-Length: 217
+Connection: keep-alive
+Date: Thu, 30 Apr 2026 04:06:24 GMT
+Server: *********
+X-Frame-Options: SAMEORIGIN
+X-XSS-Protection: 1; mode=block
+X-Content-Type-Options: nosniff
+Referrer-Policy: no-referrer-when-downgrade
+X-Download-Options: noopen
+X-Permitted-Cross-Domain-Policies: master-only
+Content-Security-Policy: default-src 'self' data: blob: *.vsbclub.com *.ncut.edu.cn *.conac.cn  *.gov.cn *.jiathis.com *.baidu.com *.bshare.cn *.eol.cn *.qq.com *.kaipuyun.cn *.bdimg.com *.wx.qq.com 'unsafe-inline' 'unsafe-eval'; frame-ancestors 'self';
+Strict-Transport-Security: max-age=31536000; includeSubdomains; preload
+Location: https://sci.ncut.edu.cn/index.htm
+
+HTTP/1.1 200 OK
+Date: Thu, 30 Apr 2026 04:06:25 GMT
+Server: *********
+X-Frame-Options: SAMEORIGIN
+X-XSS-Protection: 1; mode=block
+X-Content-Type-Options: nosniff
+Referrer-Policy: no-referrer-when-downgrade
+X-Download-Options: noopen
+X-Permitted-Cross-Domain-Policies: master-only
+Content-Security-Policy: default-src 'self' data: blob: *.vsbclub.com *.ncut.edu.cn *.conac.cn  *.gov.cn *.jiathis.com *.baidu.com *.bshare.cn *.eol.cn *.qq.com *.kaipuyun.cn *.bdimg.com *.wx.qq.com 'unsafe-inline' 'unsafe-eval'; frame-ancestors 'self';
+Strict-Transport-Security: max-age=31536000; includeSubdomains; preload
+Last-Modified: Sun, 26 Apr 2026 00:07:46 GMT
+Accept-Ranges: bytes
+Content-Length: 26800
+Cache-Control: max-age=600
+Expires: Thu, 30 Apr 2026 04:16:25 GMT
+Vary: Accept-Encoding
+ETag: "68b0-65051c9aa9260-gzip"
+Content-Type: text/html
+Content-Language: zh-CN
+
