@@ -1,0 +1,11 @@
+HTTP/1.1 200 OK
+Date: Thu, 30 Apr 2026 13:26:36 GMT
+Content-Type: text/html
+Content-Length: 38006
+Connection: keep-alive
+Last-Modified: Thu, 30 Apr 2026 11:40:50 GMT
+ETag: "69f33fc2-9476"
+X-XSS-Protection: 1; mode=block
+X-Frame-Options: SAMEORIGIN
+Accept-Ranges: bytes
+

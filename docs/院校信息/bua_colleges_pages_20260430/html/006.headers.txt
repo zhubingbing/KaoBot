@@ -1,0 +1,27 @@
+HTTP/1.1 200 OK
+Content-Type: text/html
+Content-Length: 27695
+Connection: keep-alive
+Date: Thu, 30 Apr 2026 13:26:12 GMT
+X-Frame-Options: SAMEORIGIN
+X-XSS-Protection: 1; mode=block
+X-Content-Type-Options: nosniff
+Referrer-Policy: no-referrer-when-downgrade
+X-Download-Options: noopen
+X-Permitted-Cross-Domain-Policies: master-only
+Content-Security-Policy: default-src 'self' data: blob: *.conac.cn  *.gov.cn *.jiathis.com *.mangren.com *.bua.edu.cn *.yunmd.net *.baidu.com *.bshare.cn *.eol.cn *.qq.com *.kaipuyun.cn *.bdimg.com *.wx.qq.com 'unsafe-inline' 'unsafe-eval'; frame-ancestors 'self';
+Strict-Transport-Security: max-age=31536000; includeSubdomains; preload
+Permissions-Policy: geolocation=(self), microphone=()
+Clear-Site-Data: cache
+Cross-Origin-Embedder-Policy: unsafe-none
+Cross-Origin-Resource-Policy: cross-origin
+Cross-Origin-Opener-Policy: unsafe-none
+Access-Control-Allow-Origin: *
+Last-Modified: Sun, 26 Apr 2026 13:20:57 GMT
+Accept-Ranges: bytes
+Vary: User-Agent,Accept-Encoding
+Cache-Control: private, max-age=600
+Expires: Thu, 30 Apr 2026 13:36:12 GMT
+ETag: "6c2f-6505cde5231be-gzip"
+Content-Language: zh-CN
+

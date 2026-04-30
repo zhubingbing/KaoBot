@@ -1,0 +1,9 @@
+HTTP/1.1 200 OK
+Server: nginx
+Date: Thu, 30 Apr 2026 13:45:28 GMT
+Content-Type: text/html; charset=utf-8
+Transfer-Encoding: chunked
+Connection: keep-alive
+Expires: Sat, 30 May 2026 13:45:28 GMT
+Cache-Control: max-age=2592000
+

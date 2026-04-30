@@ -1,0 +1,12 @@
+HTTP/1.1 200 OK
+Server: nginx
+Date: Thu, 30 Apr 2026 13:45:30 GMT
+Content-Type: text/html; charset=UTF-8
+Transfer-Encoding: chunked
+Connection: keep-alive
+Set-Cookie: token=s1_q3Xh3oKoSU80vXbUZC5Y-aMr2cNBoIfTYV7UkilUDambZhMOLvnqv4QZ
+Set-Cookie: eap_username=""; expires=Thu, 01-Jan-1970 00:00:01 GMT
+Set-Cookie: cms=""; expires=Thu, 01-Jan-1970 00:00:01 GMT
+Set-Cookie: manager=""; expires=Thu, 01-Jan-1970 00:00:01 GMT
+Set-Cookie: JSESSIONID=wKjIaxroafNc-v9jo72n-kGNpHxWavIMT9EA; path=/; HttpOnly
+

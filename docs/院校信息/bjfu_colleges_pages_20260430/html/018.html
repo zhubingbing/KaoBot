@@ -1,0 +1,1731 @@
+<!doctype html>
+<html class="no-js" lang="zh-CN"><meta content="text/html; charset=utf-8" http-equiv="Content-Type"> 
+<meta http-equiv="x-ua-compatible" content="ie=edge"> 
+<title>BFU International College Official Website</title> 
+<meta name="description" content=""> 
+<meta name="viewport" content="width=device-width, initial-scale=1"> 
+<link rel="shortcut icon" type="image/x-icon" href="https://a.bjfu.edu.cn/gjxyyw2021/assets/img/icon/favicon-bjfu.png"> 
+<link rel="stylesheet" href="css/bootstrap.min.css"> 
+<link rel="stylesheet" href="css/fontawesome-all.min.css"> 
+<link rel="stylesheet" href="css/styles.css"> 
+<link rel="stylesheet" href="css/index.css"> 
+<script src="js/jquery.min.js"></script> <!-- <script type='text/javascript' src='js/g_index.js'></script> --> <!-- <script src='js/writelog.js' async='async'></script> --> 
+<script>
+        function createHttpRequest() {
+            if (window.XMLHttpRequest) {
+                return new XMLHttpRequest()
+            } else {
+                if (window.ActiveXObject) {
+                    return new ActiveXObject("Microsoft.XMLHTTP")
+                }
+            }
+        }
+
+        function myPost(url, data, fn) {
+            var req = createHttpRequest();
+            req.open("POST", url, true);
+            req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            req.onreadystatechange = function () {
+                if (req.readyState == 4 && (req.status == 200 || req.status == 304)) {
+                    if (fn) {
+                        fn.call(this, req.responseText)
+                    }
+                }
+            };
+            req.send(toParam(data))
+        }
+
+        function myGet(url, fn) {
+            var req = createHttpRequest();
+            req.open("GET", url, true);
+            req.onreadystatechange = function () {
+                if (req.readyState == 4 && req.status == 200 || req.status == 304) {
+                    if (fn) {
+                        fn.call(this, JSON.parse(req.responseText))
+                    }
+                }
+            };
+            req.send()
+        }
+
+        function toParam(data) {
+            var str = "";
+            if (data) {
+                var dk;
+                for (var key in data) {
+                    try {
+                        dk = filter034(data[key]);
+                        str += key + "=" + dk + "&"
+                    } catch (e) {}
+                }
+                str = str.slice(0, -1)
+            }
+            return str
+        }
+
+        function filter034(param) {
+            try {
+                if (param) {
+                    if (param.toString().indexOf('"') > -1) {
+                        return param.toString().replaceAll('"', '')
+                    }
+                }
+            } catch (e) {
+                console.log(e)
+            }
+            return param
+        }
+        var Ajax = {
+            get: function (url, data, fn) {
+                url = url + "?" + toParam(data);
+                myGet(url, fn)
+            },
+            post: function (url, data, fn) {
+                myPost(url, data, fn)
+            }
+        };
+        var collect = function (data) {
+            try {
+                var organId = "181f779792064db6bb4329b8af7ff590";
+                var organName = "北京林业大学";
+                var siteId = encodeURI("348");
+                var siteName = encodeURI("国际学院英文2021");
+                var channelId = encodeURI("14998");
+                var channelName = encodeURI("首页");
+                var articleId = encodeURI("$curArticle.id");
+                var articleName = encodeURI("$curArticle.name");
+                var url = location.href;
+                if (!organId || !organName) {
+                    return
+                }
+                data.organId = organId;
+                data.organName = organName;
+                if (!siteId || !siteName) {
+                    return
+                }
+                data.siteId = siteId;
+                data.siteName = siteName;
+                if (channelId && channelName) {
+                    data.channelId = channelId;
+                    data.channelName = channelName
+                }
+                if (articleId && articleName) {
+                    data.articleId = articleId;
+                    data.articleName = articleName
+                }
+                if (url) {
+                    data.url = url
+                }
+                return data
+            } catch (e) {}
+        };
+        var req1 = function (url, data) {
+            Ajax.post(url, data, function (re) {})
+        };
+        var req2 = function (url, data) {
+            Ajax.get(url, data, function (re) {
+                try {
+                    document.getElementById("visit_count").innerHTML = re.body.visitCount
+                } catch (e) {}
+            })
+        };
+        var collect1 = function (data) {
+            var url = "https://cloud.gpowersoft.com/collector/visit/write";
+            req1(url, data)
+        };
+        var collect2 = function (data) {
+            var url = "https://cloud.gpowersoft.com/collector/visit/total/article/get";
+            var countData = {};
+            countData.organId = data.organId;
+            countData.siteId = data.siteId;
+            countData.articleId = data.articleId;
+            req2(url, countData)
+        };
+        var visitTime;
+        var ready123 = function () {
+            try {
+                var data = {};
+                data.duration = 10000;
+                data = collect(data);
+                collect1(data);
+                collect2(data);
+                visitTime = new Date().getTime()
+            } catch (e) {
+                console.log(e.message)
+            }
+        };
+        ready123();
+        var flag = false;
+        window.onbeforeunload = function () {
+            try {
+                flag = true;
+                var data = {};
+                var now = new Date().getTime();
+                if (visitTime && now > visitTime) {
+                    data.duration = now - visitTime;
+                    data = collect(data);
+                    collect1(data)
+                }
+            } catch (e) {
+                console.log(e.message)
+            }
+        };
+    </script> 
+<style>
+        .selectTdClass {
+            background-color: #edf5fa !important
+        }
+
+        .gpTable {
+            border-collapse: collapse;
+            border: 1px solid #000
+        }
+
+        .gpTable td,
+        .gpTable th {
+            border: 1px solid #000;
+            padding: 2px 3px;
+        }
+
+        .gpTable caption {
+            border: 1px dashed #DDD;
+            border-bottom: 0;
+            padding: 3px;
+            text-align: center;
+        }
+
+        .gpTable th {
+            border-top: 1px solid #BBB;
+            background-color: #F7F7F7;
+        }
+
+        .gpTable tr.firstRow th {
+            border-top-width: 2px;
+        }
+
+        .ue-table-interlace-color-single {
+            background-color: #fcfcfc;
+        }
+
+        .ue-table-interlace-color-double {
+            background-color: #f7faff;
+        }
+
+        td p {
+            margin: 0;
+            padding: 0;
+        }
+
+        th p {
+            margin: 0;
+            padding: 0;
+        }
+    </style><link rel='shortcut icon' href=''><script type='text/javascript' src='/publish/gPublic/all.js'></script><body >
+<!-- <div class="sticky-top bg-white hidden-spacer"> </div> -->
+    <div class="bg-success py-1">
+        <div class="container-fluid header_link">
+            <div class="row">
+                <div class="col"></div>
+                <div class="col"></div>
+
+  <div class="col text-left text-white head-link">
+                <a href="https://www.bjfu.edu.cn" class="text-white" target="_blank">Beijing Forestry University</a>
+                <a href="https://gjxy.bjfu.edu.cn/" class="text-white mx-5" target="_blank">中文</a>
+                <a href="/cms/web/search/index.jsp" class=""
+                   target="_blank">
+                    <img src="images/search.png">
+                </a>
+            </div><!--REuHoDoTJavyYCvm/EaLgnbkfADOzWfd4WJp38xcRiKEpjmJE3KZQjhm8lEPQOM8CwcklVZBSQJlOA0ag9AthvEcPhNZPqs4MaYL4aHYaLeNGr4pk02N5eenwBJyCTnn4EnRlk5TBqzlILFSLjG1bw==-->            </div>
+        </div>
+    </div>
+
+
+<nav id="nav" class="navbar navbar-expand-sm fixed-top gap-top navbar-light py-2">
+        <div class="container mx-4">
+            <!-- logo -->
+            <a class="navbar-brand" href="index.htm">
+                <img src="images/bjfu-logo.png" width="450" height="46" alt="">
+            </a>
+
+            <!-- Toggler/collapsibe Button -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#main_nav"
+                aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!--             Navbar links-->
+            <div class="collapse navbar-collapse mx-4" id="main_nav">
+                <ul class="navbar-nav fs-5 mx-5">
+                    <li class="nav-item active">
+                        <a class="nav-link ml-5" href="index.htm">Home </a>
+                    </li>
+                    <li class="nav-item dropdown" style="width: 140px">
+                        <a class="nav-link" id="navbardrop" data-bs-toggle="dropdown" href="AboutUs/index.htm">
+                            About Us</a>
+                        <ul class="dropdown-menu fade-up">
+                            <li><a class="dropdown-item" href="AboutUs/AboutBFUIC/index.htm">About BFUIC</a></li>
+                            <li><a class="dropdown-item" href="AboutUs/StudyinBFU/index.htm">Study in BFU</a></li>
+                            <li><a class="dropdown-item" href="AboutUs/Contact/index.htm">Contact</a></li>
+                           
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown" style="width: 140px">
+                        <a class="nav-link" id="navbardrop" data-bs-toggle="dropdown" href="Admission/index.htm">
+                            Admission</a>
+                        <ul class="dropdown-menu fade-up">
+                            <li><a class="dropdown-item" href="Admission/Overview/index.htm">Overview</a></li>
+                            <li><a class="dropdown-item" href="Admission/ApplicationProcedure/index.htm">Application Procedure</a></li>
+                            <li><a class="dropdown-item" href="Admission/TuitionandAccommodation/index.htm">Tuition and Accommodation</a></li>
+                            <li><a class="dropdown-item" href="Admission/Scholarships/index.htm">Scholarships</a></li>
+                            <li><a class="dropdown-item" href="Admission/VisaandPassort/index.htm">Visa and Passort</a></li>
+                           
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown" style="width: 140px">
+                        <a class="nav-link" id="navbardrop" data-bs-toggle="dropdown" href="Programs/index.htm">
+                            Programs</a>
+                        <ul class="dropdown-menu fade-up">
+                            <li><a class="dropdown-item" href="Programs/FacultiesandSchools/index.htm">Faculties and Schools</a></li>
+                            <li><a class="dropdown-item" href="Programs/DegreePrograms/index.htm">Degree Programs</a></li>
+                            <li><a class="dropdown-item" href="Programs/NonDegreePrograms/index.htm">Non-Degree Programs</a></li>
+                            <li><a class="dropdown-item" href="Programs/InternationalTraining/index.htm">International Training</a></li>
+                           
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown" style="width: 140px">
+                        <a class="nav-link" id="navbardrop" data-bs-toggle="dropdown" href="Students/index.htm">
+                            Students</a>
+                        <ul class="dropdown-menu fade-up">
+                            <li><a class="dropdown-item" href="Students/CampusLife/index.htm">Campus Life</a></li>
+                            <li><a class="dropdown-item" href="Students/NewsandAnnouncements/index.htm">News and Announcements</a></li>
+                            <li><a class="dropdown-item" href="Students/Events/index.htm">Events</a></li>
+                            <li><a class="dropdown-item" href="Students/EnrollmentCourseSelection/index.htm">Enrollment &amp; Course Selection</a></li>
+                            <li><a class="dropdown-item" href="Students/Services/index.htm">Services</a></li>
+                            <li><a class="dropdown-item" href="Students/InternationalStudentOrganizations/index.htm">International Student Organizations</a></li>
+                            <li><a class="dropdown-item" href="Students/Forms/index.htm">Forms</a></li>
+                            <li><a class="dropdown-item" href="Students/Guides/index.htm">Guides</a></li>
+                           
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown" style="width: 140px">
+                        <a class="nav-link" id="navbardrop" data-bs-toggle="dropdown" href="Alumni/index.htm">
+                            Alumni</a>
+                        <ul class="dropdown-menu fade-up">
+                            <li><a class="dropdown-item" href="Alumni/ConnectwithUs/index.htm">Connect with Us</a></li>
+                            <li><a class="dropdown-item" href="Alumni/AlumniStories/index.htm">Alumni Stories</a></li>
+                            <li><a class="dropdown-item" href="Alumni/Giving/index.htm">Giving</a></li>
+                           
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </nav><!--REuHoDoTJavyYCvm/EaLgnbkfADOzWfd4WJp38xcRiKEpjmJE3KZQjhm8lEPQOM8WGTHBNXHiX3eFkM7ESo2PvEcPhNZPqs4MaYL4aHYaLc/IdZ3rx1s83DyOLVfmGmn4EnRlk5TBqzlILFSLjG1bw==-->
+    
+    <!-- <script type='text/javascript' src='js/g_index.js'></script> -->
+    <!-- <script src='js/writelog.js' async='async'></script> -->
+    <script>
+        function createHttpRequest() {
+            if (window.XMLHttpRequest) {
+                return new XMLHttpRequest()
+            } else {
+                if (window.ActiveXObject) {
+                    return new ActiveXObject("Microsoft.XMLHTTP")
+                }
+            }
+        }
+
+        function myPost(url, data, fn) {
+            var req = createHttpRequest();
+            req.open("POST", url, true);
+            req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            req.onreadystatechange = function () {
+                if (req.readyState == 4 && (req.status == 200 || req.status == 304)) {
+                    if (fn) {
+                        fn.call(this, req.responseText)
+                    }
+                }
+            };
+            req.send(toParam(data))
+        }
+
+        function myGet(url, fn) {
+            var req = createHttpRequest();
+            req.open("GET", url, true);
+            req.onreadystatechange = function () {
+                if (req.readyState == 4 && req.status == 200 || req.status == 304) {
+                    if (fn) {
+                        fn.call(this, JSON.parse(req.responseText))
+                    }
+                }
+            };
+            req.send()
+        }
+
+        function toParam(data) {
+            var str = "";
+            if (data) {
+                var dk;
+                for (var key in data) {
+                    try {
+                        dk = filter034(data[key]);
+                        str += key + "=" + dk + "&"
+                    } catch (e) {}
+                }
+                str = str.slice(0, -1)
+            }
+            return str
+        }
+
+        function filter034(param) {
+            try {
+                if (param) {
+                    if (param.toString().indexOf('&#034;') > -1) {
+                        return param.toString().replaceAll('&#034;', '')
+                    }
+                }
+            } catch (e) {
+                console.log(e)
+            }
+            return param
+        }
+        var Ajax = {
+            get: function (url, data, fn) {
+                url = url + "?" + toParam(data);
+                myGet(url, fn)
+            },
+            post: function (url, data, fn) {
+                myPost(url, data, fn)
+            }
+        };
+        var collect = function (data) {
+            try {
+                var organId = "181f779792064db6bb4329b8af7ff590";
+                var organName = "北京林业大学";
+                var siteId = encodeURI("348");
+                var siteName = encodeURI("国际学院英文2021");
+                var channelId = encodeURI("14998");
+                var channelName = encodeURI("首页");
+                var articleId = encodeURI("$curArticle.id");
+                var articleName = encodeURI("$curArticle.name");
+                var url = location.href;
+                if (!organId || !organName) {
+                    return
+                }
+                data.organId = organId;
+                data.organName = organName;
+                if (!siteId || !siteName) {
+                    return
+                }
+                data.siteId = siteId;
+                data.siteName = siteName;
+                if (channelId && channelName) {
+                    data.channelId = channelId;
+                    data.channelName = channelName
+                }
+                if (articleId && articleName) {
+                    data.articleId = articleId;
+                    data.articleName = articleName
+                }
+                if (url) {
+                    data.url = url
+                }
+                return data
+            } catch (e) {}
+        };
+        var req1 = function (url, data) {
+            Ajax.post(url, data, function (re) {})
+        };
+        var req2 = function (url, data) {
+            Ajax.get(url, data, function (re) {
+                try {
+                    document.getElementById("visit_count").innerHTML = re.body.visitCount
+                } catch (e) {}
+            })
+        };
+        var collect1 = function (data) {
+            var url = "https://cloud.gpowersoft.com/collector/visit/write";
+            req1(url, data)
+        };
+        var collect2 = function (data) {
+            var url = "https://cloud.gpowersoft.com/collector/visit/total/article/get";
+            var countData = {};
+            countData.organId = data.organId;
+            countData.siteId = data.siteId;
+            countData.articleId = data.articleId;
+            req2(url, countData)
+        };
+        var visitTime;
+        var ready123 = function () {
+            try {
+                var data = {};
+                data.duration = 10000;
+                data = collect(data);
+                collect1(data);
+                collect2(data);
+                visitTime = new Date().getTime()
+            } catch (e) {
+                console.log(e.message)
+            }
+        };
+        ready123();
+        var flag = false;
+        window.onbeforeunload = function () {
+            try {
+                flag = true;
+                var data = {};
+                var now = new Date().getTime();
+                if (visitTime && now > visitTime) {
+                    data.duration = now - visitTime;
+                    data = collect(data);
+                    collect1(data)
+                }
+            } catch (e) {
+                console.log(e.message)
+            }
+        };
+    </script>
+
+    <style>
+        .selectTdClass {
+            background-color: #edf5fa !important
+        }
+
+        .gpTable {
+            border-collapse: collapse;
+            border: 1px solid #000
+        }
+
+        .gpTable td,
+        .gpTable th {
+            border: 1px solid #000;
+            padding: 2px 3px;
+        }
+
+        .gpTable caption {
+            border: 1px dashed #DDD;
+            border-bottom: 0;
+            padding: 3px;
+            text-align: center;
+        }
+
+        .gpTable th {
+            border-top: 1px solid #BBB;
+            background-color: #F7F7F7;
+        }
+
+        .gpTable tr.firstRow th {
+            border-top-width: 2px;
+        }
+
+        .ue-table-interlace-color-single {
+            background-color: #fcfcfc;
+        }
+
+        .ue-table-interlace-color-double {
+            background-color: #f7faff;
+        }
+
+        td p {
+            margin: 0;
+            padding: 0;
+        }
+
+        th p {
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+    <span class="mobile_bg02"></span>
+    <!-- 移动端主导航 -->
+
+ <section class="mobile">
+        <div class="logo">
+            <a href="index.htm">
+                <img src="images/bjfu-logo.png" alt="">
+            </a>
+        </div>
+        <div class="mobile-inner-header">
+            <div class="mobile-inner-header-icon mobile-inner-header-icon-out">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="mobile-inner-nav">
+            <div class="mobile_search">
+                <form name="dataForm" class="search" action="/cms/web/search/index.jsp" target="_blank" method="post"
+                    accept-charset="utf-8" onsubmit="document.charset='utf-8';">
+                    <input name="siteID" value="1" type="hidden">
+                    <input class="notxt1" name="Submit" type="submit" value="" />
+                    <input class="notxt" value="search" name="query" type="text" id="keywords"
+                        onFocus="if(value==defaultValue){value='';}" onBlur="if(!value){value=defaultValue;}"
+                        onclick="if(this.value==''){this.value='';this.form.keywords.style.color='#fff'}">
+                </form>
+            </div>
+            <ul>
+                <li><a href="index.htm">Home</a></li>
+                <li><a href="AboutUs/index.htm">
+                        About Us</a><strong>+</strong>
+                    <dl class="mobile_subNav">
+					    <dd><a href="AboutUs/AboutBFUIC/index.htm">About BFUIC</a></dd>
+					    <dd><a href="AboutUs/StudyinBFU/index.htm">Study in BFU</a></dd>
+					    <dd><a href="AboutUs/Contact/index.htm">Contact</a></dd>
+                       
+                    </dl>
+                </li>
+
+                <li><a href="Admission/index.htm">
+                        Admission</a><strong>+</strong>
+                    <dl class="mobile_subNav">
+					    <dd><a href="Admission/Overview/index.htm">Overview</a></dd>
+					    <dd><a href="Admission/ApplicationProcedure/index.htm">Application Procedure</a></dd>
+					    <dd><a href="Admission/TuitionandAccommodation/index.htm">Tuition and Accommodation</a></dd>
+					    <dd><a href="Admission/Scholarships/index.htm">Scholarships</a></dd>
+					    <dd><a href="Admission/VisaandPassort/index.htm">Visa and Passort</a></dd>
+                       
+                    </dl>
+                </li>
+
+                <li><a href="Programs/index.htm">
+                        Programs</a><strong>+</strong>
+                    <dl class="mobile_subNav">
+					    <dd><a href="Programs/FacultiesandSchools/index.htm">Faculties and Schools</a></dd>
+					    <dd><a href="Programs/DegreePrograms/index.htm">Degree Programs</a></dd>
+					    <dd><a href="Programs/NonDegreePrograms/index.htm">Non-Degree Programs</a></dd>
+					    <dd><a href="Programs/InternationalTraining/index.htm">International Training</a></dd>
+                       
+                    </dl>
+                </li>
+
+                <li><a href="Students/index.htm">
+                        Students</a><strong>+</strong>
+                    <dl class="mobile_subNav">
+					    <dd><a href="Students/CampusLife/index.htm">Campus Life</a></dd>
+					    <dd><a href="Students/NewsandAnnouncements/index.htm">News and Announcements</a></dd>
+					    <dd><a href="Students/Events/index.htm">Events</a></dd>
+					    <dd><a href="Students/EnrollmentCourseSelection/index.htm">Enrollment &amp; Course Selection</a></dd>
+					    <dd><a href="Students/Services/index.htm">Services</a></dd>
+					    <dd><a href="Students/InternationalStudentOrganizations/index.htm">International Student Organizations</a></dd>
+					    <dd><a href="Students/Forms/index.htm">Forms</a></dd>
+					    <dd><a href="Students/Guides/index.htm">Guides</a></dd>
+                       
+                    </dl>
+                </li>
+
+                <li><a href="Alumni/index.htm">
+                        Alumni</a><strong>+</strong>
+                    <dl class="mobile_subNav">
+					    <dd><a href="Alumni/ConnectwithUs/index.htm">Connect with Us</a></dd>
+					    <dd><a href="Alumni/AlumniStories/index.htm">Alumni Stories</a></dd>
+					    <dd><a href="Alumni/Giving/index.htm">Giving</a></dd>
+                       
+                    </dl>
+                </li>
+
+
+            </ul>
+            <dl class="mobileLink">
+                <dd>
+                    <a href="ljlm/dblj/ks/index.htm">Beijing Forestry University</a>
+                    <a href="ljlm/dblj/zxs/index.htm">中文</a>
+                </dd>
+            </dl>
+        </div>
+    </section><!--REuHoDoTJavyYCvm/EaLgnbkfADOzWfd4WJp38xcRiLysPPMpF7X+dtkzs8NWwDRKx4Glujf0qDr7aB5P6USPPEcPhNZPqs4MaYL4aHYaLfcHCU2xL7Qpfw4NV+62FqG4EnRlk5TBqzlILFSLjG1bw==-->    <script type='text/javascript' src='js/all.js'></script>
+    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+        <!-- Indicators/dots -->
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0"
+                class="active"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="4"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="5"></button>
+        </div>
+
+        <!-- The slideshow/carousel -->
+        <div class="carousel-inner">
+            <div class="carousel-item active" data-interval="6">
+               <a nohref="banner/7e2b9ac4c0d2458cb634c93dea7fd8f7.htm"><img src="images/2025-09/4b2752da3639417bb484f71e615a8495.jpg" class="d-block carousel-img"></a>
+            </div>
+           
+        <div class="carousel-item">
+            <a href="banner/e45d2155baa944cdbdbb318b6ddd5336.htm"><spna class="cpding"><img src="images/2024-09/57ae77ad53a94acbb11f8b1fabcc1b8e.jpg" class="d-block carousel-img"></span></a>
+        </div>
+        <div class="carousel-item">
+            <a href="banner/844d325a4703494ba19b06c7941fbf47.htm"><spna class="cpding"><img src="images/2023-11/f8fb0a0849fe4697829e99f8f02fc138.jpg" class="d-block carousel-img"></span></a>
+        </div>
+        <div class="carousel-item">
+            <a href="banner/3354ab63be034b61afdc904791585a7d.htm"><spna class="cpding"><img src="images/2023-11/4aad61b13a364d9396728525cd28919b.jpg" class="d-block carousel-img"></span></a>
+        </div>
+        <div class="carousel-item">
+            <a href="banner/82a0bf228aca44c083d1e51b21cff264.htm"><spna class="cpding"><img src="images/2023-11/9773c0333c624995b1af60ef5bf8a5aa.jpg" class="d-block carousel-img"></span></a>
+        </div>
+        <div class="carousel-item">
+            <a href="banner/298d8355d00b4451a55be70448892ee0.htm"><spna class="cpding"><img src="images/2023-11/5343145cf2f84ccbae47f4539b0f7aa6.jpg" class="d-block carousel-img"></span></a>
+        </div>
+        </div>
+
+        <!-- Left and right controls/icons -->
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+            data-bs-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+            data-bs-slide="next">
+            <span class="carousel-control-next-icon"></span>
+        </button>
+    </div>
+
+    <main>
+        <div class="container link pt-4">
+            <div class="row">
+                <!-- <div class="col-sm col-md-1">
+                </div> -->
+                <div class="col-sm col-md" onclick="javascript:window.location='https://bjfu.at0086.cn/student'">
+                    <img class="mx-auto d-block" src="images/head_1.png" onmouseover="this.src='images/head_1_2.png'"
+                        onmouseout="this.src='images/head_1.png'" style="width: 120px;cursor: pointer;">
+                    <p class="text-center" style="margin-top: 1rem;cursor:pointer;">APPLY NOW</p>
+                </div>
+                <div class="col-sm col-md"
+                    onclick="javascript:window.location='Admission/Scholarships/index.htm">
+                    <img class="mx-auto d-block" src="images/head_2.png" onmouseover="this.src='images/head_2_2.png'"
+                        onmouseout="this.src='images/head_2.png'" style="width: 120px;cursor: pointer;">
+                    <p class="text-center" style="margin-top: 1rem;cursor:pointer;">SCHOLARSHIPS</p>
+                </div>
+                <div class="col-sm col-md"
+                    onclick="javascript:window.location='#'">
+                    <img class="mx-auto d-block" src="images/head_3.png" onmouseover="this.src='images/head_3_2.png'"
+                        onmouseout="this.src='images/head_3.png'" style="width: 120px;cursor: pointer;">
+                    <p class="text-center" style="margin-top: 1rem;cursor:pointer;">VISA & PASSPORT</p>
+                </div>
+                <div class="col-sm col-md"
+                    onclick="javascript:window.location='AboutUs/Contact/index.htm'">
+                    <img class="mx-auto d-block" src="images/head_4.png" onmouseover="this.src='images/head_4_2.png'"
+                        onmouseout="this.src='images/head_4.png'" style="width: 120px;cursor: pointer;">
+                    <p class="text-center" style="margin-top: 1rem;cursor:pointer;">INQUIRY</p>
+                </div>
+                <!-- <div class="col-sm col-md-1">
+                </div> -->
+            </div>
+        </div>
+
+        <div class="container-fluid pt-4 my-5">
+            <p class="h1 text-center" style="font-family: Georgia-Bold;font-weight:bold;">SPOTLIGHT</p>
+        </div>
+
+        <div class="container-fluid m-0 px-0">
+            <div class="row SPOTLIGHT g-0" style="height:650">
+                <div class="col-7 mx-0 p-0">
+                    <img src="images/spotlight1.png" class="img-fluid" style="width: 100%; height:100%">
+                </div>
+                <div class="col-5 mx-0 p-0">
+                    <div class="w-100 h-100 p-3" class="img-fluid" style="background-color: #008E68; ">
+                        <div class="h-15 d-inline-block" style="width: 80%;"></div>
+                        <p class="h5 text-white SPOTLIGHT_art">
+
+                        </p>
+                        <p class="h5 text-white SPOTLIGHT_art">
+                              The 2023 World Youth Development Forum on Coping with Climate and Food Crisis was held in Beijing Shougang Park. Seventeen teachers and students of Beijing Forestry University participated in elevator speeches and exchanges at the Theme Forum on Coping with Climate and Food Crisis.
+                        </p>
+                        <div class="my-5 SPOTLIGHT_art">
+                            <button type="button" class="btn btn-outline-light"
+                                onclick="javascript:window.location='Students/NewsandAnnouncements/index.htm'">Read
+                                Details..></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="container-fluid twolink pt-4">
+            <div class="row" style="padding-top:90px;">
+                <!-- <div class="col-sm col-md-1">
+                </div>
+                <div class="col-sm col-md-1">
+                </div> -->
+                <div class="col-sm col-md"
+                    onclick="javascript:window.location='Programs/DegreePrograms/index.htm'"
+                    style="cursor:pointer;">
+                    <div class="hover">
+                        <img class="image img-fluid" src="images/pic_mid_1.jpg">
+                        <div class="overlay">
+                        </div>
+                        <div class="text fs-4 container-fluid ">DEGREE PROGRAMS</div>
+                    </div>
+                </div>
+                <div class="col-sm col-md"
+                    onclick="javascript:window.location='Programs/NonDegreePrograms/index.htm'"
+                    style="cursor:pointer;">
+                    <div class="hover">
+                        <img class="image img-fluid" src="images/pic_mid_2.jpg">
+                        <div class="overlay">
+                        </div>
+                        <div class="text fs-4 container-fluid">NON-DEGREE PROGRAMS</div>
+                    </div>
+                </div>
+                <div class="col-sm col-md"
+                    onclick="javascript:window.location='Programs/InternationalTraining/index.htm'"
+                    style="cursor:pointer;">
+                    <div class="hover">
+                        <img class="image img-fluid" src="images/pic_mid_3.jpg">
+                        <div class="overlay">
+                        </div>
+                        <div class="text fs-4 container-fluid">INTERNATIONAL TRAINING PROGRAM</div>
+                    </div>
+                </div>
+                <!-- <div class="col-sm col-md-1">
+                </div>
+                <div class="col-sm col-md-1">
+                </div> -->
+            </div>
+        </div>
+
+        <div class="container-fluid event_notice pt-4">
+            <div class="bg-mid">
+                <div class="row">
+                    <!-- <div class="col-sm col-md-1">
+                    </div>
+                    <div class="col-sm col-md-1">
+                    </div> -->
+                    <div class="col-sm col-md-7">
+                        <div class="container-fluid">
+                            <p class="h2 my-3" style="font-family: Georgia-Bold;font-weight: 600;display: flex">EVENTS
+                                <!--<a
+                                href="https://ic.bjfu.edu.cn/students/events/" class="btn btn-outline-success"
+                                style="margin-left: 2.3rem">Read More..></a>-->
+                            </p>
+                        </div>
+                        <div class="row">
+                           
+                            <div class="col-md">
+                                <div class="card">
+                                    <img class="card-img-top"
+                                        onclick="javascript:window.location='Students/Events/a8c212f0f2e84ebc9124721d56a18a76.htm'"
+                                        src="images/2024-09/a6a89a35ff80496c89746aca75d959e6.jpg">
+                                    <div class="card-body">
+                                        <h5 class="card-title" style="min-height:100px"
+                                            onclick="javascript:window.location='Students/Events/a8c212f0f2e84ebc9124721d56a18a76.htm'">
+                                            First International Cultural Festival of BFU-Cross...</h5>
+                                        <p class="card-text"><small class="text-muted">2024-09-05</small>
+                                        </p>
+                                        <a href="Students/Events/a8c212f0f2e84ebc9124721d56a18a76.htm" class="btn btn-outline-success">Read
+                                            Details..></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md">
+                                <div class="card">
+                                    <img class="card-img-top"
+                                        onclick="javascript:window.location='Students/Events/22c3aeaf2cdd4836adad2ee4773db66a.htm'"
+                                        src="images/2026-01/432bfc6af2b04f3299cc0c7eca3c8745.jpg">
+                                    <div class="card-body">
+                                        <h5 class="card-title" style="min-height:100px"
+                                            onclick="javascript:window.location='Students/Events/22c3aeaf2cdd4836adad2ee4773db66a.htm'">
+                                            International College Holds 2026 New Year Gala for...</h5>
+                                        <p class="card-text"><small class="text-muted">2026-01-14</small>
+                                        </p>
+                                        <a href="Students/Events/22c3aeaf2cdd4836adad2ee4773db66a.htm" class="btn btn-outline-success">Read
+                                            Details..></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md">
+                                <div class="card">
+                                    <img class="card-img-top"
+                                        onclick="javascript:window.location='Students/Events/8bede56c62174acdba236615e3fd19d3.htm'"
+                                        src="images/2024-09/8fedc9c0492045d98e2892d0c4dfd4b2.png">
+                                    <div class="card-body">
+                                        <h5 class="card-title" style="min-height:100px"
+                                            onclick="javascript:window.location='Students/Events/8bede56c62174acdba236615e3fd19d3.htm'">
+                                            International students extend their heartfelt grat...</h5>
+                                        <p class="card-text"><small class="text-muted">2024-09-11</small>
+                                        </p>
+                                        <a href="Students/Events/8bede56c62174acdba236615e3fd19d3.htm" class="btn btn-outline-success">Read
+                                            Details..></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm col-md-5">
+                        <div class="container-fluid" style="margin-bottom: 25px;">
+                            <p class="h2 my-3" style="font-family: Georgia-Bold;font-weight: 600;display: flex">NOTICE
+                                <a href="Students/NewsandAnnouncements/index.htm"
+                                    class="btn btn-outline-success" style="margin-left: 2.3rem">Read More..></a></p>
+                        </div>
+                        <div class="row" style="margin-bottom: 1rem;">
+                            <div class="col-sm col-md-4">
+                                <div class="row text-center notice_date mx-md-4 my-md-1 py-1"
+                                    style="margin:0.5rem 2rem !important;">
+                                    <p style="margin:0;font-size: 13px;">
+                                       04/29</p>
+                                </div>
+                                <div class="row text-center notice_year">
+                                    <p style="font-size: 26px">2026</p>
+                                </div>
+                            </div>
+                            <div class="col-sm col-md-8">
+                                <style>
+                                    .notice_title:hover {
+                                        color: #e4742a !important;
+                                    }
+
+                                    .card-title:hover {
+                                        color: #e4742a !important;
+                                    }
+                                </style>
+                                <div class="row notice_title" style="color: #008E68;cursor: pointer;"
+                                    onclick="javascript:window.location='Students/NewsandAnnouncements/0b0944edf6c449c2bafeb220d04be77c.htm'">
+                                     Processing of Internship Visa for International St...
+                                </div>
+                                <div class="row notice_brief"
+                                    onclick="javascript:window.location='Students/NewsandAnnouncements/0b0944edf6c449c2bafeb220d04be77c.htm'"
+                                    style="cursor:pointer;">
+
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row" style="margin-bottom: 1rem;">
+                            <div class="col-sm col-md-4">
+                                <div class="row text-center notice_date mx-md-4 my-md-1 py-1"
+                                    style="margin:0.5rem 2rem !important;">
+                                    <p style="margin:0;font-size: 13px;">
+                                       04/20</p>
+                                </div>
+                                <div class="row text-center notice_year">
+                                    <p style="font-size: 26px">2026</p>
+                                </div>
+                            </div>
+                            <div class="col-sm col-md-8">
+                                <style>
+                                    .notice_title:hover {
+                                        color: #e4742a !important;
+                                    }
+
+                                    .card-title:hover {
+                                        color: #e4742a !important;
+                                    }
+                                </style>
+                                <div class="row notice_title" style="color: #008E68;cursor: pointer;"
+                                    onclick="javascript:window.location='Students/NewsandAnnouncements/fbce3bf7b92244dc875ee8e021161983.htm'">
+                                     Notice on the Process for Extending Residence Perm...
+                                </div>
+                                <div class="row notice_brief"
+                                    onclick="javascript:window.location='Students/NewsandAnnouncements/fbce3bf7b92244dc875ee8e021161983.htm'"
+                                    style="cursor:pointer;">
+
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row" style="margin-bottom: 1rem;">
+                            <div class="col-sm col-md-4">
+                                <div class="row text-center notice_date mx-md-4 my-md-1 py-1"
+                                    style="margin:0.5rem 2rem !important;">
+                                    <p style="margin:0;font-size: 13px;">
+                                       04/15</p>
+                                </div>
+                                <div class="row text-center notice_year">
+                                    <p style="font-size: 26px">2026</p>
+                                </div>
+                            </div>
+                            <div class="col-sm col-md-8">
+                                <style>
+                                    .notice_title:hover {
+                                        color: #e4742a !important;
+                                    }
+
+                                    .card-title:hover {
+                                        color: #e4742a !important;
+                                    }
+                                </style>
+                                <div class="row notice_title" style="color: #008E68;cursor: pointer;"
+                                    onclick="javascript:window.location='Students/NewsandAnnouncements/abc610fb26c44d0bad8f4ee268426f3f.htm'">
+                                     Notice on Conducting the 2026 Annual Review of Int...
+                                </div>
+                                <div class="row notice_brief"
+                                    onclick="javascript:window.location='Students/NewsandAnnouncements/abc610fb26c44d0bad8f4ee268426f3f.htm'"
+                                    style="cursor:pointer;">
+
+                                </div>
+                            </div>
+                        </div>
+                        
+
+                    </div>
+                    <!-- <div class="col-sm col-md-1">
+                    </div>
+                    <div class="col-sm col-md-1">
+                    </div> -->
+                </div>
+            </div>
+        </div>
+
+        <div class="carousel-inner whybfu">
+            <div class="carousel-item active" data-interval="3">
+                <!-- <img src="images/bg-mid.jpg" class="d-block carousel-img"> -->
+                <div class="carousel-caption carousel-caption-mid">
+                    <h2 class="text-black"><img style="width: 256px;" src="images/whybfu.png"></h2>
+                    <p class="text-dark my-4" style="text-align: center;">
+                        Established in 1952, Beijing Forestry University is a top-tier public university. It had its
+                        first
+                        enrollment of international students in 1952 and it was one of the first colleges in China to
+                        accept
+                        international students. Drawing on its solid foundation in biology and ecology, the University
+                        prides itself particularly on its distinctive disciplines such as forestry, landscape
+                        architecture,
+                        ecology and nature conservation, grass science, and agro-economic management.
+                    </p>
+                    <div class="row" style="margin-top: 5rem;">
+                        <div class="col-md">
+                            <div class="card carousel-card">
+                                <div class="card-body">
+                                    <p class="card-text text-success h1">5000+</p>
+                                    <p class="card-text text-black">International students from 70 countries enrolled in
+                                        BFU</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md">
+                            <div class="card carousel-card">
+                                <div class="card-body">
+                                    <p class="card-text text-success h1">58+</p>
+                                    <p class="card-text text-black">courses in English provided for
+                                        international students</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md">
+                            <div class="card carousel-card">
+                                <div class="card-body">
+                                    <p class="card-text text-success h1">190+</p>
+                                    <p class="card-text text-black">universities, research institutes and NGOs from
+                                        about 30 countries/ regions had partnerships with BFU</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md">
+                            <div class="card carousel-card">
+                                <div class="card-body">
+                                    <p class="card-text text-success h1">120+</p>
+                                    <p class="card-text text-black">fieldwork bases have been set up throughout the
+                                        country</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="container greenlink pt-4" style="margin-top: 3rem;">
+            <div class="row gx-1">
+                <!-- <div class="col-sm col-md-1">
+                </div> -->
+                <div class="col-md">
+                    <img class="mx-auto d-block" src="images/foot_1.png" style="width: 120px;">
+                    <p class="text-center" style="margin-top: 1rem;">Ranked 1<sup>st</sup> in the national discipline
+                        assessment in
+                        Forestry</p>
+                </div>
+                <div class="col-md">
+                    <img class="mx-auto d-block" src="images/foot_2.png" style="width: 120px;">
+                    <p class="text-center" style="margin-top: 1rem;">Ranked 1<sup>st</sup> in the national discipline
+                        assessment in
+                        Landscape Architecture
+                    </p>
+                </div>
+                <div class="col-md">
+                    <img class="mx-auto d-block" src="images/foot_3.png" style="width: 120px;">
+                    <p class="text-center" style="margin-top: 1rem;">Ranked 50-100 in QS World University Rankings by
+                        Subject of Agriculture &
+                        Forestry</p>
+                </div>
+                <div class="col-md">
+                    <img class="mx-auto d-block" src="images/foot_4.png" style="width: 120px;">
+                    <p class="text-center" style="margin-top: 1rem;">Ranked top 1% in ESI in Plant&Animal Science,
+                        Agricultural Science,
+                        Environment & Ecology, Biology & Biochemistry, Chemistry, Material Science, and Engineering</p>
+                </div>
+                <!-- <div class="col-sm col-md-1">
+                </div> -->
+            </div>
+        </div>
+
+
+        <div class="carousel-inner video">
+            <div class="carousel-item active" data-interval="3">
+                <!-- <img src="images/bg_bt.jpg" class="d-block carousel-img" style="background-color: #000;"> -->
+                <div class="carousel-caption carousel-caption-footer">
+                    <h2 class="carousel-top-text font-weight-bold fs-1">Championship in Earth Stewardship, </h2>
+                    <h2 class="carousel-top-text font-weight-bold fs-1">Leadership in Forestry Education</h2>
+                </div>
+                <div class="video_right">
+                    <div class="carousel-caption carousel-caption-player">
+                        <button type="button" class="btn btn-default" data-bs-toggle="modal" data-bs-target="#myModal">
+                            <img src="images/play.png" width="135.5" />
+                        </button>
+                    </div>
+                    <div class="carousel-caption carousel-caption-button">
+                        <button type="button" class="btn btn-link btn-link-white fs-4" data-bs-toggle="modal"
+                            data-bs-target="#myModal">
+                            Experience BFU
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal" id="myModal">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-content">
+                    <!-- 模态框头部 -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">video</h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+
+                    <!-- 模态框内容 -->
+                    <div class="modal-body">
+                        <iframe width="680" height="415" class="mx-4" src="images/vedio2023.mp4"
+                            title="YouTube video player" frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- footer -->
+    <!-- footer -->
+    <div class="footer-green" style="font-family: Georgia;padding-left: 2rem;">
+
+<footer>
+            <div class="container-fluid">
+                <div class="row" style="height:66px;">
+                    <!-- <a class="footer-logo" href="#">
+                    <img src="images/bjfu-logo.png" width="450" height="46" alt="">
+                </a>-->
+                </div>
+                <script>
+                    $("#bread").parent().css("font-size", "19px");
+                </script>
+                <style>
+                    .footer-green h3 {
+                        margin-top: 0;
+                        margin-bottom: 12px;
+                        font-weight: bold;
+                        font-size: 21px !important;
+                    }
+
+                    .footer-green ul {
+                        padding: 0;
+                        list-style: none;
+                        line-height: 2.0;
+                        font-size: 18px !important;
+                        margin-bottom: 0;
+                    }
+                </style>
+                <div class="row mt-4">
+                    <div class="col-sm col-md item">
+                        <h3>ADMISSION</h3>
+                        <ul>
+                            <li class="mt-4"><a
+                                    href="Programs/DegreePrograms/UndergraduatePrograms1/index.htm">Undergraduate</a>
+                            </li>
+                            <li class="my-3"><a href="Programs/DegreePrograms/index.htm">Graduate</a>
+                            </li>
+                            <li class="my-3"><a href="Admission/Scholarships/index.htm">Financial Aid</a>
+                            </li>
+                            <li class="my-3"><a href="AboutUs/Contact/index.htm">Contact Us</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-sm col-md item">
+                        <h3>QUICK LINKS</h3>
+                        <ul>
+                            <li class="mt-4"><a href="Admission/VisaandPassort/index.htm">Visa
+                                    Services</a>
+                            </li>
+                            <li class="my-3"><a href="#">Registration & Enrollment</a></li>
+                            <li class="my-3"><a href="Students/Events/index.htm">Events</a></li>
+                            <li class="my-3"><a href="Students/NewsandAnnouncements/index.htm">News</a>
+                            </li>
+                            <li class="my-3"><a href="http://jwc.bjfu.edu.cn/images/xiaoli.jpg">Academic Calendar</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-sm col-md item">
+                        <h3>Phone</h3>
+                        <ul class="footer-yellow">
+                            <li class="my-3"><a href="#">0086-10-62338271/62338819</a></li>
+                        </ul>
+                        <h3>Email</h3>
+                        <ul class="footer-yellow">
+                            <li><a href="#">Admission admission@bjfu.edu.cn</a></li>
+                            <li class="mb-3"><a href="#">Visa & Passport lxs@bjfu.edu.cn</a></li>
+                        </ul>
+                        <h3>Address</h3>
+                        <ul class="footer-yellow">
+                            <li><a href="#">No.35 Tsinghua East Road, Haidian District, Beijing, China</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-sm col-md item">
+                        <ul class="m-2">
+                            <!--
+                        <svg xmlns="http://www.w3.org/2000/svg" style="margin-right:20px;" width="16" height="16"
+                             fill="currentColor" class="bi bi-chat-dots-fill" viewBox="0 0 16 16">
+                            <path d="M16 8c0 3.866-3.582 7-8 7a9.06 9.06 0 0 1-2.347-.306c-.584.296-1.925.864-4.181 1.234-.2.032-.352-.176-.273-.362.354-.836.674-1.95.77-2.966C.744 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7zM5 8a1 1 0 1 0-2 0 1 1 0 0 0 2 0zm4 0a1 1 0 1 0-2 0 1 1 0 0 0 2 0zm3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" style="margin-right:20px;" width="16" height="16"
+                             fill="currentColor" class="bi bi-facebook" viewBox="0 0 16 16">
+                            <path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z"/>
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" style="margin-right:20px;" width="16" height="16"
+                             fill="currentColor" class="bi bi-instagram" viewBox="0 0 16 16">
+                            <path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.917 3.917 0 0 0-1.417.923A3.927 3.927 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.916 3.916 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.926 3.926 0 0 0-.923-1.417A3.911 3.911 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0h.003zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599.28.28.453.546.598.92.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.47 2.47 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.478 2.478 0 0 1-.92-.598 2.48 2.48 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233 0-2.136.008-2.388.046-3.231.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92.28-.28.546-.453.92-.598.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045v.002zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92zm-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217zm0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334z"/>
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" style="margin-right:20px;" width="16" height="16"
+                             fill="currentColor" class="bi bi-twitter" viewBox="0 0 16 16">
+                            <path d="M5.026 15c6.038 0 9.341-5.003 9.341-9.334 0-.14 0-.282-.006-.422A6.685 6.685 0 0 0 16 3.542a6.658 6.658 0 0 1-1.889.518 3.301 3.301 0 0 0 1.447-1.817 6.533 6.533 0 0 1-2.087.793A3.286 3.286 0 0 0 7.875 6.03a9.325 9.325 0 0 1-6.767-3.429 3.289 3.289 0 0 0 1.018 4.382A3.323 3.323 0 0 1 .64 6.575v.045a3.288 3.288 0 0 0 2.632 3.218 3.203 3.203 0 0 1-.865.115 3.23 3.23 0 0 1-.614-.057 3.283 3.283 0 0 0 3.067 2.277A6.588 6.588 0 0 1 .78 13.58a6.32 6.32 0 0 1-.78-.045A9.344 9.344 0 0 0 5.026 15z"/>
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" style="margin-right:20px;" width="16" height="16"
+                             fill="currentColor" class="bi bi-youtube" viewBox="0 0 16 16">
+                            <path d="M8.051 1.999h.089c.822.003 4.987.033 6.11.335a2.01 2.01 0 0 1 1.415 1.42c.101.38.172.883.22 1.402l.01.104.022.26.008.104c.065.914.073 1.77.074 1.957v.075c-.001.194-.01 1.108-.082 2.06l-.008.105-.009.104c-.05.572-.124 1.14-.235 1.558a2.007 2.007 0 0 1-1.415 1.42c-1.16.312-5.569.334-6.18.335h-.142c-.309 0-1.587-.006-2.927-.052l-.17-.006-.087-.004-.171-.007-.171-.007c-1.11-.049-2.167-.128-2.654-.26a2.007 2.007 0 0 1-1.415-1.419c-.111-.417-.185-.986-.235-1.558L.09 9.82l-.008-.104A31.4 31.4 0 0 1 0 7.68v-.123c.002-.215.01-.958.064-1.778l.007-.103.003-.052.008-.104.022-.26.01-.104c.048-.519.119-1.023.22-1.402a2.007 2.007 0 0 1 1.415-1.42c.487-.13 1.544-.21 2.654-.26l.17-.007.172-.006.086-.003.171-.007A99.788 99.788 0 0 1 7.858 2h.193zM6.4 5.209v4.818l4.157-2.408L6.4 5.209z"/>
+                        </svg>
+-->
+                            <li style="display:inline;margin-right:10px;cursor:pointer;">
+                                <a href="#"><img src="images/contact_wechat2.png" /></a>
+                            </li>
+                            
+                           
+                        </ul>
+ <div class="erweima">
+                            <img src="images/wechat_share_ch.png" alt="">
+                        </div>
+                    </div>
+
+                    <div class="col-sm col-md item">
+
+                    </div>
+
+                </div>
+            </div>
+            <div class="container-fluid footer_logo_link">
+                <div class="row">
+                    <div class="footer_logo">
+                        <div class="col-3">
+                            <img src="images/bjfu-main-logo.png" alt="">
+                        </div>
+                        <div class="col-8 mb-2">
+                            <img src="images/bjfu-2-logo.png" alt="">
+                        </div>
+                    </div>
+
+                    <div class="col item footer_link">
+                        <ul class="nav justify-content-start">
+                            <li><a class="nav-link" href="https://www.bjfu.edu.cn">BFU</a></li>
+                            <li><a class="nav-link" href="#">|</a></li>
+                            <li><a class="nav-link" href="#">Home</a></li>
+                            <li><a class="nav-link" href="#">|</a></li>
+                            <li><a class="nav-link" href="http://cms.bjfu.edu.cn">Admin Login</a></li>
+                            <li><a class="nav-link" href="#">|</a></li>
+                            <li><a class="nav-link" href="https://gjxy.bjfu.edu.cn">中文版</a></li>
+                        </ul>
+                        <p class="mx-3"
+                            style="/*font-size: 16%*/;font-family: Georgia;color: #7AA499;opacity: 0.66;font-weight: 400; margin-top: -0.5%;">
+                            Copyright &copy; 2022 Beijing Forestry University International College | Address: No.35
+                            Qinghua
+                            East Road, , Haidian District, Beijing | Zip code: 100083. <br />This website is supported
+                        </p>
+                        <p class="mx-3"
+                            style="/*font-size: 16%*/;font-family: Georgia;color: #7AA499;opacity: 0.66;font-weight: 400; margin-top: -1%;">
+                            by Bejing Letowits Information Technology co. LTD
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+ <script>
+        $(function () {
+            $('.m-2 li').hover(function () {
+                $('.erweima').stop().slideDown(200)
+            }, function () {
+                $('.erweima').stop().slideUp(200)
+            })
+        })
+    </script>
+            <!-- <div class="container">
+            <p class="copyright">CopyrightO 2021 Intermational College, Beijing forestry University I Address: No35 Tsinghua East Road, Haidian Distric. Beijing | Zip code: 100088 </p>
+            <p class="copyright">This website is supported by Bejing Letowits Information Technology co. LTD</p>
+        </div> -->
+        </footer><!--REuHoDoTJavyYCvm/EaLgnbkfADOzWfd4WJp38xcRiKEpjmJE3KZQjhm8lEPQOM8WGTHBNXHiX3eFkM7ESo2PvEcPhNZPqs4MaYL4aHYaLcbEr31lZ5qTGCQHDPVH4RL4EnRlk5TBqzlILFSLjG1bw==-->    </div>
+    <script type='text/javascript' src='js/g_index.js'></script>
+    <script src='js/writelog.js' async='async'></script>
+    <script>
+        function createHttpRequest() {
+            if (window.XMLHttpRequest) {
+                return new XMLHttpRequest()
+            } else {
+                if (window.ActiveXObject) {
+                    return new ActiveXObject("Microsoft.XMLHTTP")
+                }
+            }
+        }
+
+        function myPost(url, data, fn) {
+            var req = createHttpRequest();
+            req.open("POST", url, true);
+            req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            req.onreadystatechange = function () {
+                if (req.readyState == 4 && (req.status == 200 || req.status == 304)) {
+                    if (fn) {
+                        fn.call(this, req.responseText)
+                    }
+                }
+            };
+            req.send(toParam(data))
+        }
+
+        function myGet(url, fn) {
+            var req = createHttpRequest();
+            req.open("GET", url, true);
+            req.onreadystatechange = function () {
+                if (req.readyState == 4 && req.status == 200 || req.status == 304) {
+                    if (fn) {
+                        fn.call(this, JSON.parse(req.responseText))
+                    }
+                }
+            };
+            req.send()
+        }
+
+        function toParam(data) {
+            var str = "";
+            if (data) {
+                var dk;
+                for (var key in data) {
+                    try {
+                        dk = filter034(data[key]);
+                        str += key + "=" + dk + "&"
+                    } catch (e) {}
+                }
+                str = str.slice(0, -1)
+            }
+            return str
+        }
+
+        function filter034(param) {
+            try {
+                if (param) {
+                    if (param.toString().indexOf('&#034;') > -1) {
+                        return param.toString().replaceAll('&#034;', '')
+                    }
+                }
+            } catch (e) {
+                console.log(e)
+            }
+            return param
+        }
+        var Ajax = {
+            get: function (url, data, fn) {
+                url = url + "?" + toParam(data);
+                myGet(url, fn)
+            },
+            post: function (url, data, fn) {
+                myPost(url, data, fn)
+            }
+        };
+        var collect = function (data) {
+            try {
+                var organId = "181f779792064db6bb4329b8af7ff590";
+                var organName = "北京林业大学";
+                var siteId = encodeURI("348");
+                var siteName = encodeURI("国际学院英文2021");
+                var channelId = encodeURI("14998");
+                var channelName = encodeURI("首页");
+                var articleId = encodeURI("$curArticle.id");
+                var articleName = encodeURI("$curArticle.name");
+                var url = location.href;
+                if (!organId || !organName) {
+                    return
+                }
+                data.organId = organId;
+                data.organName = organName;
+                if (!siteId || !siteName) {
+                    return
+                }
+                data.siteId = siteId;
+                data.siteName = siteName;
+                if (channelId && channelName) {
+                    data.channelId = channelId;
+                    data.channelName = channelName
+                }
+                if (articleId && articleName) {
+                    data.articleId = articleId;
+                    data.articleName = articleName
+                }
+                if (url) {
+                    data.url = url
+                }
+                return data
+            } catch (e) {}
+        };
+        var req1 = function (url, data) {
+            Ajax.post(url, data, function (re) {})
+        };
+        var req2 = function (url, data) {
+            Ajax.get(url, data, function (re) {
+                try {
+                    document.getElementById("visit_count").innerHTML = re.body.visitCount
+                } catch (e) {}
+            })
+        };
+        var collect1 = function (data) {
+            var url = "https://cloud.gpowersoft.com/collector/visit/write";
+            req1(url, data)
+        };
+        var collect2 = function (data) {
+            var url = "https://cloud.gpowersoft.com/collector/visit/total/article/get";
+            var countData = {};
+            countData.organId = data.organId;
+            countData.siteId = data.siteId;
+            countData.articleId = data.articleId;
+            req2(url, countData)
+        };
+        var visitTime;
+        var ready123 = function () {
+            try {
+                var data = {};
+                data.duration = 10000;
+                data = collect(data);
+                collect1(data);
+                collect2(data);
+                visitTime = new Date().getTime()
+            } catch (e) {
+                console.log(e.message)
+            }
+        };
+        ready123();
+        var flag = false;
+        window.onbeforeunload = function () {
+            try {
+                flag = true;
+                var data = {};
+                var now = new Date().getTime();
+                if (visitTime && now > visitTime) {
+                    data.duration = now - visitTime;
+                    data = collect(data);
+                    collect1(data)
+                }
+            } catch (e) {
+                console.log(e.message)
+            }
+        };
+    </script>
+    <style>
+        .selectTdClass {
+            background-color: #edf5fa !important
+        }
+
+        .gpTable {
+            border-collapse: collapse;
+            border: 1px solid #000
+        }
+
+        .gpTable td,
+        .gpTable th {
+            border: 1px solid #000;
+            padding: 2px 3px;
+        }
+
+        .gpTable caption {
+            border: 1px dashed #DDD;
+            border-bottom: 0;
+            padding: 3px;
+            text-align: center;
+        }
+
+        .gpTable th {
+            border-top: 1px solid #BBB;
+            background-color: #F7F7F7;
+        }
+
+        .gpTable tr.firstRow th {
+            border-top-width: 2px;
+        }
+
+        .ue-table-interlace-color-single {
+            background-color: #fcfcfc;
+        }
+
+        .ue-table-interlace-color-double {
+            background-color: #f7faff;
+        }
+
+        td p {
+            margin: 0;
+            padding: 0;
+        }
+
+        th p {
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+
+
+
+<script>
+    window.onscroll = function () {
+        myFunction()
+    };
+
+    var navbar = document.getElementById("nav");
+
+    function myFunction() {
+        if (window.pageYOffset >= 50) {
+            navbar.classList.remove('gap-top');
+            navbar.classList.add('bg-success');
+        } else {
+            navbar.classList.add('gap-top')
+            navbar.classList.remove('bg-success')
+        }
+    }
+</script>
+
+
+<!-- JS here -->
+<script src="js/bootstrap.bundle.min.js"></script>
+
+<!--  Plugins, main-Jquery -->
+
+
+
+
+
+<script type='text/javascript' src='js/g_index.js'></script>
+<script src='js/writelog.js' async='async'></script>
+<script>
+    function createHttpRequest() {
+        if (window.XMLHttpRequest) {
+            return new XMLHttpRequest()
+        } else {
+            if (window.ActiveXObject) {
+                return new ActiveXObject("Microsoft.XMLHTTP")
+            }
+        }
+    }
+
+    function myPost(url, data, fn) {
+        var req = createHttpRequest();
+        req.open("POST", url, true);
+        req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        req.onreadystatechange = function () {
+            if (req.readyState == 4 && (req.status == 200 || req.status == 304)) {
+                if (fn) {
+                    fn.call(this, req.responseText)
+                }
+            }
+        };
+        req.send(toParam(data))
+    }
+
+    function myGet(url, fn) {
+        var req = createHttpRequest();
+        req.open("GET", url, true);
+        req.onreadystatechange = function () {
+            if (req.readyState == 4 && req.status == 200 || req.status == 304) {
+                if (fn) {
+                    fn.call(this, JSON.parse(req.responseText))
+                }
+            }
+        };
+        req.send()
+    }
+
+    function toParam(data) {
+        var str = "";
+        if (data) {
+            var dk;
+            for (var key in data) {
+                try {
+                    dk = filter034(data[key]);
+                    str += key + "=" + dk + "&"
+                } catch (e) {}
+            }
+            str = str.slice(0, -1)
+        }
+        return str
+    }
+
+    function filter034(param) {
+        try {
+            if (param) {
+                if (param.toString().indexOf('&#034;') > -1) {
+                    return param.toString().replaceAll('&#034;', '')
+                }
+            }
+        } catch (e) {
+            console.log(e)
+        }
+        return param
+    }
+    var Ajax = {
+        get: function (url, data, fn) {
+            url = url + "?" + toParam(data);
+            myGet(url, fn)
+        },
+        post: function (url, data, fn) {
+            myPost(url, data, fn)
+        }
+    };
+    var collect = function (data) {
+        try {
+            var organId = "181f779792064db6bb4329b8af7ff590";
+            var organName = "北京林业大学";
+            var siteId = encodeURI("348");
+            var siteName = encodeURI("国际学院英文2021");
+            var channelId = encodeURI("14998");
+            var channelName = encodeURI("首页");
+            var articleId = encodeURI("$curArticle.id");
+            var articleName = encodeURI("$curArticle.name");
+            var url = location.href;
+            if (!organId || !organName) {
+                return
+            }
+            data.organId = organId;
+            data.organName = organName;
+            if (!siteId || !siteName) {
+                return
+            }
+            data.siteId = siteId;
+            data.siteName = siteName;
+            if (channelId && channelName) {
+                data.channelId = channelId;
+                data.channelName = channelName
+            }
+            if (articleId && articleName) {
+                data.articleId = articleId;
+                data.articleName = articleName
+            }
+            if (url) {
+                data.url = url
+            }
+            return data
+        } catch (e) {}
+    };
+    var req1 = function (url, data) {
+        Ajax.post(url, data, function (re) {})
+    };
+    var req2 = function (url, data) {
+        Ajax.get(url, data, function (re) {
+            try {
+                document.getElementById("visit_count").innerHTML = re.body.visitCount
+            } catch (e) {}
+        })
+    };
+    var collect1 = function (data) {
+        var url = "https://cloud.gpowersoft.com/collector/visit/write";
+        req1(url, data)
+    };
+    var collect2 = function (data) {
+        var url = "https://cloud.gpowersoft.com/collector/visit/total/article/get";
+        var countData = {};
+        countData.organId = data.organId;
+        countData.siteId = data.siteId;
+        countData.articleId = data.articleId;
+        req2(url, countData)
+    };
+    var visitTime;
+    var ready123 = function () {
+        try {
+            var data = {};
+            data.duration = 10000;
+            data = collect(data);
+            collect1(data);
+            collect2(data);
+            visitTime = new Date().getTime()
+        } catch (e) {
+            console.log(e.message)
+        }
+    };
+    ready123();
+    var flag = false;
+    window.onbeforeunload = function () {
+        try {
+            flag = true;
+            var data = {};
+            var now = new Date().getTime();
+            if (visitTime && now > visitTime) {
+                data.duration = now - visitTime;
+                data = collect(data);
+                collect1(data)
+            }
+        } catch (e) {
+            console.log(e.message)
+        }
+    };
+</script>
+<style>
+    .selectTdClass {
+        background-color: #edf5fa !important
+    }
+
+    .gpTable {
+        border-collapse: collapse;
+        border: 1px solid #000
+    }
+
+    .gpTable td,
+    .gpTable th {
+        border: 1px solid #000;
+        padding: 2px 3px;
+    }
+
+    .gpTable caption {
+        border: 1px dashed #DDD;
+        border-bottom: 0;
+        padding: 3px;
+        text-align: center;
+    }
+
+    .gpTable th {
+        border-top: 1px solid #BBB;
+        background-color: #F7F7F7;
+    }
+
+    .gpTable tr.firstRow th {
+        border-top-width: 2px;
+    }
+
+    .ue-table-interlace-color-single {
+        background-color: #fcfcfc;
+    }
+
+    .ue-table-interlace-color-double {
+        background-color: #f7faff;
+    }
+
+    td p {
+        margin: 0;
+        padding: 0;
+    }
+
+    th p {
+        margin: 0;
+        padding: 0;
+    }
+</style>
+
+
+<!--REuHoDoTJavyYCvm/EaLgnbkfADOzWfd4WJp38xcRiKEpjmJE3KZQjhm8lEPQOM8WGTHBNXHiX3eFkM7ESo2PuM1uZ8RH059TAm18aIUvJNFNUV5uqj+0JfuiBTViUL8b7C78qod0SMyptzm/UWALQ==--><script type='text/javascript' src='g_style/g_index.js'></script><script src='/cms/web/writeLog.jsp?siteID=bcd95deb07b6482783614ddc0b725f94' async='async'></script><script>function createHttpRequest(){if(window.XMLHttpRequest){return new XMLHttpRequest()}else{if(window.ActiveXObject){return new ActiveXObject("Microsoft.XMLHTTP")}}}function myPost(url,data,fn){var req=createHttpRequest();req.open("POST",url,true);req.setRequestHeader("Content-Type","application/x-www-form-urlencoded");req.onreadystatechange=function(){if(req.readyState==4&&(req.status==200||req.status==304)){if(fn){fn.call(this,req.responseText)}}};req.send(toParam(data))}function myGet(url,fn){var req=createHttpRequest();req.open("GET",url,true);req.onreadystatechange=function(){if(req.readyState==4&&req.status==200||req.status==304){if(fn){fn.call(this,JSON.parse(req.responseText))}}};req.send()}function toParam(data){var str="";if(data){var dk;for(var key in data){try{dk=filter034(data[key]);str+=key+"="+dk+"&"}catch(e){}}str=str.slice(0,-1)}return str}function filter034(param){try{if(param){if(param.toString().indexOf('&#034;')>-1){return param.toString().replaceAll('&#034;','')}}}catch(e){console.log(e)}return param}var Ajax={get:function(url,data,fn){url=url+"?"+toParam(data);myGet(url,fn)},post:function(url,data,fn){myPost(url,data,fn)}};var collect=function(data){try{var organId="181f779792064db6bb4329b8af7ff590";var organName="北京林业大学";var siteId=encodeURI("bcd95deb07b6482783614ddc0b725f94");var siteName=encodeURI("国际学院英文网");var channelId=encodeURI("6ec8a5f3600047e4adc9cc5bcb484a89");var channelName=encodeURI("首页");var articleId=encodeURI("$curArticle.id");var articleName=encodeURI("$curArticle.name");var url=location.href;if(!organId||!organName){return}data.organId=organId;data.organName=organName;if(!siteId||!siteName){return}data.siteId=siteId;data.siteName=siteName;if(channelId&&channelName){data.channelId=channelId;data.channelName=channelName}if(articleId&&articleName){data.articleId=articleId;data.articleName=articleName}if(url){data.url=url}return data}catch(e){}};var req1=function(url,data){Ajax.post(url,data,function(re){})};var req2=function(url,data){Ajax.get(url,data,function(re){try{document.getElementById("visit_count").innerHTML=re.body.visitCount}catch(e){}})};var collect1=function(data){var url="https://cloud.gpowersoft.com/collector/visit/write";req1(url,data)};var collect2=function(data){var url="https://cloud.gpowersoft.com/collector/visit/total/article/get";var countData={};countData.organId=data.organId;countData.siteId=data.siteId;countData.articleId=data.articleId;req2(url,countData)};var visitTime;var ready123=function(){try{var data={};data.duration=10000;data=collect(data);collect1(data);collect2(data);visitTime=new Date().getTime()}catch(e){console.log(e.message)}};ready123();var flag=false;window.onbeforeunload=function(){try{flag=true;var data={};var now=new Date().getTime();if(visitTime&&now>visitTime){data.duration=now-visitTime;data=collect(data);collect1(data)}}catch(e){console.log(e.message)}};</script><style>.selectTdClass{background-color:#edf5fa !important}.gpTable{ border-collapse:collapse;border:1px solid #000 }.gpTable td,.gpTable th{border:1px solid #000;  padding: 2px 3px;}.gpTable caption{border:1px dashed #DDD;border-bottom:0;padding:3px;text-align:center;}.gpTable th{border-top:1px solid #BBB;background-color:#F7F7F7;}.gpTable tr.firstRow th{border-top-width:2px;}.ue-table-interlace-color-single{ background-color: #fcfcfc; } .ue-table-interlace-color-double{ background-color: #f7faff; }td p{margin:0;padding:0;} th p{margin:0;padding:0;}blockquote {padding: 0 0 0 15px;margin: 0 0 18px;border-left: 5px solid #EEE;}</style>
+</body></html>

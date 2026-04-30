@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset=utf-8>
+		<title></title>
+		<link rel="stylesheet" href="css/common.css" />
+		<link rel="stylesheet" href="css/header.css" />
+		<link rel="stylesheet" href="css/footer.css" />
+		<link rel="stylesheet" href="images/layui/css/layui.css" />
+		<!-- 
+			layui: 2.6.5
+		-->
+		<style>
+			#app{
+				padding: 20px 80px;
+				background: white;
+			}
+
+			.app-carousel .layui-carousel{
+				transform: translateY(9px);
+			}
+
+			.app-carousel div[carousel-item] img{
+				width: 100%;
+				height: 100%;
+				object-fit: contain;
+			}
+
+			.app-carousel .layui-carousel-ind{
+				text-align: right;
+			}
+			
+			.app-carousel .layui-carousel-ind ul{
+				margin-right: 20px;
+			}
+			
+			.app-news{
+				margin-top: 20px;
+			}
+			
+			.news {
+				padding-top: 13px;
+				box-sizing: border-box;
+			}
+			
+			.news .news-title{
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				padding-bottom: 18px;
+				border-bottom: 1px solid #8CAAE2;
+			}
+			
+			.news .news-title h2{
+				height: 27px;
+				font-size: 20px;
+				font-family: MicrosoftYaHei-Bold, MicrosoftYaHei;
+				font-weight: bold;
+				color: #313234;
+				line-height: 27px;
+			}
+			
+			.news .news-title a{
+				padding-right: 14px;
+				position: relative;
+				color: #999999 !important;
+			}
+			
+			.news .news-title a::after{
+				content: '';
+				position: absolute;
+				right: 0;
+				top: 0;
+				bottom: 0;
+				margin: auto;
+				display: block;
+				width: 14px;
+				height: 14px;
+				background: url(images/icon_more.png);
+			}
+			
+			.news .news-body{
+				padding-top: 16px;
+			}
+			
+			.news .news-body li{
+				display: flex;
+				position: relative;
+				align-items: center;
+				justify-content: space-between;
+				margin-bottom: 14px;
+			}
+			
+			.news .news-body li > div:first-child{
+			   overflow: hidden;
+			   white-space: nowrap;
+			   text-overflow: ellipsis;
+			}
+			
+			.news .news-body li a{
+				color: #313234;
+				font-size: 16px;
+				line-height: 21px;
+				margin-left: 14px;
+			}
+			
+			.app-news .news .news-body li a{
+				color: #313234;
+				font-size: 16px;
+				line-height: 21px;
+				margin-left: 0;
+			}
+			
+			.news .news-body li > div:last-child{
+				margin-left: 48px;
+				flex-shrink: 0;
+				color: #989FA8;
+				font-size: 14px;
+				line-height: 19px;
+			}
+			
+			.news .news-body li.on a {
+				color: #245EC7;
+				font-weight: bold;
+			}
+			
+			.news .news-body li.on >  div:first-child::after{
+				content: '';
+				position: absolute;
+				left: 0;
+				top: 0;
+				bottom: 0;
+				width: 4px;
+				height: 14px;
+				margin: auto;
+				background: url(images/rect-4.png);
+			}
+			
+			.function{
+				margin-top: 13px;
+			}
+			
+			.function .function-title{
+				text-align: center;
+			}
+			
+			.function .function-title span{
+				display: inline-block;
+				vertical-align: middle;
+				width: 40px;
+				height: 1px;
+				background: #DFE4EA;
+				margin: 0 12px;
+			}
+			
+			.function .function-title h2{
+				display: inline-block;
+				vertical-align: middle;
+				width: 80px;
+				height: 27px;
+				font-size: 20px;
+				font-family: MicrosoftYaHei-Bold, MicrosoftYaHei;
+				font-weight: bold;
+				color: #313234;
+				line-height: 27px;
+			}
+			
+			.function .function-body{
+				padding: 11px 0px 26px 14px;
+			}
+
+			.function .function-body ul{
+				display: flex;
+				flex-wrap: wrap;
+			}
+			
+			.function .function-body li{
+				width: 80px;
+				text-align: center;
+				margin-right: 47px;
+				margin-bottom: 8px;
+			}
+			
+			.function .function-body li:nth-child(5n){
+				margin-right: 0;
+			}
+			
+			.function .function-body li > div{
+				font-size: 12px;
+				color: #999999;
+				line-height: 16px;
+				margin-top: 2px;
+			}
+			
+			.function .function-links .function-link{
+				display: flex;
+				align-content: flex-start;
+			}
+			
+			.function .function-links .function-link .function-link-title{
+				width: 76px;
+				text-align: right;
+				flex-shrink: 0;
+				margin-right: 9px;
+			}
+			
+			.function .function-links .function-link .function-link-title h3{
+				font-size: 14px;
+				color: #989FA8;
+				font-weight: bold;
+				line-height: 32px;
+			}
+			
+			.function .function-links{
+				padding: 15px 0px 11px 20px;
+			}
+			
+			.function .function-links .function-link:first-child{
+				margin-bottom: 11px;
+			}
+			
+			.function .function-links .function-link .function-link-body ul{
+				display: flex;
+				flex-wrap: wrap;
+				width: 526px;
+			}
+			
+			.function .function-links .function-link .function-link-body li{
+				width: 162px;
+				height: 32px;
+				background: url(images/rect-2.png);
+				font-size: 14px;
+				font-weight: bold;
+				line-height: 32px;
+				text-align: center;
+				color: #245EC7;
+				margin-bottom: 8px;
+				margin-right: 10px;
+			}
+
+			.function .function-links .function-link
+			 .function-link-body .functional-departments .layui-icon::before {
+				width: 14px;
+				height: 14px;
+				display: inline-block;
+				line-height: 14px;
+			}
+			
+			.app-row{
+				display: flex;
+			}
+			
+			
+			
+			.app-carousel .app-row  .app-col:first-child{
+				width: 629px;
+				flex-shrink: 0;
+			}
+			
+			
+			.app-carousel .app-row  .app-col:last-child{
+				width: 630px;
+				flex-shrink: 0;
+				margin-left: 20px;
+			}
+			
+			.app-news .app-row .app-col:first-child{
+				width: 620px;
+				flex-shrink: 0;
+			}
+			
+			.app-news .app-row  .app-col:last-child{
+				width: 620px;
+				flex-shrink: 0;
+				margin-left: 41px;
+			}
+			
+			.layui-dropdown{
+				min-width: 160px;
+			}
+			
+		</style>
+		<script src="images/layui/layui.js"></script>
+	</head>
+	<body>
+		
+
+                  <div class="header-top">
+                  <div class="header-wrapper"> 
+                  <div class='container'>
+			<div class='header-top-logo'></div> 
+			<div class='header-top-search'>
+				<form id="search_form" method="get" action="javascript: submit()">
+					<input name="siteID" type="hidden" value="322" />
+					<input name="query" type='text' placeholder='请输入搜索关键词...' />
+					<div class='header-top-search-icon' onclick="form.submit()"></div> 
+				</form>
+			</div>
+			<div class='header-top-nav'>
+
+				<a  class='on'   href="index.html"><div>首页</div></a> 
+				           <a 
+                                                 href='xygk/xyjj/index.html'>
+                                                 <div>学院概况</div>
+                                           </a> 
+				           <a 
+                                                 href='szdw/szgk/index.html'>
+                                                 <div>师资队伍</div>
+                                           </a> 
+				           <a 
+                                                 href='bkspy/pydt/index.html'>
+                                                 <div>本科生培养</div>
+                                           </a> 
+				           <a 
+                                                 href='yjsgz/yjszs/index.html'>
+                                                 <div>研究生工作</div>
+                                           </a> 
+				           <a 
+                                                 href='xkjs/xkxwdsz/index.html'>
+                                                 <div>学科介绍</div>
+                                           </a> 
+				           <a 
+                                                 href='kyxz/xshd/index.html'>
+                                                 <div>科研学术</div>
+                                           </a> 
+				           <a 
+                                                 href='djsz/dwgk/index.html'>
+                                                 <div>党建思政</div>
+                                           </a> 
+				<a href='http://xxdt.bjfu.edu.cn/'><div>学生工作</div></a> 
+			</div>
+		</div>
+                </div>
+                </div>
+
+		<script>
+			var form = document.getElementById('search_form');
+			
+			function submit(){
+				window.location.href = "http://cms.bjfu.edu.cn/cms/web/search/index.jsp?siteID="
+				+ form.siteID.value
+				+ "&query="
+				+ encodeURIComponent(form.query.value);
+				
+			}
+		</script>		<div id="app" class="container">
+			<div class="app-carousel">
+				<div class="app-row">
+				  <div class="app-col">
+				    <div class="layui-carousel" id="test1">
+				      <div carousel-item>
+)
+				        <div>
+                                           <a href="http://a.bjfu.edu.cn/xxxy2021xz/xyxw/369325.html">
+                                                <img src="images/2026-03/885e173dce514783b48a86b2177c856a.jpg"/>
+                                           </a>
+                                        </div>
+)
+				        <div>
+                                           <a href="https://news.bjfu.edu.cn/lsxy/e43f79b7a54d408ba32a56eb45ef753e.html">
+                                                <img src="images/2026-03/e6483147705e4c3b92572fa6fbe68293.jpg"/>
+                                           </a>
+                                        </div>
+)
+				        <div>
+                                           <a href="https://news.bjfu.edu.cn/lsxy/0f16f0686e464801b1d7b4e5c624a1d7.html">
+                                                <img src="images/2026-03/b3064b8135714e8caacf5a3b815a279f.jpg"/>
+                                           </a>
+                                        </div>
+)
+				        <div>
+                                           <a href="https://news.bjfu.edu.cn/lsxy/4a6277f3deca40b9a0f1dac0bab2da54.html">
+                                                <img src="images/2026-03/ca14f1d2e486485aa3b71928d43f3bd7.jpg"/>
+                                           </a>
+                                        </div>
+)
+				        <div>
+                                           <a href="https://news.bjfu.edu.cn/lsxy/370b67aef775450083799ba830ff5c74.html">
+                                                <img src="images/2026-03/d52eb99afaaf4f2ab59fd6fd1d4d0310.jpg"/>
+                                           </a>
+                                        </div>
+)
+				        <div>
+                                           <a href="https://news.bjfu.edu.cn/lsxy/b5fb6e7f2bf04604bfd21cdc39c47b04.html">
+                                                <img src="images/2026-03/2ba33cd374e94e6aa8b92c73966bfbc1.png"/>
+                                           </a>
+                                        </div>
+				      </div>
+				    </div>
+				  </div>
+				  <div class="news app-col">
+				    <div class="news-title">
+						<h2>学院新闻</h2>
+						<a href="xyxw/index.html">更多</a>
+					</div>
+					<div class="news-body">
+						<ul>
+							<li    class="on"  >
+								<div><a href="xyxw/d4a49a63e7324c55afdf9aa21dcde79f.html">北京市朝阳区园林绿化局、中关村朝阳园管委会、北京市园林绿化科学研究院来我院座谈交流</a></div>
+								<div>2026-04-27</div>
+							</li>
+							<li  >
+								<div><a href="xyxw/f037225838d649029318c87a06493e78.html">“十四五”国家重点研发计划重点专项“长航时无人机森林大型动物智能监测识别技术”项目年度会议召开</a></div>
+								<div>2026-03-01</div>
+							</li>
+							<li  >
+								<div><a href="https://news.bjfu.edu.cn/lsxy/b5fb6e7f2bf04604bfd21cdc39c47b04.html">信息学院（人工智能学院）学子在全球校园人工智能算法精英大赛全国总决赛中获一等奖</a></div>
+								<div>2026-01-25</div>
+							</li>
+							<li  >
+								<div><a href="xyxw/f9dfbd50c23d422e8f55832d0c794678.html">我院师生荣获“全国人工智能应用场景创新挑战赛”种子组一等奖</a></div>
+								<div>2025-12-22</div>
+							</li>
+							<li  >
+								<div><a href="xyxw/7653231168b34269a27e45b02308f577.html">第七届国际青年人工智能大赛在北京林业大学成功举办</a></div>
+								<div>2025-11-25</div>
+							</li>
+							<li  >
+								<div><a href="xyxw/39fc45464f354c18a9bdc719631108e0.html">我校“长航时无人机森林大型动物智能监测识别技术”项目团队</a></div>
+								<div>2025-09-12</div>
+							</li>
+							<li  >
+								<div><a href="xyxw/e0de5608b2934192b777ffb38d8ae001.html">信息学院（人工智能学院）上好“四堂课”开展系列爱国主义教育活动</a></div>
+								<div>2025-09-05</div>
+							</li>
+							<li  >
+								<div><a href="xyxw/6f602f10b0124072a7dbae7fc06fb461.html">信息学院（人工智能学院）赴内蒙古科右前旗调研</a></div>
+								<div>2025-07-01</div>
+							</li>
+						</ul>
+					</div>
+				  </div>
+				</div>
+			</div>
+			<div class="app-news">
+				<div class="app-row">
+					<div class="news app-col">
+						<div class="news-title">
+							<h2>科研动态</h2>
+							<a href="kyxz/kydt/index.html">更多</a>
+						</div>
+						<div class="news-body">
+							<ul>
+								<li>
+									<div><a href="kyxz/kydt/af4e8524b6c4475589f552972ff54ac9.html">北京市朝阳区园林绿化局、中关村朝阳园管委会、北京市园林绿化科学研究院来我院座谈交流</a></div>
+									<div>2026-04-27</div>
+								</li>
+								<li>
+									<div><a href="kyxz/kydt/8b3b2b4fa70b4334a0b7deb0a8939137.html">信息学院（人工智能学院）科研团队在林业外来入侵物种扩散分布预测方面取得进展</a></div>
+									<div>2026-04-27</div>
+								</li>
+								<li>
+									<div><a href="kyxz/kydt/b65e37838d46403d88b27fcc45137b56.html">信息学院（人工智能学院）课题组在计算机视觉领域发表研究成果</a></div>
+									<div>2026-04-27</div>
+								</li>
+								<li>
+									<div><a href="kyxz/kydt/bd95242369684bff874eb59eed808691.html">信息学院（人工智能学院）科研团队在种子智能识别领域取得新进展</a></div>
+									<div>2026-04-27</div>
+								</li>
+								<li>
+									<div><a href="kyxz/kydt/c0b69e87eda44a86a340ce22aea7abfc.html">信息学院（人工智能学院）课题组在计算机领域顶刊发表研究成果</a></div>
+									<div>2025-04-15</div>
+								</li>
+								<li>
+									<div><a href="kyxz/kydt/b1a595cd02914455a0edde5d6ce13797.html">信息学院（人工智能学院）课题组在动物形态信息获取领域取得新进展</a></div>
+									<div>2025-04-09</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div class="news app-col">
+						<div class="news-title">
+							<h2>本科生培养</h2>
+							<a href="bkspy/pydt/index.html">更多</a>
+						</div>
+						<div class="news-body">
+							<ul>
+								<li>
+									<div><a href="bkspy/pydt/71db80db6c4d43dab9b0dc4b9fcfb260.html">信息学院2025-2026学年第二学期转专业转入面试通知</a></div>
+									<div>2026-03-10</div>
+								</li>
+								<li>
+									<div><a href="bkspy/pydt/8775057e7bef458788fd4b03e629e226.html">信息学院2025-2026学年第二学期转专业机考工作安排</a></div>
+									<div>2026-03-10</div>
+								</li>
+								<li>
+									<div><a href="bkspy/pydt/97856b51785f45399a22785604008583.html">信息学院2025-2026学年第二学期转专业工作方案</a></div>
+									<div>2026-03-06</div>
+								</li>
+								<li>
+									<div><a href="bkspy/pydt/81011238e45f4eb0a7f4f2c5b2670610.html">关于举办“联想直营店&英特尔 2026全国大学生新质生产力线下场景创新大赛”比赛指南</a></div>
+									<div>2026-01-13</div>
+								</li>
+								<li>
+									<div><a href="bkspy/pydt/0c410c48538e4713bf183693730fee1e.html">信息学院2026届本科毕业论文（设计）工作方案</a></div>
+									<div>2025-10-30</div>
+								</li>
+								<li>
+									<div><a href="bkspy/pydt/c1dcd33379924cf08487b3562cb1d5f9.html">信息学院推荐2026届优秀应届本科毕业生免试攻读研究生工作方案</a></div>
+									<div>2025-09-09</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div><div class="app-news">
+				<div class="app-row">
+					<div class="news app-col">
+						<div class="news-title">
+							<h2>研究生工作</h2>
+							<a href="yjsgz/yjszs/index.html">更多</a>
+						</div>
+						<div class="news-body">
+							<ul>
+                                                               
+                                                                                                                  
+								<li>
+									<div><a href="yjsgz/yjszs/zsgg/19e654a73ef34198aaea2dc927ec667c.html">【硕博招生公告】信息学院（人工智能学院）2026年博士研究生考核安排（第二批）</a></div>
+									<div>2026-04-27</div>
+								</li>
+								<li>
+									<div><a href="yjsgz/yjszs/zsgg/597bcaf6bb38473a8e1d002bc5feeb3e.html">【硕博招生公告】信息学院（人工智能学院）2026年博士研究生考核成绩（持续更新）</a></div>
+									<div>2026-04-24</div>
+								</li>
+								<li>
+									<div><a href="yjsgz/yjszs/zsgg/9de13a3105e24df2a0ac32de882c7165.html">【硕博招生公告】信息学院（人工智能学院）2026年博士研究生考核安排</a></div>
+									<div>2026-04-20</div>
+								</li>
+								<li>
+									<div><a href="yjsgz/yjszs/zsgg/52469d25102845c7ac15684a27360c54.html">【硕博招生公告】信息学院 （人工智能学院）2026年低空技术与工程调剂考生复试成绩公示</a></div>
+									<div>2026-04-13</div>
+								</li>
+								<li>
+									<div><a href="yjsgz/yjszs/zsgg/aeb95eded8f84fdb8871dfe67b435341.html">【硕博招生公告】信息学院(人工智能学院)2026年低空技术与工程调剂考生复试名单</a></div>
+									<div>2026-04-10</div>
+								</li>
+								<li>
+									<div><a href="yjsgz/yjszs/zsgg/7e8c4400be5e4b39ab8bb33d7926707b.html">【硕博招生公告】信息学院（人工智能学院）2026年度硕士研究生调剂考生复试及录取办法</a></div>
+									<div>2026-04-08</div>
+								</li>
+								<li>
+									<div><a href="yjsgz/yjszs/zsgg/d59ed045a1a34ba0b2255d04e1142adb.html">信息学院（人工智能学院）2026年硕士研究生招生调剂信息通知</a></div>
+									<div>2026-04-07</div>
+								</li>
+								<li>
+									<div><a href="yjsgz/yjszs/zsgg/87eed55141f7418eaf2b51295e3ba5b6.html">【硕博招生公告】信息学院 （人工智能学院）2026年硕士研究生一志愿考生复试成绩公示</a></div>
+									<div>2026-04-06</div>
+								</li>
+								<li>
+									<div><a href="yjsgz/yjszs/zsgg/c0ac3aa807704dd297ee72262d5ecec8.html">【硕博招生公告】信息学院 （人工智能学院）2026年硕士研究生一志愿考生复试名单及复试安排</a></div>
+									<div>2026-03-27</div>
+								</li>
+								<li>
+									<div><a href="yjsgz/yjszs/zsgg/aebf367032e145dda1d80d303ecac34e.html">【硕博招生公告】信息学院（人工智能学院）2026年度硕士研究生复试及录取办法</a></div>
+									<div>2026-03-25</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div class="function app-col">
+						<div class="function-title"><span></span><h2>常用功能</h2><span></span></div>
+						<div class="function-body">
+							<ul>
+								<li>
+									<a href="http://a.bjfu.edu.cn/xxxy2021xz/tzgg2">
+                                                                             <img src="images/content/2021-04/20210428161149684190.png"
+                                                                                  width="80" height="80">
+                                                                        </a>
+									<div>通知公告</div>
+								</li>
+								<li>
+									<a href="http://dzb.bjfu.edu.cn/">
+                                                                             <img src="images/content/2021-04/20210428161109039080.png"
+                                                                                  width="80" height="80">
+                                                                        </a>
+									<div>一周会议</div>
+								</li>
+								<li>
+									<a href="http://a.bjfu.edu.cn/xxxy2021xz/zspx2">
+                                                                             <img src="images/content/2021-04/20210428161018796982.png"
+                                                                                  width="80" height="80">
+                                                                        </a>
+									<div>招生培训</div>
+								</li>
+								<li>
+									<a href="http://a.bjfu.edu.cn/xxxy2021xz/xztd2">
+                                                                             <img src="images/content/2021-04/20210428160916352805.png"
+                                                                                  width="80" height="80">
+                                                                        </a>
+									<div>下载通道</div>
+								</li>
+								<li>
+									<a href="http://jwc.bjfu.edu.cn/images/xiaoli.jpg">
+                                                                             <img src="images/content/2021-04/20210428160816091739.png"
+                                                                                  width="80" height="80">
+                                                                        </a>
+									<div>校历查看</div>
+								</li>
+							</ul>
+						</div>
+						<div class="function-title"><span></span><h2>综合服务</h2><span></span></div>
+						<div class="function-links">
+							<div class="function-link">
+								<div class="function-link-title"><h3>校内链接：</h3></div>
+								<div class="function-link-body">
+									<ul>
+										<a href="http://newjwxt.bjfu.edu.cn/"><li>教务系统</li></a>
+										<a href="http://job.bjfu.edu.cn/"><li>本科生就业信息系统</li></a>
+										<a href="http://xgxt.bjfu.edu.cn"><li>学术信息管理系统</li></a>
+										<a href="http://gsmis.bjfu.edu.cn/newyjsmis/index.html"><li>研究生管理系统</li></a>
+										<a href="http://202.204.112.29/business/login.jsp"><li>科研管理系统</li></a>
+
+
+										<li class="functional-departments">
+											<button class="layui-btn" id="dropdown"
+											 style="width: 100%; height: 100%; line-height: 32px; display: flex; padding: 0; border: none; background: none;  color: #245EC7;">
+											  <span style="flex-grow: 1;border-right: 2px solid #C1D2EF;">校内职能部门</span>
+											  <i class="layui-icon layui-icon-down layui-font-12" style="width: 32px;"></i>
+											</button>
+										</li>
+									</ul>
+								</div>
+							</div>
+							<div class="function-link">
+								<div class="function-link-title"><h3>校外链接：</h3></div>
+								<div class="function-link-body">
+									<ul>
+										<a href="http://www.moe.gov.cn/"><li>教育部</li></a>
+										<a href="http://www.most.gov.cn/"><li>科技部</li></a>
+										<a href="http://jw.beijing.gov.cn/"><li>北京市教委</li></a>
+										<a href="http://www.moe.gov.cn/s78/A08/"><li>高等教育司</li></a>
+										<a href="http://www.forestry.gov.cn/"><li>国家林草局</li></a>
+										<a href="https://www.csc.edu.cn/"><li>国家留学基金委</li></a>
+										<a href="http://www.nsfc.gov.cn/"><li>国家自然科学资金委</li></a>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+<div class="footer-bottom">
+               <div class="footer-wrapper">
+               <div class='container'>
+			<div><span class='footer-bottom-phone'>电话：010-62336230</span><span class='footer-bottom-email'>邮箱：it@bjfu.edu.cn</span></div>
+			<div><span class='footer-bottom-zip'>邮编：100083</span><span class='footer-bottom-addr'>地址：北京市海淀区清华东路35号150信</span></div>
+			<div><span class='footer-bottom-copyright'>Copyright &#x00A9;2021 北京林业大学信息学院、人工智能学院 All right reserved</span></div>
+		</div>
+                </div>
+                </div><!--XWi1pzZqGzyNKUhmJBerqlHNrL3EjteONtWU5sDjG59KvYJAEAFEwsIu+LF80fHYHUdu9NnDJL7aEsJ79b9VhoCd/CVqGMcZA8fiGWTeOOruy+ABbSDHRQLTgyo+pKWUTcfbpeeC2OHbF5btbBCnKw==-->                
+		<!--a href="2021yq/index.html"><img src="images/yuanqin/yuanqin.png" width="267" height="150" style="position: fixed; right: 213px; top: 152px;" /> </a-->
+
+		<script>
+			layui.use('carousel', function(){
+			  var carousel = layui.carousel;
+			  //建造实例
+			  carousel.render({
+			    elem: '#test1'
+			    ,width: '100%' //设置容器宽度
+				,height: '354px'
+			    ,arrow: 'always' //始终显示箭头
+			    //,anim: 'updown' //切换动画方式
+			  });
+			});
+
+			layui.use('dropdown', function(){
+			  var dropdown = layui.dropdown
+			  dropdown.render({
+			    elem: '#dropdown' //可绑定在任意元素中，此处以上述按钮为例
+			    ,data: [{
+			      title: '百度1'
+			      ,id: 101
+			      ,href: 'https://www.baidu.com/' //开启超链接
+			      ,target: '_blank' //新窗口方式打开
+			    },{
+			      title: '百度2'
+			      ,id: 102
+			      ,href: 'https://www.baidu.com/' //开启超链接
+			      ,target: '_blank' //新窗口方式打开
+			    },{
+			      title: '百度3'
+			      ,id: 103
+			      ,href: 'https://www.baidu.com/' //开启超链接
+			      ,target: '_blank' //新窗口方式打开
+			    }]
+			    ,id: 'dropdown1'
+			    //菜单被点击的事件
+			    ,click: function(obj){
+			      //console.log(obj);
+			      //layer.msg('回调返回的参数已显示再控制台');
+			    }
+			  });
+			});
+
+		</script>
+	</body>
+</html><!--B19gaK/ckwWP/66jMEaobSCl7AilEsljwUz5TIp1tP7J3mvp1ANjEq4/yJfmc6VYcf2MRHciTZU9/rarD+sBUeHPkSFxLwZq/j8syEqeb1aP4q1UeV3YahOWe+3b5y7V3k/R7nbNd5u0BcfvjQEf6A==--><script type='text/javascript' src='g_style/g_index.js'></script><script src='/cms/web/writeLog.jsp?siteID=322' async='async'></script><script>function createHttpRequest(){if(window.XMLHttpRequest){return new XMLHttpRequest()}else{if(window.ActiveXObject){return new ActiveXObject("Microsoft.XMLHTTP")}}}function myPost(url,data,fn){var req=createHttpRequest();req.open("POST",url,true);req.setRequestHeader("Content-Type","application/x-www-form-urlencoded");req.onreadystatechange=function(){if(req.readyState==4&&(req.status==200||req.status==304)){if(fn){fn.call(this,req.responseText)}}};req.send(toParam(data))}function myGet(url,fn){var req=createHttpRequest();req.open("GET",url,true);req.onreadystatechange=function(){if(req.readyState==4&&req.status==200||req.status==304){if(fn){fn.call(this,JSON.parse(req.responseText))}}};req.send()}function toParam(data){var str="";if(data){var dk;for(var key in data){try{dk=filter034(data[key]);str+=key+"="+dk+"&"}catch(e){}}str=str.slice(0,-1)}return str}function filter034(param){try{if(param){if(param.toString().indexOf('&#034;')>-1){return param.toString().replaceAll('&#034;','')}}}catch(e){console.log(e)}return param}var Ajax={get:function(url,data,fn){url=url+"?"+toParam(data);myGet(url,fn)},post:function(url,data,fn){myPost(url,data,fn)}};var collect=function(data){try{var organId="181f779792064db6bb4329b8af7ff590";var organName="北京林业大学";var siteId=encodeURI("322");var siteName=encodeURI("信息学院");var channelId=encodeURI("14109");var channelName=encodeURI("首页");var articleId=encodeURI("$curArticle.id");var articleName=encodeURI("$curArticle.name");var url=location.href;if(!organId||!organName){return}data.organId=organId;data.organName=organName;if(!siteId||!siteName){return}data.siteId=siteId;data.siteName=siteName;if(channelId&&channelName){data.channelId=channelId;data.channelName=channelName}if(articleId&&articleName){data.articleId=articleId;data.articleName=articleName}if(url){data.url=url}return data}catch(e){}};var req1=function(url,data){Ajax.post(url,data,function(re){})};var req2=function(url,data){Ajax.get(url,data,function(re){try{document.getElementById("visit_count").innerHTML=re.body.visitCount}catch(e){}})};var collect1=function(data){var url="https://cloud.gpowersoft.com/collector/visit/write";req1(url,data)};var collect2=function(data){var url="https://cloud.gpowersoft.com/collector/visit/total/article/get";var countData={};countData.organId=data.organId;countData.siteId=data.siteId;countData.articleId=data.articleId;req2(url,countData)};var visitTime;var ready123=function(){try{var data={};data.duration=10000;data=collect(data);collect1(data);collect2(data);visitTime=new Date().getTime()}catch(e){console.log(e.message)}};ready123();var flag=false;window.onbeforeunload=function(){try{flag=true;var data={};var now=new Date().getTime();if(visitTime&&now>visitTime){data.duration=now-visitTime;data=collect(data);collect1(data)}}catch(e){console.log(e.message)}};</script>
+<link rel='shortcut icon' href=''><script type='text/javascript' src='/publish/gPublic/all.js'></script><style>.selectTdClass{background-color:#edf5fa !important}.gpTable{ border-collapse:collapse;border:1px solid #000 }.gpTable td,.gpTable th{border:1px solid #000;  padding: 2px 3px;}.gpTable caption{border:1px dashed #DDD;border-bottom:0;padding:3px;text-align:center;}.gpTable th{border-top:1px solid #BBB;background-color:#F7F7F7;}.gpTable tr.firstRow th{border-top-width:2px;}.ue-table-interlace-color-single{ background-color: #fcfcfc; } .ue-table-interlace-color-double{ background-color: #f7faff; }td p{margin:0;padding:0;} th p{margin:0;padding:0;}blockquote {padding: 0 0 0 15px;margin: 0 0 18px;border-left: 5px solid #EEE;}</style>
+</body></html>
