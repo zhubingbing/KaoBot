@@ -466,6 +466,7 @@ departments/README.md                 # 学校级目录索引
 
 ```text
 departments/北京大学/
+departments/北京服装学院/
 departments/北京印刷学院/
 departments/北京建筑大学/
 departments/北京工业大学/
@@ -473,6 +474,7 @@ departments/北京理工大学/
 departments/北京交通大学/
 departments/北京化工大学/
 departments/北京工商大学/
+departments/北京邮电大学/
 departments/北京石油化工学院/
 departments/北京科技大学/
 departments/北京航空航天大学/
