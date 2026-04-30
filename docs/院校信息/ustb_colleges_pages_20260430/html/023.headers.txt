@@ -1,0 +1,16 @@
+HTTP/1.1 200 OK
+Server: nginx
+Date: Thu, 30 Apr 2026 02:43:49 GMT
+Content-Type: text/html
+Content-Length: 46328
+Last-Modified: Tue, 21 Apr 2026 07:03:04 GMT
+ETag: "69e72128-b4f8"
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Methods: GET, POST, OPTIONS
+Access-Control-Allow-Credentials: true
+Accept-Ranges: bytes
+Age: 850
+Cache-Status: ustbaccel5-09n;hit;detail=match
+Via: 1.1 ustbaccel5-09n (squid)
+Connection: keep-alive
+

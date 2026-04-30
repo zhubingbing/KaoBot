@@ -1,0 +1,29 @@
+HTTP/1.1 301 Moved Permanently
+Server: nginx
+Date: Thu, 30 Apr 2026 02:57:55 GMT
+Content-Type: text/html
+Content-Length: 162
+Location: https://saee.ustb.edu.cn/
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Methods: GET, POST, OPTIONS
+Access-Control-Allow-Credentials: true
+Cache-Status: ustbaccel5-09n;fwd=stale;detail=match
+Via: 1.1 ustbaccel5-09n (squid)
+Connection: keep-alive
+
+HTTP/1.1 200 OK
+Server: nginx
+Date: Thu, 30 Apr 2026 02:31:58 GMT
+Content-Type: text/html
+Content-Length: 51945
+Last-Modified: Wed, 22 Apr 2026 08:55:59 GMT
+ETag: "69e88d1f-cae9"
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Methods: GET, POST, OPTIONS
+Access-Control-Allow-Credentials: true
+Accept-Ranges: bytes
+Age: 1557
+Cache-Status: ustbaccel5-09n;hit;detail=match
+Via: 1.1 ustbaccel5-09n (squid)
+Connection: keep-alive
+

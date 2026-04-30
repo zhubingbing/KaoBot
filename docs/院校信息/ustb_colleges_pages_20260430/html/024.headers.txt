@@ -1,0 +1,35 @@
+HTTP/1.1 302 Found
+Date: Thu, 30 Apr 2026 02:58:00 GMT
+Server: Apache
+X-Frame-Options: SAMEORIGIN
+X-XSS-Protection: 1; mode=block
+X-Content-Type-Options: nosniff
+Strict-Transport-Security: max-age=63072000; includeSubdomains; preload
+Location: https://gc.ustb.edu.cn/
+Content-Length: 207
+Content-Type: text/html; charset=iso-8859-1
+Cache-Status: ustbaccel5-09n;detail=mismatch
+Via: 1.1 ustbaccel5-09n (squid)
+Connection: keep-alive
+
+HTTP/1.1 200 OK
+X-Frame-Options: SAMEORIGIN
+X-XSS-Protection: 1; mode=block
+X-Content-Type-Options: nosniff
+Strict-Transport-Security: max-age=63072000; includeSubdomains; preload
+Last-Modified: Thu, 30 Apr 2026 02:24:53 GMT
+Accept-Ranges: bytes
+Content-Length: 59442
+Access-Control-Allow-Origin: http://192.168.8.10:8080
+Access-Control-Allow-Credentials: true
+Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE
+Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept, Authorization
+Content-Type: text/html
+Date: Thu, 30 Apr 2026 02:55:52 GMT
+Server: Apache
+ETag: "e832-650a42b6e7cb3"
+Age: 128
+Cache-Status: ustbaccel5-09n;hit;detail=match
+Via: 1.1 ustbaccel5-09n (squid)
+Connection: keep-alive
+

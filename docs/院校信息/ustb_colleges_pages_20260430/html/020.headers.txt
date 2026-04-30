@@ -1,0 +1,21 @@
+HTTP/1.1 200 OK
+Date: Thu, 30 Apr 2026 02:55:02 GMT
+Server: Apache
+X-Frame-Options: SAMEORIGIN
+X-XSS-Protection: 1; mode=block
+X-Content-Type-Options: nosniff
+Strict-Transport-Security: max-age=63072000; includeSubdomains; preload
+Last-Modified: Tue, 28 Apr 2026 03:54:26 GMT
+ETag: "cacc-6507d2ff9cafa"
+Accept-Ranges: bytes
+Content-Length: 51916
+Access-Control-Allow-Origin: http://192.168.8.10:8080
+Access-Control-Allow-Credentials: true
+Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE
+Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept, Authorization
+Content-Type: text/html
+Age: 177
+Cache-Status: ustbaccel5-09n;hit;detail=match
+Via: 1.1 ustbaccel5-09n (squid)
+Connection: keep-alive
+

@@ -1,0 +1,35 @@
+HTTP/1.1 302 Found
+Date: Thu, 30 Apr 2026 02:57:55 GMT
+Server: Apache
+X-Frame-Options: SAMEORIGIN
+X-XSS-Protection: 1; mode=block
+X-Content-Type-Options: nosniff
+Strict-Transport-Security: max-age=63072000; includeSubdomains; preload
+Location: https://seee.ustb.edu.cn/
+Content-Length: 209
+Content-Type: text/html; charset=iso-8859-1
+Cache-Status: ustbaccel5-09n;detail=mismatch
+Via: 1.1 ustbaccel5-09n (squid)
+Connection: keep-alive
+
+HTTP/1.1 200 OK
+Date: Thu, 30 Apr 2026 02:42:51 GMT
+Server: Apache
+X-Frame-Options: SAMEORIGIN
+X-XSS-Protection: 1; mode=block
+X-Content-Type-Options: nosniff
+Strict-Transport-Security: max-age=63072000; includeSubdomains; preload
+Last-Modified: Thu, 30 Apr 2026 00:52:35 GMT
+ETag: "12788-650a2e14ee1e6"
+Accept-Ranges: bytes
+Content-Length: 75656
+Access-Control-Allow-Origin: http://192.168.8.10:8080
+Access-Control-Allow-Credentials: true
+Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE
+Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept, Authorization
+Content-Type: text/html
+Age: 904
+Cache-Status: ustbaccel5-09n;hit;detail=match
+Via: 1.1 ustbaccel5-09n (squid)
+Connection: keep-alive
+
