@@ -540,6 +540,7 @@ departments/北京市生态环境保护科学研究院/
 departments/北京市结核病胸部肿瘤研究所/
 departments/中共北京市委党校/
 departments/中共辽宁省委党校/
+departments/中共吉林省委党校（吉林省行政学院）/
 departments/中日友好临床医学研究所/
 departments/中央社会主义学院/
 departments/国防大学/
@@ -550,6 +551,7 @@ departments/吉林大学/
 departments/吉林建筑大学/
 departments/吉林化工大学/
 departments/吉林农业大学/
+departments/佳木斯大学/
 departments/大连海洋大学/
 departments/大连医科大学/
 departments/大连外国语大学/
@@ -583,6 +585,7 @@ departments/太原理工大学/
 departments/太原科技大学/
 departments/延边大学/
 departments/海军大连舰艇学院/
+departments/空军航空大学/
 departments/太原师范学院/
 departments/运城学院/
 departments/长治医学院/
@@ -601,6 +604,14 @@ departments/长春中医药大学/
 departments/长春工业大学/
 departments/长春理工大学/
 departments/东北电力大学/
+departments/东北石油大学/
+departments/东北农业大学/
+departments/东北林业大学/
+departments/哈尔滨工业大学/
+departments/哈尔滨理工大学/
+departments/黑龙江大学/
+departments/黑龙江八一农垦大学/
+departments/黑龙江科技大学/
 departments/核工业第二研究设计院/
 departments/核工业北京地质研究院/
 departments/核工业北京化工冶金研究院/
