@@ -56,3 +56,12 @@ school_name,official_site_url,entry_url,entry_type,crawl_mode,max_teacher_pages_
 中国航天科工集团公司第三研究院(8357所),https://www.casic.cn/,https://www.casic.cn/,seed_url,append,2,集团站作为种子入口自动发现研究所相关页面
 中国航天科工集团第三研究院第八三五八研究所,https://www.casic.cn/,https://www.casic.cn/,seed_url,append,2,集团站作为种子入口自动发现研究所相关页面
 国家海洋技术中心,https://yz.chsi.com.cn/sch/schoolInfo--schId-367943.dhtml,https://yz.chsi.com.cn/sch/schoolInfo--schId-367943.dhtml,seed_url,append,2,官网入口缺失，先用研招网院校页作为种子入口
+燕山大学,https://www.ysu.edu.cn/,https://www.ysu.edu.cn/,seed_url,append,2,高校官网作为种子入口自动发现学院部门与导师页
+河北科技师范学院,https://www.hevttc.edu.cn/,https://www.hevttc.edu.cn/,seed_url,append,2,高校官网作为种子入口自动发现学院部门与导师页
+华北科技学院,https://www.ncist.edu.cn/,https://www.ncist.edu.cn/,seed_url,append,2,高校官网作为种子入口自动发现学院部门与导师页
+中国人民警察大学,https://www.cppu.edu.cn/,https://www.cppu.edu.cn/,seed_url,append,2,高校官网作为种子入口自动发现学院部门与导师页
+河北金融学院,https://www.bdcf.edu.cn/,https://www.bdcf.edu.cn/,seed_url,append,2,高校官网作为种子入口自动发现学院部门与导师页
+北华航天工业学院,https://www.nciae.edu.cn/,https://www.nciae.edu.cn/,seed_url,append,2,高校官网作为种子入口自动发现学院部门与导师页
+防灾科技学院,https://www.cidp.edu.cn/,https://www.cidp.edu.cn/,seed_url,append,2,高校官网作为种子入口自动发现学院部门与导师页
+河北经贸大学,https://www.heuet.edu.cn/,https://www.heuet.edu.cn/,seed_url,append,2,高校官网作为种子入口自动发现学院部门与导师页
+中央司法警官学院,https://www.cicp.edu.cn/,https://www.cicp.edu.cn/,seed_url,append,2,高校官网作为种子入口自动发现学院部门与导师页
