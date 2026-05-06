@@ -12,3 +12,9 @@ school_name,official_site_url,entry_url,entry_type,crawl_mode,max_teacher_pages_
 中央财经大学,https://www.cufe.edu.cn/,https://www.cufe.edu.cn/zzjg/xysz.htm,seed_url,append,2,学院设置页作为种子入口，走主流程自动发现院系
 对外经济贸易大学,https://www.uibe.edu.cn/,https://www.uibe.edu.cn/xysz/index.htm,department_index,config_only,2,学院设置入口页
 北京物资学院,https://www.bwu.edu.cn/,https://www.bwu.edu.cn/jxjf.htm,department_index,config_only,2,教学教辅页包含学院入口
+中国音乐学院,https://www.ccmusic.edu.cn/,https://www.ccmusic.edu.cn/jgsz/jxyx/index.htm,department_index,config_only,2,机构设置-教学院系入口
+中央美术学院,https://www.cafa.edu.cn/,https://www.cafa.edu.cn/,seed_url,append,2,主站首页作为种子入口自动发现院系
+中央戏剧学院,https://www.zhongxi.cn/,https://www.zhongxi.cn/,seed_url,append,2,官网入口先走种子发现
+中国戏曲学院,https://www.nacta.edu.cn/,https://www.nacta.edu.cn/zzjg/index.htm,department_index,config_only,2,组织机构入口页
+北京电影学院,https://www.bfa.edu.cn/,https://www.bfa.edu.cn/,seed_url,append,2,官网对普通请求有限制，先走浏览器抓取发现
+北京舞蹈学院,https://www.bda.edu.cn/,https://www.bda.edu.cn/jxyx/index.htm,department_index,config_only,2,教学院系入口页
