@@ -502,7 +502,13 @@ departments/清华大学/
 departments/中国人民大学/
 departments/中国农业机械化科学研究院/
 departments/中国原子能科学研究院/
+departments/中国空间技术研究院/
 departments/中国工程物理研究院/
+departments/中国航天空气动力技术研究院/
+departments/中国航天系统科学与工程研究院/
+departments/中国航天科工集团第二研究院/
+departments/中国航天科工集团第二研究院207所/
+departments/中国航天科工集团第三研究院/
 departments/中国航空研究院/
 departments/中国地质科学院/
 departments/中国城市规划设计研究院/
@@ -513,6 +519,7 @@ departments/北京机电研究所/
 departments/核工业第二研究设计院/
 departments/核工业北京地质研究院/
 departments/核工业北京化工冶金研究院/
+departments/煤炭科学研究总院/
 departments/钢铁研究总院/
 ```
 
