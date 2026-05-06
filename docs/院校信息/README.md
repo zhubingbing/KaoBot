@@ -476,6 +476,7 @@ departments/README.md                 # 学校级目录索引
 departments/北京大学/
 departments/北京外国语大学/
 departments/北京服装学院/
+departments/北京体育大学/
 departments/北京第二外国语学院/
 departments/北京印刷学院/
 departments/北京建筑大学/
@@ -490,6 +491,8 @@ departments/北京石油化工学院/
 departments/北京科技大学/
 departments/北京航空航天大学/
 departments/北方工业大学/
+departments/中央音乐学院/
+departments/国际关系学院/
 departments/清华大学/
 departments/中国人民大学/
 ```
