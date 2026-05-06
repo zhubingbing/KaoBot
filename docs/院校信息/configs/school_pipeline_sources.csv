@@ -18,3 +18,12 @@ school_name,official_site_url,entry_url,entry_type,crawl_mode,max_teacher_pages_
 中国戏曲学院,https://www.nacta.edu.cn/,https://www.nacta.edu.cn/zzjg/index.htm,department_index,config_only,2,组织机构入口页
 北京电影学院,https://www.bfa.edu.cn/,https://www.bfa.edu.cn/,seed_url,append,2,官网对普通请求有限制，先走浏览器抓取发现
 北京舞蹈学院,https://www.bda.edu.cn/,https://www.bda.edu.cn/jxyx/index.htm,department_index,config_only,2,教学院系入口页
+中国矿业大学(北京),https://www.cumtb.edu.cn/,https://www.cumtb.edu.cn/xysz.htm,department_index,config_only,2,学院设置入口页
+中国石油大学(北京),https://www.cup.edu.cn/,https://www.cup.edu.cn/yuanxi/index.htm,department_index,config_only,2,院系设置入口页
+中国地质大学(北京),https://www.cugb.edu.cn/,https://www.cugb.edu.cn/jxdw.jhtml,department_index,config_only,2,教学单位入口页
+中国劳动关系学院,https://www.culr.edu.cn/,https://www.culr.edu.cn/jgsz/jxbm/index.htm,department_index,config_only,2,机构设置-教学单位入口页
+中国科学院大学,https://www.ucas.ac.cn/,https://admission.ucas.ac.cn/ShowArticle/newslist/f8d33d7b-b1d5-4d99-8760-99cfc9c40725,seed_url,append,2,主站对抓取请求401，采用招生站培养单位介绍页作为种子入口
+中国社会科学院大学,https://www.ucass.edu.cn/,https://www.ucass.edu.cn/xygk/jgsz/,department_index,config_only,2,组织机构入口页（院系设置页抓取为空时回退）
+中共中央党校(国家行政学院),https://www.ccps.gov.cn/,https://www.ccps.gov.cn/bmpd/,department_index,config_only,2,部门频道聚合各教学科研单位入口
+北京国家会计学院,https://www.nai.edu.cn/,https://www.nai.edu.cn/index.php?m=content&c=index&a=lists&catid=24,department_index,config_only,2,组织机构入口页
+中国科学技术信息研究所,https://www.istic.ac.cn/,https://www.istic.ac.cn/html/1/159/159/160/index.html,department_index,config_only,2,研究团队入口页
