@@ -547,6 +547,17 @@ departments/国家海洋环境预报中心/
 departments/国家老年医学中心/
 departments/首都儿科研究所/
 departments/长江商学院/
+departments/海军勤务学院/
+departments/武警指挥学院/
+departments/武警后勤学院/
+departments/河北大学/
+departments/河北工程大学/
+departments/河北地质大学/
+departments/华北电力大学（保定）/
+departments/河北工业大学/
+departments/华北理工大学/
+departments/河北科技大学/
+departments/河北建筑工程学院/
 departments/核工业第二研究设计院/
 departments/核工业北京地质研究院/
 departments/核工业北京化工冶金研究院/
