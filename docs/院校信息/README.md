@@ -500,6 +500,12 @@ departments/中央音乐学院/
 departments/国际关系学院/
 departments/清华大学/
 departments/中国人民大学/
+departments/中国地质科学院/
+departments/中国城市规划设计研究院/
+departments/中国建筑科学研究院/
+departments/中国建筑设计研究院/
+departments/中国环境科学研究院/
+departments/钢铁研究总院/
 ```
 
 ## 院校网页抓取目录（学院官网首页）
