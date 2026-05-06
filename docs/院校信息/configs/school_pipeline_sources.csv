@@ -27,3 +27,8 @@ school_name,official_site_url,entry_url,entry_type,crawl_mode,max_teacher_pages_
 中共中央党校(国家行政学院),https://www.ccps.gov.cn/,https://www.ccps.gov.cn/bmpd/,department_index,config_only,2,部门频道聚合各教学科研单位入口
 北京国家会计学院,https://www.nai.edu.cn/,https://www.nai.edu.cn/index.php?m=content&c=index&a=lists&catid=24,department_index,config_only,2,组织机构入口页
 中国科学技术信息研究所,https://www.istic.ac.cn/,https://www.istic.ac.cn/html/1/159/159/160/index.html,department_index,config_only,2,研究团队入口页
+中国电子科技集团有限公司研究生院,https://yz.chsi.com.cn/sch/schoolInfo--schId-683178.dhtml,https://yz.chsi.com.cn/sch/schoolInfo--schId-683178.dhtml,seed_url,append,2,院校官网入口缺失，先用研招网院校页作为种子入口
+华北计算机系统工程研究所,http://www.ncse.com.cn/,http://www.ncse.com.cn/,seed_url,append,2,研究所官网作为种子入口自动发现部门与导师页
+中国兵器科学研究院,https://yz.chsi.com.cn/sch/schoolInfo--schId-3274440427.dhtml,https://yz.chsi.com.cn/sch/schoolInfo--schId-3274440427.dhtml,seed_url,append,2,院校官网入口缺失，先用研招网院校页作为种子入口
+中国兵器科学研究院(中国北方车辆研究所),https://www.norincogroup.com.cn/,https://www.norincogroup.com.cn/,seed_url,append,2,集团站作为种子入口自动发现研究所相关页面
+中国运载火箭技术研究院,http://www.calt.com/,http://www.calt.com/,seed_url,append,2,研究院官网作为种子入口自动发现学院部门与导师页
