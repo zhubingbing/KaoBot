@@ -49,3 +49,10 @@ school_name,official_site_url,entry_url,entry_type,crawl_mode,max_teacher_pages_
 中国石油化工股份有限公司石油化工科学研究院,https://yz.chsi.com.cn/sch/schoolInfo--schId-367837.dhtml,https://yz.chsi.com.cn/sch/schoolInfo--schId-367837.dhtml,seed_url,append,2,官网入口缺失，先用研招网院校页作为种子入口
 北京矿冶研究总院,http://www.bgrimm.com/,http://www.bgrimm.com/,seed_url,append,2,研究院官网作为种子入口自动发现部门与导师页
 北京市科学技术研究院城市安全与环境科学研究所,https://yz.chsi.com.cn/sch/schoolInfo--schId-367803.dhtml,https://yz.chsi.com.cn/sch/schoolInfo--schId-367803.dhtml,seed_url,append,2,官网入口缺失，先用研招网院校页作为种子入口
+天津城建大学,https://www.tcu.edu.cn/,https://www.tcu.edu.cn/,seed_url,append,2,高校官网作为种子入口自动发现学院部门与导师页
+天津中德应用技术大学,https://www.tsguas.edu.cn/,https://www.tsguas.edu.cn/,seed_url,append,2,高校官网作为种子入口自动发现学院部门与导师页
+中钢集团天津地质研究院有限公司,https://yz.chsi.com.cn/sch/schoolInfo--schId-367939.dhtml,https://yz.chsi.com.cn/sch/schoolInfo--schId-367939.dhtml,seed_url,append,2,官网入口缺失，先用研招网院校页作为种子入口
+核工业理化工程研究院,https://yz.chsi.com.cn/sch/schoolInfo--schId-367940.dhtml,https://yz.chsi.com.cn/sch/schoolInfo--schId-367940.dhtml,seed_url,append,2,官网入口缺失，先用研招网院校页作为种子入口
+中国航天科工集团公司第三研究院(8357所),https://www.casic.cn/,https://www.casic.cn/,seed_url,append,2,集团站作为种子入口自动发现研究所相关页面
+中国航天科工集团第三研究院第八三五八研究所,https://www.casic.cn/,https://www.casic.cn/,seed_url,append,2,集团站作为种子入口自动发现研究所相关页面
+国家海洋技术中心,https://yz.chsi.com.cn/sch/schoolInfo--schId-367943.dhtml,https://yz.chsi.com.cn/sch/schoolInfo--schId-367943.dhtml,seed_url,append,2,官网入口缺失，先用研招网院校页作为种子入口
