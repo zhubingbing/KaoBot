@@ -5,3 +5,6 @@ school_name,official_site_url,entry_url,entry_type,crawl_mode,max_teacher_pages_
 北京农学院,https://www.bua.edu.cn/,https://www.bua.edu.cn/zzjg.htm,department_index,config_only,2,组织机构页含院部设置，优先从院系入口抓取
 北京协和医学院,https://www.pumc.edu.cn/,https://www.pumc.edu.cn/yxgk/zzjg/index.htm,department_index,config_only,2,组织机构页作为学院入口
 首都医科大学,https://www.ccmu.edu.cn/,https://www.ccmu.edu.cn/yxbs_6451/xyjxb_6452/index.htm,department_index,config_only,2,院系部所-学院入口
+北京中医药大学,https://www.bucm.edu.cn/,https://www.bucm.edu.cn/zzjg1/index.htm,department_index,config_only,2,组织机构页作为学院入口
+北京师范大学,https://www.bnu.edu.cn/,https://www.bnu.edu.cn/xbyx/index.htm,department_index,config_only,2,学部院系入口页
+首都体育学院,https://www.cupes.edu.cn/,https://www.cupes.edu.cn/yxsz/index.htm,department_index,config_only,2,院系设置入口页
