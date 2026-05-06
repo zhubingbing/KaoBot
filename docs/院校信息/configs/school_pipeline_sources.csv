@@ -42,3 +42,10 @@ school_name,official_site_url,entry_url,entry_type,crawl_mode,max_teacher_pages_
 中国中医科学院,http://www.catcm.ac.cn/,http://www.catcm.ac.cn/,seed_url,append,2,官网作为种子入口自动发现部门与导师页
 中国食品药品检定研究院,http://www.nifdc.org.cn/,http://www.nifdc.org.cn/,seed_url,append,2,官网作为种子入口自动发现部门与导师页
 北京生物制品研究所,https://yz.chsi.com.cn/sch/schoolInfo--schId-367793.dhtml,https://yz.chsi.com.cn/sch/schoolInfo--schId-367793.dhtml,seed_url,append,2,官网入口缺失，先用研招网院校页作为种子入口
+应急管理部国家自然灾害防治研究院,https://www.ninhm.ac.cn/,https://www.ninhm.ac.cn/,seed_url,append,2,研究院官网作为种子入口自动发现部门与导师页
+中国计量科学研究院,https://www.nim.ac.cn/,https://www.nim.ac.cn/,seed_url,append,2,研究院官网作为种子入口自动发现部门与导师页
+中国测绘科学研究院,https://www.casm.ac.cn/,https://www.casm.ac.cn/,seed_url,append,2,研究院官网作为种子入口自动发现部门与导师页
+中国舰船研究院,https://yz.chsi.com.cn/sch/schoolInfo--schId-50084393.dhtml,https://yz.chsi.com.cn/sch/schoolInfo--schId-50084393.dhtml,seed_url,append,2,官网入口缺失，先用研招网院校页作为种子入口
+中国石油化工股份有限公司石油化工科学研究院,https://yz.chsi.com.cn/sch/schoolInfo--schId-367837.dhtml,https://yz.chsi.com.cn/sch/schoolInfo--schId-367837.dhtml,seed_url,append,2,官网入口缺失，先用研招网院校页作为种子入口
+北京矿冶研究总院,http://www.bgrimm.com/,http://www.bgrimm.com/,seed_url,append,2,研究院官网作为种子入口自动发现部门与导师页
+北京市科学技术研究院城市安全与环境科学研究所,https://yz.chsi.com.cn/sch/schoolInfo--schId-367803.dhtml,https://yz.chsi.com.cn/sch/schoolInfo--schId-367803.dhtml,seed_url,append,2,官网入口缺失，先用研招网院校页作为种子入口
