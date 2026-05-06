@@ -91,3 +91,14 @@ school_name,official_site_url,entry_url,entry_type,crawl_mode,max_teacher_pages_
 中国航空研究院(626所),https://yz.chsi.com.cn/sch/schoolInfo--schId-368022.dhtml,https://yz.chsi.com.cn/sch/schoolInfo--schId-368022.dhtml,seed_url,append,2,研究所官网入口缺失，先用研招网院校页作为种子入口
 沈阳化工研究院,https://yz.chsi.com.cn/sch/schoolInfo--schId-368024.dhtml,https://yz.chsi.com.cn/sch/schoolInfo--schId-368024.dhtml,seed_url,append,2,研究院官网抓取稳定性不一，先用研招网院校页作为种子入口
 中国舰船研究院(大连测控技术研究所),https://yz.chsi.com.cn/sch/schoolInfo--schId-368025.dhtml,https://yz.chsi.com.cn/sch/schoolInfo--schId-368025.dhtml,seed_url,append,2,研究所官网入口缺失，先用研招网院校页作为种子入口
+东北师范大学,https://yz.chsi.com.cn/sch/schoolInfo--schId-368059.dhtml,https://yz.chsi.com.cn/sch/schoolInfo--schId-368059.dhtml,seed_url,append,2,高校官网抓取稳定性不一，先用研招网院校页作为种子入口
+北华大学,https://yz.chsi.com.cn/sch/schoolInfo--schId-368066.dhtml,https://yz.chsi.com.cn/sch/schoolInfo--schId-368066.dhtml,seed_url,append,2,高校官网抓取稳定性不一，先用研招网院校页作为种子入口
+吉林师范大学,https://yz.chsi.com.cn/sch/schoolInfo--schId-368058.dhtml,https://yz.chsi.com.cn/sch/schoolInfo--schId-368058.dhtml,seed_url,append,2,高校官网抓取稳定性不一，先用研招网院校页作为种子入口
+吉林工程技术师范学院,https://yz.chsi.com.cn/sch/schoolInfo--schId-2807891311.dhtml,https://yz.chsi.com.cn/sch/schoolInfo--schId-2807891311.dhtml,seed_url,append,2,官网入口缺失，先用研招网院校页作为种子入口
+长春师范大学,https://yz.chsi.com.cn/sch/schoolInfo--schId-677583.dhtml,https://yz.chsi.com.cn/sch/schoolInfo--schId-677583.dhtml,seed_url,append,2,高校官网抓取稳定性不一，先用研招网院校页作为种子入口
+吉林财经大学,https://yz.chsi.com.cn/sch/schoolInfo--schId-368057.dhtml,https://yz.chsi.com.cn/sch/schoolInfo--schId-368057.dhtml,seed_url,append,2,官网入口缺失，先用研招网院校页作为种子入口
+吉林体育学院,https://yz.chsi.com.cn/sch/schoolInfo--schId-677710.dhtml,https://yz.chsi.com.cn/sch/schoolInfo--schId-677710.dhtml,seed_url,append,2,高校官网抓取稳定性不一，先用研招网院校页作为种子入口
+吉林艺术学院,https://yz.chsi.com.cn/sch/schoolInfo--schId-368075.dhtml,https://yz.chsi.com.cn/sch/schoolInfo--schId-368075.dhtml,seed_url,append,2,高校官网抓取稳定性不一，先用研招网院校页作为种子入口
+吉林外国语大学,https://yz.chsi.com.cn/sch/schoolInfo--schId-302969307.dhtml,https://yz.chsi.com.cn/sch/schoolInfo--schId-302969307.dhtml,seed_url,append,2,高校官网抓取稳定性不一，先用研招网院校页作为种子入口
+长春工程学院,https://yz.chsi.com.cn/sch/schoolInfo--schId-302974482.dhtml,https://yz.chsi.com.cn/sch/schoolInfo--schId-302974482.dhtml,seed_url,append,2,高校官网抓取稳定性不一，先用研招网院校页作为种子入口
+长春大学,https://yz.chsi.com.cn/sch/schoolInfo--schId-688909852.dhtml,https://yz.chsi.com.cn/sch/schoolInfo--schId-688909852.dhtml,seed_url,append,2,高校官网抓取稳定性不一，先用研招网院校页作为种子入口
