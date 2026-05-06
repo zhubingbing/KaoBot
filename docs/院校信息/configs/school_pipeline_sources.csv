@@ -65,3 +65,14 @@ school_name,official_site_url,entry_url,entry_type,crawl_mode,max_teacher_pages_
 防灾科技学院,https://www.cidp.edu.cn/,https://www.cidp.edu.cn/,seed_url,append,2,高校官网作为种子入口自动发现学院部门与导师页
 河北经贸大学,https://www.heuet.edu.cn/,https://www.heuet.edu.cn/,seed_url,append,2,高校官网作为种子入口自动发现学院部门与导师页
 中央司法警官学院,https://www.cicp.edu.cn/,https://www.cicp.edu.cn/,seed_url,append,2,高校官网作为种子入口自动发现学院部门与导师页
+内蒙古大学,https://yz.chsi.com.cn/sch/schoolInfo--schId-368005.dhtml,https://yz.chsi.com.cn/sch/schoolInfo--schId-368005.dhtml,seed_url,append,2,官网抓取稳定性不一，先用研招网院校页作为种子入口
+内蒙古科技大学,https://yz.chsi.com.cn/sch/schoolInfo--schId-368001.dhtml,https://yz.chsi.com.cn/sch/schoolInfo--schId-368001.dhtml,seed_url,append,2,官网抓取稳定性不一，先用研招网院校页作为种子入口
+内蒙古工业大学,https://yz.chsi.com.cn/sch/schoolInfo--schId-368004.dhtml,https://yz.chsi.com.cn/sch/schoolInfo--schId-368004.dhtml,seed_url,append,2,官网抓取稳定性不一，先用研招网院校页作为种子入口
+内蒙古农业大学,https://yz.chsi.com.cn/sch/schoolInfo--schId-368003.dhtml,https://yz.chsi.com.cn/sch/schoolInfo--schId-368003.dhtml,seed_url,append,2,官网抓取稳定性不一，先用研招网院校页作为种子入口
+内蒙古医科大学,https://yz.chsi.com.cn/sch/schoolInfo--schId-368002.dhtml,https://yz.chsi.com.cn/sch/schoolInfo--schId-368002.dhtml,seed_url,append,2,官网入口缺失，先用研招网院校页作为种子入口
+内蒙古师范大学,https://yz.chsi.com.cn/sch/schoolInfo--schId-367999.dhtml,https://yz.chsi.com.cn/sch/schoolInfo--schId-367999.dhtml,seed_url,append,2,官网抓取稳定性不一，先用研招网院校页作为种子入口
+内蒙古民族大学,https://yz.chsi.com.cn/sch/schoolInfo--schId-368006.dhtml,https://yz.chsi.com.cn/sch/schoolInfo--schId-368006.dhtml,seed_url,append,2,官网入口缺失，先用研招网院校页作为种子入口
+赤峰学院,https://yz.chsi.com.cn/sch/schoolInfo--schId-499721721.dhtml,https://yz.chsi.com.cn/sch/schoolInfo--schId-499721721.dhtml,seed_url,append,2,官网入口缺失，先用研招网院校页作为种子入口
+内蒙古财经大学,https://yz.chsi.com.cn/sch/schoolInfo--schId-677501.dhtml,https://yz.chsi.com.cn/sch/schoolInfo--schId-677501.dhtml,seed_url,append,2,官网抓取稳定性不一，先用研招网院校页作为种子入口
+呼伦贝尔学院,https://yz.chsi.com.cn/sch/schoolInfo--schId-2807892094.dhtml,https://yz.chsi.com.cn/sch/schoolInfo--schId-2807892094.dhtml,seed_url,append,2,官网抓取稳定性不一，先用研招网院校页作为种子入口
+内蒙古艺术学院,https://yz.chsi.com.cn/sch/schoolInfo--schId-2311267403.dhtml,https://yz.chsi.com.cn/sch/schoolInfo--schId-2311267403.dhtml,seed_url,append,2,官网抓取稳定性不一，先用研招网院校页作为种子入口
