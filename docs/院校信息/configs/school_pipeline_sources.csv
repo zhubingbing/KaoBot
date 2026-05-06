@@ -32,3 +32,13 @@ school_name,official_site_url,entry_url,entry_type,crawl_mode,max_teacher_pages_
 中国兵器科学研究院,https://yz.chsi.com.cn/sch/schoolInfo--schId-3274440427.dhtml,https://yz.chsi.com.cn/sch/schoolInfo--schId-3274440427.dhtml,seed_url,append,2,院校官网入口缺失，先用研招网院校页作为种子入口
 中国兵器科学研究院(中国北方车辆研究所),https://www.norincogroup.com.cn/,https://www.norincogroup.com.cn/,seed_url,append,2,集团站作为种子入口自动发现研究所相关页面
 中国运载火箭技术研究院,http://www.calt.com/,http://www.calt.com/,seed_url,append,2,研究院官网作为种子入口自动发现学院部门与导师页
+中国制浆造纸研究院有限公司,https://www.cnppri.com/,https://www.cnppri.com/,seed_url,append,2,研究院官网作为种子入口自动发现部门与导师页
+中国铁道科学研究院,http://www.morpogs.com/,http://www.morpogs.com/,seed_url,append,2,研究院官网作为种子入口自动发现部门与导师页
+交通运输部公路科学研究所,https://yz.chsi.com.cn/sch/schoolInfo--schId-367788.dhtml,https://yz.chsi.com.cn/sch/schoolInfo--schId-367788.dhtml,seed_url,append,2,官网入口缺失，先用研招网院校页作为种子入口
+电信科学技术研究院,https://yz.chsi.com.cn/sch/schoolInfo--schId-367789.dhtml,https://yz.chsi.com.cn/sch/schoolInfo--schId-367789.dhtml,seed_url,append,2,官网入口缺失，先用研招网院校页作为种子入口
+中国艺术研究院,http://www.gscaa.cn/,http://www.gscaa.cn/,seed_url,append,2,研究院官网作为种子入口自动发现部门与导师页
+中国电影艺术研究中心,https://www.cfa.org.cn/,https://www.cfa.org.cn/,seed_url,append,2,中心官网作为种子入口自动发现部门与导师页
+中国疾病预防控制中心,https://www.chinacdc.cn/,https://www.chinacdc.cn/,seed_url,append,2,中心官网作为种子入口自动发现部门与导师页
+中国中医科学院,http://www.catcm.ac.cn/,http://www.catcm.ac.cn/,seed_url,append,2,官网作为种子入口自动发现部门与导师页
+中国食品药品检定研究院,http://www.nifdc.org.cn/,http://www.nifdc.org.cn/,seed_url,append,2,官网作为种子入口自动发现部门与导师页
+北京生物制品研究所,https://yz.chsi.com.cn/sch/schoolInfo--schId-367793.dhtml,https://yz.chsi.com.cn/sch/schoolInfo--schId-367793.dhtml,seed_url,append,2,官网入口缺失，先用研招网院校页作为种子入口

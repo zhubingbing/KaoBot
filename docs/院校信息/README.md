@@ -503,7 +503,12 @@ departments/中国人民大学/
 departments/中国农业机械化科学研究院/
 departments/中国原子能科学研究院/
 departments/中国空间技术研究院/
+departments/中国地震局地球物理研究所/
+departments/中国地震局地质研究所/
+departments/中国地震局地震预测研究所/
 departments/中国工程物理研究院/
+departments/中国建筑材料科学研究总院/
+departments/中国气象科学研究院/
 departments/中国航天空气动力技术研究院/
 departments/中国航天系统科学与工程研究院/
 departments/中国航天科工集团第二研究院/
@@ -516,6 +521,10 @@ departments/中国建筑科学研究院/
 departments/中国建筑设计研究院/
 departments/中国环境科学研究院/
 departments/北京机电研究所/
+departments/中日友好临床医学研究所/
+departments/国家体育总局体育科学研究所/
+departments/国家海洋环境预报中心/
+departments/国家老年医学中心/
 departments/核工业第二研究设计院/
 departments/核工业北京地质研究院/
 departments/核工业北京化工冶金研究院/
