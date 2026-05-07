@@ -175,6 +175,20 @@ def parse_target_names():
         for p in sorted(BASE.iterdir()):
             if p.is_dir() and (p / "README.md").exists():
                 dirs.append(p.name)
+        limit = None
+        offset = 0
+        if "--limit" in sys.argv:
+            i = sys.argv.index("--limit")
+            if i + 1 < len(sys.argv):
+                limit = int(sys.argv[i + 1])
+        if "--offset" in sys.argv:
+            i = sys.argv.index("--offset")
+            if i + 1 < len(sys.argv):
+                offset = int(sys.argv[i + 1])
+        if offset:
+            dirs = dirs[offset:]
+        if limit is not None:
+            dirs = dirs[:limit]
         return dirs
     return DEFAULT_TARGET_NAMES
 
