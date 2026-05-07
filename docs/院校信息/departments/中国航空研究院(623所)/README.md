@@ -3,7 +3,7 @@
 ## 文档信息
 
 - 学校：中国航空研究院(623所)
-- 学校官网：https://www.avic.com
+- 学校官网：https://avicsari.m.zhiye.com
 - 来源页面：https://yz.chsi.com.cn/sch/schoolInfo--schId-368536.dhtml
 - 文档生成日期：2026-05-07
 - 院系/相关单位链接数：1
@@ -12,7 +12,7 @@
 
 | 序号 | 单位名称 | 官方链接 |
 |---|---|---|
-| 1 | 中国航空研究院(623所)官网入口 | https://www.avic.com |
+| 1 | 中国航空研究院(623所)官网入口 | https://avicsari.m.zhiye.com |
 
 ## 抓取备注
 

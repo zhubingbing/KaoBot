@@ -6,13 +6,14 @@
 - 学校官网：https://www.avic.com
 - 来源页面：https://yz.chsi.com.cn/sch/schoolInfo--schId-368533.dhtml
 - 文档生成日期：2026-05-07
-- 院系/相关单位链接数：1
+- 院系/相关单位链接数：2
 
 ## 院系与相关单位官方链接
 
 | 序号 | 单位名称 | 官方链接 |
 |---|---|---|
-| 1 | 中国航空研究院(618所)官网入口 | https://www.avic.com |
+| 1 | 国家发改委：现代化综合交通运输体系将进一步完善 | https://www.avic.com/c/2026-04-28/642952.shtml |
+| 2 | 下载中心 | https://www.avic.com/sycd/gywm/xzzx/ |
 
 ## 抓取备注
 

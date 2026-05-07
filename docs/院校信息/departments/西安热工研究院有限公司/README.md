@@ -6,13 +6,14 @@
 - 学校官网：https://www.tpri.com.cn
 - 来源页面：https://yz.chsi.com.cn/sch/schoolInfo--schId-368570.dhtml
 - 文档生成日期：2026-05-07
-- 院系/相关单位链接数：1
+- 院系/相关单位链接数：2
 
 ## 院系与相关单位官方链接
 
 | 序号 | 单位名称 | 官方链接 |
 |---|---|---|
-| 1 | 西安热工研究院有限公司官网入口 | https://www.tpri.com.cn |
+| 1 | 联系我们 | https://www.tpri.com.cn/aboutus_top/119.html |
+| 2 | 西安热工研究院：二〇二六年新年贺词 | https://www.tpri.com.cn/newcenter_top/detail/785_2025123017303884669940.html |
 
 ## 抓取备注
 
