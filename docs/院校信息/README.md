@@ -671,6 +671,34 @@ departments/核工业北京地质研究院/
 departments/核工业北京化工冶金研究院/
 departments/煤炭科学研究总院/
 departments/钢铁研究总院/
+departments/泉州师范学院/
+departments/闽南师范大学/
+departments/厦门理工学院/
+departments/三明学院/
+departments/龙岩学院/
+departments/莆田学院/
+departments/福建江夏学院/
+departments/厦门国家会计学院/
+departments/自然资源部第三海洋研究所/
+departments/南昌大学/
+departments/华东交通大学/
+departments/东华理工大学/
+departments/南昌航空大学/
+departments/江夏理工大学/
+departments/景德镇陶瓷大学/
+departments/江西农业大学/
+departments/江西中医药大学/
+departments/赣南医科大学/
+departments/江西师范大学/
+departments/上饶师范学院/
+departments/宜春学院/
+departments/赣南师范大学/
+departments/井冈山大学/
+departments/江西财经大学/
+departments/江西科技师范大学/
+departments/江西水利电力大学/
+departments/九江学院/
+departments/陆军步兵学院/
 ```
 
 ## 院校网页抓取目录（学院官网首页）
