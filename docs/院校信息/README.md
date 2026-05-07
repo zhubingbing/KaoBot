@@ -736,6 +736,34 @@ departments/湖南科技学院/
 departments/湖南人文科技学院/
 departments/湖南工商大学/
 departments/南华大学/
+departments/重庆大学/
+departments/重庆邮电大学/
+departments/重庆交通大学/
+departments/重庆医科大学/
+departments/西南大学/
+departments/重庆师范大学/
+departments/重庆文理学院/
+departments/重庆三峡学院/
+departments/长江师范学院/
+departments/四川外国语大学/
+departments/西南政法大学/
+departments/四川美术学院/
+departments/重庆科技大学/
+departments/重庆理工大学/
+departments/重庆工商大学/
+departments/重庆中医药学院/
+departments/中共重庆市委党校/
+departments/陆军军医大学/
+departments/联勤保障部队工程大学/
+departments/四川大学/
+departments/西南交通大学/
+departments/电子科技大学/
+departments/西南石油大学/
+departments/成都理工大学/
+departments/西南科技大学/
+departments/成都信息工程大学/
+departments/四川轻化工大学/
+departments/西华大学/
 ```
 
 ## 院校网页抓取目录（学院官网首页）
