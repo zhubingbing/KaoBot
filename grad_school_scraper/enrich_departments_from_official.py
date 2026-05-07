@@ -10,7 +10,7 @@ from pathlib import Path
 from urllib.parse import urljoin, urlparse
 from urllib.request import Request, urlopen
 
-TARGET_NAMES = [
+DEFAULT_TARGET_NAMES = [
     "西安工业大学", "西安建筑科技大学", "西安科技大学", "西安石油大学", "陕西科技大学", "西安工程大学",
     "长安大学", "西北农林科技大学", "陕西中医药大学", "陕西师范大学", "延安大学", "陕西理工大学",
     "宝鸡文理学院", "咸阳师范学院", "西安外国语大学", "西北政法大学", "西安体育学院", "西安音乐学院",
@@ -169,10 +169,39 @@ def candidate_urls(official: str, row: dict):
     return dedup
 
 
+def parse_target_names():
+    if len(sys.argv) > 1 and sys.argv[1] == "--all":
+        dirs = []
+        for p in sorted(BASE.iterdir()):
+            if p.is_dir() and (p / "README.md").exists():
+                dirs.append(p.name)
+        return dirs
+    return DEFAULT_TARGET_NAMES
+
+
+def current_link_count(readme: Path) -> int:
+    try:
+        t = readme.read_text(encoding="utf-8")
+    except Exception:
+        return 0
+    c = 0
+    for line in t.splitlines():
+        if line.startswith("| ") and "---" not in line and "序号" not in line:
+            c += 1
+    return c
+
+
 def main():
     by_name, by_norm = load_rows()
+    target_names = parse_target_names()
     changed = 0
-    for name in TARGET_NAMES:
+    skipped = 0
+    for name in target_names:
+        readme = BASE / name / "README.md"
+        # Skip already enriched files by default in all-mode.
+        if len(sys.argv) > 1 and sys.argv[1] == "--all" and current_link_count(readme) > 1:
+            skipped += 1
+            continue
         row = by_name.get(name) or by_norm.get(norm(name))
         source = row.get("yz_detail_url", "").strip() if row else "https://yz.chsi.com.cn"
         official = row.get("official_site_url", "").strip() if row else ""
@@ -215,11 +244,11 @@ def main():
         if name in FALLBACK_SITE:
             note = "当前使用上级单位官网或院所官网入口，后续补充该单位独立院系页（待复核）。"
         text = render(name, official, source, links, note)
-        p = BASE / name / "README.md"
+        p = readme
         p.parent.mkdir(parents=True, exist_ok=True)
         p.write_text(text, encoding="utf-8")
         changed += 1
-    print(f"updated {changed} files")
+    print(f"updated {changed} files, skipped {skipped} files")
     return 0
 
 
