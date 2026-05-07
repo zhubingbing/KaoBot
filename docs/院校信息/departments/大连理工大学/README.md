@@ -1,10 +1,21 @@
-# 大连理工大学 院系目录
+# 大连理工大学院系官网链接文档
 
-- 院系文件数：3
-- 专业/方向记录：0
-- 教师记录：154
-- 专业-教师弱关联：0
+## 文档信息
 
-- [城市学院](./城市学院.md)
-- [大连工学院](./大连工学院.md)
-- [校际关系](./校际关系.md)
+- 学校：大连理工大学
+- 学校官网：https://www.dlut.edu.cn
+- 来源页面：https://yz.chsi.com.cn/sch/schoolInfo--schId-368033.dhtml
+- 文档生成日期：2026-05-07
+- 院系/相关单位链接数：3
+
+## 院系与相关单位官方链接
+
+| 序号 | 单位名称 | 官方链接 |
+|---|---|---|
+| 1 | 大连理工大学官网入口 | https://www.dlut.edu.cn |
+| 2 | 本科教学/院系相关页面 | http://team.dlut.edu.cn/TeachingandResearchSectionofPhysicalChemistry/zh_CN/index.htm |
+| 3 | 师资/院系相关页面 | https://faculty.dlut.edu.cn/ |
+
+## 抓取备注
+
+- 已从学校官网多入口页面自动抽取院系相关链接，建议后续人工复核与补全。

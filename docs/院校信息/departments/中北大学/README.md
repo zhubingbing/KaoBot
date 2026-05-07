@@ -3,18 +3,19 @@
 ## 文档信息
 
 - 学校：中北大学
-- 学校官网：https://www.nuc.edu.cn/
-- 来源页面：https://www.nuc.edu.cn/
-- 文档生成日期：2026-05-06
-- 院系/相关单位链接数：1
+- 学校官网：https://www.nuc.edu.cn
+- 来源页面：https://yz.chsi.com.cn/sch/schoolInfo--schId-367995.dhtml
+- 文档生成日期：2026-05-07
+- 院系/相关单位链接数：3
 
 ## 院系与相关单位官方链接
 
 | 序号 | 单位名称 | 官方链接 |
 |---|---|---|
-| 1 | 中北大学官网入口 | https://www.nuc.edu.cn/ |
+| 1 | 中北大学官网入口 | https://www.nuc.edu.cn |
+| 2 | 本科教学/院系相关页面 | http://jwc.nuc.edu.cn/ |
+| 3 | 师资/院系相关页面 | https://www.nuc.edu.cn/szdw/lyys.htm |
 
 ## 抓取备注
 
-- 本次先建立学校级入口，后续继续补抓“院系设置/学院列表”页面。
-
+- 已从学校官网多入口页面自动抽取院系相关链接，建议后续人工复核与补全。

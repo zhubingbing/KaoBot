@@ -3,18 +3,19 @@
 ## 文档信息
 
 - 学校：华北电力大学（保定）
-- 学校官网：https://www.ncepu.edu.cn/
-- 来源页面：https://www.ncepu.edu.cn/
-- 文档生成日期：2026-05-06
-- 院系/相关单位链接数：1
+- 学校官网：https://www.ncepu.edu.cn
+- 来源页面：https://yz.chsi.com.cn/sch/schoolInfo--schId-367976.dhtml
+- 文档生成日期：2026-05-07
+- 院系/相关单位链接数：3
 
 ## 院系与相关单位官方链接
 
 | 序号 | 单位名称 | 官方链接 |
 |---|---|---|
-| 1 | 华北电力大学官网入口（含保定校区） | https://www.ncepu.edu.cn/ |
+| 1 | 华北电力大学（保定）官网入口 | https://www.ncepu.edu.cn |
+| 2 | 本科教学/院系相关页面 | http://jwc.ncepu.edu.cn/ |
+| 3 | 师资/院系相关页面 | https://www.ncepu.edu.cn/rcpy/szdw/index.htm |
 
 ## 抓取备注
 
-- 已有“华北电力大学”文档，本次按你的要求新增“华北电力大学（保定）”独立条目。
-
+- 已从学校官网多入口页面自动抽取院系相关链接，建议后续人工复核与补全。

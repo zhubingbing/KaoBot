@@ -58,7 +58,7 @@ def load_rows():
     return by_name, by_norm
 
 
-def fetch(url: str, timeout=20) -> str:
+def fetch(url: str, timeout=8) -> str:
     req = Request(url, headers={"User-Agent": "Mozilla/5.0"})
     with urlopen(req, timeout=timeout) as r:
         raw = r.read()
@@ -175,6 +175,9 @@ def parse_target_names():
         for p in sorted(BASE.iterdir()):
             if p.is_dir() and (p / "README.md").exists():
                 dirs.append(p.name)
+        only_single = "--only-single" in sys.argv
+        if only_single:
+            dirs = [d for d in dirs if current_link_count(BASE / d / "README.md") <= 1]
         limit = None
         offset = 0
         if "--limit" in sys.argv:
@@ -224,31 +227,41 @@ def main():
         links = []
         note = "本次先建立学校级入口，后续继续补抓“院系设置/学院列表”页面。"
         try:
-            merged = []
-            seen = set()
-            nav_targets = []
-            for u in candidate_urls(official, row or {}):
-                try:
-                    page = fetch(u)
-                except Exception:
-                    continue
-                nav_targets.extend(extract_nav_targets(u, page))
-                for t, link in extract_links(u, page):
-                    if link in seen:
+            if "--offline-fast" in sys.argv:
+                links = [(f"{name}官网入口", official)]
+                if row:
+                    u1 = row.get("undergraduate_programs_url", "").strip()
+                    u2 = row.get("faculty_team_url", "").strip()
+                    if u1:
+                        links.append(("本科教学/院系相关页面", u1))
+                    if u2 and u2 != u1:
+                        links.append(("师资/院系相关页面", u2))
+            else:
+                merged = []
+                seen = set()
+                nav_targets = []
+                for u in candidate_urls(official, row or {}):
+                    try:
+                        page = fetch(u)
+                    except Exception:
                         continue
-                    seen.add(link)
-                    merged.append((t, link))
-            for u in nav_targets[:10]:
-                try:
-                    page = fetch(u)
-                except Exception:
-                    continue
-                for t, link in extract_links(u, page):
-                    if link in seen:
+                    nav_targets.extend(extract_nav_targets(u, page))
+                    for t, link in extract_links(u, page):
+                        if link in seen:
+                            continue
+                        seen.add(link)
+                        merged.append((t, link))
+                for u in nav_targets[:10]:
+                    try:
+                        page = fetch(u)
+                    except Exception:
                         continue
-                    seen.add(link)
-                    merged.append((t, link))
-            links = merged[:80]
+                    for t, link in extract_links(u, page):
+                        if link in seen:
+                            continue
+                        seen.add(link)
+                        merged.append((t, link))
+                links = merged[:80]
             if links:
                 note = "已从学校官网多入口页面自动抽取院系相关链接，建议后续人工复核与补全。"
             else:
