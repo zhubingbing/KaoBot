@@ -699,6 +699,19 @@ departments/江西科技师范大学/
 departments/江西水利电力大学/
 departments/九江学院/
 departments/陆军步兵学院/
+departments/河南财经政法大学/
+departments/郑州航空工业管理学院/
+departments/平顶山学院/
+departments/河南建筑学院/
+departments/中钢集团洛阳耐火材料研究院/
+departments/机械科学研究总院（郑州机械研究所）/
+departments/中国航空研究院（014中心）/
+departments/中国航空研究所（613所）/
+departments/中国烟草总公司郑州烟草研究院/
+departments/中国舰船研究院（郑州机电工程研究所）/
+departments/中国舰船研究院（洛阳船舶材料研究所）/
+departments/网络空间部队信息工程大学/
+departments/武汉大学/
 ```
 
 ## 院校网页抓取目录（学院官网首页）
