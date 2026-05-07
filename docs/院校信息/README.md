@@ -712,6 +712,30 @@ departments/中国舰船研究院（郑州机电工程研究所）/
 departments/中国舰船研究院（洛阳船舶材料研究所）/
 departments/网络空间部队信息工程大学/
 departments/武汉大学/
+departments/湖北省社会科学院/
+departments/中共湖北省委党校/
+departments/海军工程大学/
+departments/空军预警学院/
+departments/火箭军指挥学院/
+departments/信息支援部队工程大学/
+departments/湘潭大学/
+departments/吉首大学/
+departments/湖南大学/
+departments/中南大学/
+departments/湖南科技大学/
+departments/长沙理工大学/
+departments/湖南农业大学/
+departments/中南林业科技大学/
+departments/湖南中医药大学/
+departments/湖南师范大学/
+departments/湖南理工学院/
+departments/衡阳师范学院/
+departments/邵阳学院/
+departments/湖南文理学院/
+departments/湖南科技学院/
+departments/湖南人文科技学院/
+departments/湖南工商大学/
+departments/南华大学/
 ```
 
 ## 院校网页抓取目录（学院官网首页）
