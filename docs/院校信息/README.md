@@ -228,22 +228,29 @@ configs/school_pipeline_sources.csv
 source .venv/bin/activate
 CRAWL4_AI_BASE_DIRECTORY="$(pwd)" \
 python scripts/production_school_pipeline.py \
-  --school 清华大学 \
+  --school 中央财经大学 \
   --crawler-engine crawl4ai_docker \
   --enable-ai \
+  --allow-external \
   --teacher-pages-per-department 3 \
   --teacher-workers 4
 ```
+
+说明：
+
+- `production_school_pipeline.py` 是唯一生产入口（会串联抓取、院系教师发现、Markdown 构建）。
+- 像中央财经大学这类“院系列表在主站、学院在子域”的学校，务必开启 `--allow-external`，否则子域院系站点会被过滤，导致院系发现不完整。
+- `--extra-site` 优先放在 `configs/school_pipeline_sources.csv` 的 `entry_url`（`entry_type=seed_url`）里统一管理；命令行只在临时调试时再手工追加。
 
 步骤 3：查看结果
 
 重点看：
 
 ```text
-output/school_finals/tsinghua_final/departments.csv
-output/school_finals/tsinghua_final/teachers.csv
-departments/清华大学/README.md
-departments/清华大学/*.md
+output/school_finals/中央财经大学_final/departments.csv
+output/school_finals/中央财经大学_final/teachers.csv
+departments/中央财经大学/README.md
+departments/中央财经大学/*.md
 ```
 
 先重点检查：
