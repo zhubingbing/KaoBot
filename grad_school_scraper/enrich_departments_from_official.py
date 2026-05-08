@@ -177,7 +177,14 @@ def parse_target_names():
                 dirs.append(p.name)
         only_single = "--only-single" in sys.argv
         if only_single:
-            dirs = [d for d in dirs if current_link_count(BASE / d / "README.md") <= 1]
+            filtered = []
+            for d in dirs:
+                p = BASE / d / "README.md"
+                dc = declared_link_count(p)
+                tc = current_link_count(p)
+                if (dc is not None and dc <= 1) or (dc is None and tc <= 1):
+                    filtered.append(d)
+            dirs = filtered
         limit = None
         offset = 0
         if "--limit" in sys.argv:
@@ -206,6 +213,20 @@ def current_link_count(readme: Path) -> int:
         if line.startswith("| ") and "---" not in line and "序号" not in line:
             c += 1
     return c
+
+
+def declared_link_count(readme: Path):
+    try:
+        t = readme.read_text(encoding="utf-8")
+    except Exception:
+        return None
+    m = re.search(r"院系/相关单位链接数：(\d+)", t)
+    if not m:
+        return None
+    try:
+        return int(m.group(1))
+    except Exception:
+        return None
 
 
 def main():

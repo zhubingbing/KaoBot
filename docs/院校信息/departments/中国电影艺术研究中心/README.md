@@ -5,7 +5,7 @@
 - 学校：中国电影艺术研究中心
 - 学校官网：https://www.cfa.org.cn
 - 来源页面：https://yz.chsi.com.cn/sch/schoolInfo--schId-679519.dhtml
-- 文档生成日期：2026-05-07
+- 文档生成日期：2026-05-08
 - 院系/相关单位链接数：1
 
 ## 院系与相关单位官方链接

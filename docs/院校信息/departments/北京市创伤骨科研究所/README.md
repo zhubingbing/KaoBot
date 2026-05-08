@@ -5,7 +5,7 @@
 - 学校：北京市创伤骨科研究所
 - 学校官网：https://www.jst-hosp.com.cn
 - 来源页面：https://yz.chsi.com.cn/sch/schoolInfo--schId-367855.dhtml
-- 文档生成日期：2026-05-07
+- 文档生成日期：2026-05-08
 - 院系/相关单位链接数：1
 
 ## 院系与相关单位官方链接
